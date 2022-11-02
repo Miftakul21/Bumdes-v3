@@ -53,10 +53,10 @@
 
                   <td width="15%">
 
-                    <a href="?hal=akun_olah&id=<?=$kode_akun; ?>" 
+                    <a href="?hal=akun_edit&id=<?=$kode_akun; ?>" 
                       class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
 
-                      <a class="btn btn-danger" title="Hapus Data" href="akun_proses.php?hapus=<?=$kode_akun;?>" 
+                      <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/daftar_akun/delete.php?hapus=<?=$kode_akun;?>" 
                         onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
 
                       </td>

@@ -9,13 +9,14 @@ $pass=$_POST['password'];
 //Pengecekan ada data dalam login tidak
 $sqladmin="Select id_admin from tb_admin where username='$user' and password='$pass' and level_admin='Administrasi'";
 $sqladmin1="Select id_admin from tb_admin where username='$user' and password='$pass' and level_admin='Kepala'";
-$sqluser="Select id_unit from tb_user where username='$user' and password='$pass' and level_user='Transaksi'";
+$sqluser="Select id_unit, level_user from tb_user where username='$user' and password='$pass' and level_user='Transaksi'";
+$sqlleveluser="Select level_user from tb_user where username='$user' and password='$pass' and level_user='Transaksi'";
 $sqluser1="Select id_unit from tb_user where username='$user' and password='$pass' and level_user='Ketua'";
 
 // Admin
 if (CekExist($mysqli,$sqladmin)== true){
 	$_SESSION['admin']=caridata($mysqli,$sqladmin);
-	$_SESSION['admin_status']="Admin Transaksi";
+	$_SESSION['admin_status']="Administrator";
     header('Location:admin/index.php');	
 }
 // Admin Kepala
@@ -27,6 +28,7 @@ else if (CekExist($mysqli,$sqladmin1)== true){
 // User Transaksi
 else if (CekExist($mysqli,$sqluser)== true){
 	$_SESSION['id']=caridata($mysqli,$sqluser);
+	$_SESSION['level_user']=caridata($mysqli,$sqlleveluser);
 	$_SESSION['user_status']="User Transaksi";
 	// echo "<script>window.location='user/index.php?hal=beranda';</script>";
     header('Location:user/index.php?hal=beranda');
@@ -37,9 +39,8 @@ else if (CekExist($mysqli,$sqluser1)== true){
 	$_SESSION['user_status']="User Kepala";
     header('Location:user/index.php?hal=beranda');
 }else{
-	// echo "<script>window.location='index.php';</script>"    
     echo "<script>alert('Username Dan Password Tidak Ditemukan!')</script>";
-    header('Location:index.php');
+	echo "<script>window.location='index.php'</script>";
 }
 
 

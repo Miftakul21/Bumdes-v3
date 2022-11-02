@@ -5,7 +5,7 @@
 	</a>
 </li>
 
-<?php if($_SESSION['admin_status']=='Admin Transaksi'){ ?>
+<?php if($_SESSION['admin_status']=='Administrator'){ ?>
 
 	<li class="nav-item">
 		<hr class="bg-gradient-light">

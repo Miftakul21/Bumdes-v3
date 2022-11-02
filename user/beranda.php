@@ -10,6 +10,7 @@ $pendapatan=caridata($mysqli,"SELECT sum(kredit) from tb_transaksi join tb_akun 
 $pengeluaran=caridata($mysqli,"SELECT sum(debet) from tb_transaksi join tb_akun using(kode_akun) join tb_kegiatan using(id_kegiatan) where tb_akun.kode_akun like '5%' and id_unit='$id' and month(tanggal)='$bulan' and year(tanggal)='$tahun'");
 
 $laba=$pendapatan-$pengeluaran;
+
 ?>
 <!-- Content Header (Page header) -->
 <div class="content-header">

@@ -26,23 +26,18 @@ if (isset($_GET['id'])){
               <input type="hidden" name="id_admin" value="<?=$id_admin;?>">
 
               <div class="form-group">
-                <label for="nama">Nama Admin</label>
-                <input type="text" name="nama_admin" class="form-control" value="<?=@$nama_admin?>" placeholder="Inputkan Nama Admin" required="">
-              </div>
-
-              <div class="form-group">
-                <label for="nama">Nama Lengkap Admin</label>
-                <input type="text" name="nama_lengkap_admin" class="form-control" value="<?=@$nama_lengkap_admin?>" placeholder="Inputkan Nama Lengkap Admin" required="">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" name="nama_admin" class="form-control" value="<?=@$nama_admin?>" placeholder="Masukkan Nama" required="">
               </div>
 
               <div class="form-group">
                 <label for="nama">Username</label>
-                <input type="text" name="username" class="form-control" value="<?=@$username?>" placeholder="Inputkan Username" required="">
+                <input type="text" name="username" class="form-control" value="<?=@$username?>" placeholder="Masukkan Username" required="">
               </div>
 
               <div class="form-group">
                 <label for="nama">Password</label>
-                <input type="text" name="password" class="form-control" value="<?=@$password?>" placeholder="Inputkan Password" required="">
+                <input type="text" name="password" class="form-control" value="<?=@$password?>" placeholder="Masukkan Password" required="">
               </div>
 
               <div class="form-group">
@@ -52,11 +47,7 @@ if (isset($_GET['id'])){
                   <option value="Kepala" <?=isselect("Kepala",@$level_admin)?>>Kepala</option>
                 </select>
               </div>
-
-
             </div>
-
-            <!-- /.card-body -->
             <div class="card-footer">
               <input type="submit" name="<?=isset($_GET['id'])?'ubah':'tambah';?>" 
               class="btn btn-primary" value="Simpan">
@@ -66,11 +57,7 @@ if (isset($_GET['id'])){
             </div>
           </form>
         </div>
-        <!-- /.card -->
       </div>
-      <!--/.col (left) -->
     </div>
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
+  </div>
 </section>
-<!-- /.content -->

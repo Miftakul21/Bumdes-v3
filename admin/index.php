@@ -8,23 +8,13 @@ session_start();
 if(isset($_SESSION['admin'])){
   require_once 'layout/top.php';
 ?>
-
-    <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-dark elevation-2 navbar-light">
-
-      <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
       </ul>
-
-      <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-        <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-user mr-2"></i>
@@ -40,9 +30,7 @@ if(isset($_SESSION['admin'])){
         </li>
       </ul>
     </nav>
-    <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link text-center">
@@ -65,9 +53,6 @@ if(isset($_SESSION['admin'])){
   <div class="content-wrapper">
     <?php require_once 'layout/sidebar.php'; ?>
   </div>
-
-
-
 
   <!-- footer -->
 <?php require_once 'layout/footer.php'; ?>

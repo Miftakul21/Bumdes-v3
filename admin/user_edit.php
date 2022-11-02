@@ -4,7 +4,6 @@ if (isset($_GET['id'])){
   $kode=$_GET['id'];
   extract(ArrayData($mysqli,"tb_user","id_user='$kode'"));
 }
-
 ?>
 <!-- Main content -->
 <section class="content" style="margin-top: 10px;">
@@ -42,11 +41,6 @@ if (isset($_GET['id'])){
               <div class="form-group">
                 <label for="nama">Nama User</label>
                 <input type="text" name="nama_user" class="form-control" placeholder="Inputkan Nama user" required="" value="<?= @$nama_user; ?>">
-              </div>
-
-              <div class="form-group">
-                <label for="nama">Nama Lengkap User</label>
-                <input type="text" name="nama_lengkap_user" class="form-control" placeholder="Inputkan Nama Lengkap user" required="" value="<?= @$nama_lengkap_user; ?>">
               </div>
 
               <div class="form-group">

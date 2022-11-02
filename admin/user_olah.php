@@ -7,7 +7,7 @@
         <!-- jquery validation -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Tambah Data User Unit Usaha</h3>
+            <h3 class="card-title">Data User Unit Usaha</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -32,13 +32,8 @@
               </div>
 
               <div class="form-group">
-                <label for="nama">Nama User</label>
+                <label for="nama">Nama</label>
                 <input type="text" name="nama_user" class="form-control" placeholder="Inputkan Nama user" required="">
-              </div>
-
-              <div class="form-group">
-                <label for="nama">Nama Lengkap User</label>
-                <input type="text" name="nama_lengkap_user" class="form-control" placeholder="Inputkan Nama Lengkap user" required="">
               </div>
 
               <div class="form-group">

@@ -34,7 +34,6 @@
                 <th>No</th>
                 <th>Unit</th>
                 <th>Nama</th>
-                <th>Nama Lengkap</th>
                 <th>Username</th>
                 <th>Password</th>
                 <th>Level User</th>
@@ -56,7 +55,6 @@
                     <td width="5%"><?php echo $no+=1; ?></td>
                     <td><?php echo $nama_unit; ?></td>
                     <td><?php echo $nama_user; ?></td>
-                    <td><?php echo $nama_lengkap_user; ?></td>
                     <td><?php echo $username; ?></td>
                     <td><?php echo str_repeat('*', strlen($password)); ?></td>
                     <td><?php echo $level_user; ?></td>

@@ -12,16 +12,14 @@ if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
 }else{
     $id_unit = $_POST['id_unit'];
     $nama_user = $_POST['nama_user'];
-    $nama_lengkap_user = $_POST['nama_lengkap_user'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $level_user = $_POST['level_user'];
 
-    $stmt = $mysqli->prepare("INSERT INTO tb_user (nama_user,nama_lengkap_user,username,password,id_unit,level_user) VALUES (?,?,?,?,?,?)");
+    $stmt = $mysqli->prepare("INSERT INTO tb_user (nama_user,username,password,id_unit,level_user) VALUES (?,?,?,?,?)");
 
-    $stmt->bind_param("ssssss", 
+    $stmt->bind_param("sssss", 
         $_POST['nama_user'],
-        $_POST['nama_lengkap_user'],
         $_POST['username'],
         $_POST['password'],
         $_POST['id_unit'],
@@ -42,8 +40,7 @@ if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
             'message' => 'Gagal menambah data'
         ];
         echo "<script>alert('Data user Gagal Ditambah')</script>";
-        // echo "<script>window.location='index.php?hal=user';</script>";	
-        header('Location:index.php?hal=user');    
+        echo "<script>window.location='../../index.php?hal=user';</script>";	
     }
 }
 

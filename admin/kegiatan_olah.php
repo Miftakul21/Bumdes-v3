@@ -6,7 +6,6 @@ if (isset($_GET['id'])){
 }
 ?>
 
-<!-- Main content -->
 <section class="content" style="margin-top: 10px;">
   <div class="container-fluid">
     <div class="row">
@@ -15,7 +14,7 @@ if (isset($_GET['id'])){
         <!-- jquery validation -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Olah Data Kegiatan Unit</h3>
+            <h3 class="card-title">Data Kegiatan Unit</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->

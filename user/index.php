@@ -14,7 +14,7 @@ if(isset($_SESSION['id'])){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Aplikasi Pengelolaan Keuangan Kampung Flory</title>
+  <title>Aplikasi Pengelolaan Keuangan Bumdes</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
@@ -41,17 +41,14 @@ if(isset($_SESSION['id'])){
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
       </ul>
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-user"></i>
-            <span class="badge badge-warning navbar-badge"></span>
+            <i class="far fa-user mr-2"></i>
+            <span><?= $_SESSION['level_user']; ?></span>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <div class="dropdown-divider"></div>
@@ -67,23 +64,13 @@ if(isset($_SESSION['id'])){
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
-      <a href="#" class="brand-link">
-        <span class="brand-text font-weight-light">SI - Kampung Flory</span>
+      
+      <a href="#" class="brand-link text-center">
+        <span class="brand-text font-gradient-light"><?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></span>
       </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">User</a>
-          </div>
-        </div>
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -91,7 +78,7 @@ if(isset($_SESSION['id'])){
          </ul>
        </nav>
      </div>
-   </aside>
+    </aside>
 
    <!-- Content Wrapper. Contains page content -->
    <div class="content-wrapper">

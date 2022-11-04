@@ -1,47 +1,44 @@
 <?php 
 require_once '../../../setting/koneksi.php';
 
-$password=$_POST['password'];
-$uppercase = preg_match('@[A-Z]@', $password);
-$lowercase = preg_match('@[a-z]@', $password);
-$number    = preg_match('@[0-9]@', $password);
+$username = $_POST['username'];
+$password = md5($_POST['password']);
 
-if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
-	echo "<script>alert('Password minimal 8 Character dengan ada Huruf kecil, Besar, dan Nomor')</script>";
-    echo "<script>window.location='javascript:history.go(-1)';</script>";
-}else{
-    $id_unit = $_POST['id_unit'];
-    $nama_user = $_POST['nama_user'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $level_user = $_POST['level_user'];
+// Akun User (Admin, Bendahara, Dan Anggota UMKM)
+$query_akun = mysqli_query($mysqli, "SELECT * FROM tb_user WHERE username = '$username' AND password = '$password'");
+$cek_akun = mysqli_num_rows($query_akun);
 
-    $stmt = $mysqli->prepare("INSERT INTO tb_user (nama_user,username,password,id_unit,level_user) VALUES (?,?,?,?,?)");
+// Ngecek Ketika Akun Ada
+if($cek_akun > 0) {	
+	// Nanti ditamabahkan alert pesan;
+	echo "<script>alert('Username dan Password sudah ada!')</script>";
+	echo "<script>window.location='javascript:history.go(-1)';</script>";
+} else {
+// Jika Tidak Ada Maka Dapat Ditamabahkan
+	$nama = $_POST['nama'];
+	$username = $_POST['username'];
+	$pjg_password = $_POST['password'];
+	$enkrip_password = md5($_POST['password']);
+	$level_user = $_POST['level_user'];
+	$id_unit = $_POST['id_unit'];
 
-    $stmt->bind_param("sssss", 
-        $_POST['nama_user'],
-        $_POST['username'],
-        $_POST['password'],
-        $_POST['id_unit'],
-        $_POST['level_user'],
-    );
+	if(strlen($pjg_password) == 8) {
+		$stmt = $mysqli->prepare("INSERT INTO tb_user (nama,username,password,id_unit,level_user) VALUES (?,?,?,?,?)");
+		$stmt->bind_param("sssss", $nama, $username, $enkrip_password, $id_unit, $level_user);
 
-    if($stmt->execute()) { 
-        $_SESSION['info'] = [
-            'status' => 'success',
-            'message' => 'Berhasil menambah data'
-        ];
-        echo "<script>alert('Data user Berhasil Ditambah')</script>";
-        echo "<script>window.location='../../index.php?hal=user';</script>";	
-        // header('Location:../../index.php?hal=user');
-    } else {
-        $_SESSION['info'] = [
-            'status' => 'gagal',
-            'message' => 'Gagal menambah data'
-        ];
-        echo "<script>alert('Data user Gagal Ditambah')</script>";
-        echo "<script>window.location='../../index.php?hal=user';</script>";	
-    }
+		// Nanti ditamabahkan alert pesan;
+		if($stmt->execute()) {
+			echo "<script>alert('Berhasil menambahkan akun user!')</script>";
+			// nanti halaman redirect di modifikasi;
+			echo "<script>window.location = '../../index.php?hal=user'</script>";
+		} else {
+			echo "<script>alert('Gagal menambahkan akun user!')</script>";
+			// nanti halaman redirect di modifikasi;
+			echo "<script>window.location='javascript:history.go(-1)';</script>";
+		}
+	} else {
+			echo "<script>alert('Password kurang dari 8 character!')</script>";
+			echo "<script>window.location='javascript:history.go(-1)';</script>";
+	}
 }
-
 ?>

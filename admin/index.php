@@ -53,10 +53,7 @@ if(isset($_SESSION['admin'])){
   <div class="content-wrapper">
     <?php require_once 'layout/sidebar.php'; ?>
   </div>
-
-  <!-- footer -->
 <?php require_once 'layout/footer.php'; ?>
-</div>
 <?php require_once 'layout/bottom.php';?>
 
 <?php 

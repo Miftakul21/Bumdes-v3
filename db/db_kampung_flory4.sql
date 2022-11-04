@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2020 at 05:10 AM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.7
+-- Waktu pembuatan: 03 Nov 2022 pada 05.04
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,32 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_admin`
+-- Struktur dari tabel `tb_admin`
 --
 
 CREATE TABLE `tb_admin` (
   `id_admin` int(11) NOT NULL,
   `nama_admin` varchar(30) DEFAULT NULL,
-  `nama_lengkap_admin` varchar(50) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
   `password` varchar(30) DEFAULT NULL,
   `level_admin` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_admin`
+-- Dumping data untuk tabel `tb_admin`
 --
 
-INSERT INTO `tb_admin` (`id_admin`, `nama_admin`, `nama_lengkap_admin`, `username`, `password`, `level_admin`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin', 'Administrasi'),
-(3, 'kepala', 'kepala', 'kepala', 'kepala', 'Kepala'),
-(4, 'staf', 'staf', 'staf', 'staf', 'Administrasi'),
-(5, 'win', 'Tri Win', 'admin', 'admin2', 'Administrasi');
+INSERT INTO `tb_admin` (`id_admin`, `nama_admin`, `username`, `password`, `level_admin`) VALUES
+(1, 'Miftakul Huda', 'admin', 'admin', 'Administrasi'),
+(7, 'Joko Tingkir', 'Joko123', 'Joko1234', 'Kepala');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_akun`
+-- Struktur dari tabel `tb_akun`
 --
 
 CREATE TABLE `tb_akun` (
@@ -58,7 +55,7 @@ CREATE TABLE `tb_akun` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_akun`
+-- Dumping data untuk tabel `tb_akun`
 --
 
 INSERT INTO `tb_akun` (`kode_akun`, `nama_akun`) VALUES
@@ -72,12 +69,13 @@ INSERT INTO `tb_akun` (`kode_akun`, `nama_akun`) VALUES
 ('3-211', 'Prive'),
 ('4-111', 'Pendapatan'),
 ('5-111', 'Beban Gaji'),
-('5-112', 'beban Operasional dan Lain - Lain');
+('5-112', 'beban Operasional dan Lain - Lain'),
+('5-120', 'Akun Kami');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_index`
+-- Struktur dari tabel `tb_index`
 --
 
 CREATE TABLE `tb_index` (
@@ -86,20 +84,20 @@ CREATE TABLE `tb_index` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_index`
+-- Dumping data untuk tabel `tb_index`
 --
 
 INSERT INTO `tb_index` (`id_index`, `keterangan`) VALUES
-('0', 'Tidak Semua'),
 ('1', 'Arus Kas Kegiatan Operasi'),
 ('2', 'Arus Kas kegiatan Investasi'),
 ('3', 'Arus Kas Kegiatan Pendanaan'),
-('4', 'coba');
+('4', 'Keuangan Gagal'),
+('5', 'Apa Aja');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_kegiatan`
+-- Struktur dari tabel `tb_kegiatan`
 --
 
 CREATE TABLE `tb_kegiatan` (
@@ -109,35 +107,29 @@ CREATE TABLE `tb_kegiatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_kegiatan`
+-- Dumping data untuk tabel `tb_kegiatan`
 --
 
 INSERT INTO `tb_kegiatan` (`id_kegiatan`, `id_unit`, `nama_kegiatan`) VALUES
 (5, 1, 'Joglo oleh-oleh'),
 (6, 1, 'jasa marketing'),
 (7, 1, 'Study Banding dan Tour de Flory'),
-(8, 1, 'Pengelolaan Taman Selfie'),
 (9, 3, 'Showroom Tanaman'),
 (10, 3, 'Iwak Kalen'),
 (11, 3, 'Taman Kelinci dan Kolam mini'),
-(12, 2, 'Outbond'),
-(13, 2, 'Parkir'),
 (14, 4, 'kuliner bali ndeso'),
 (15, 4, 'wahana dolan ndeso'),
 (19, 3, 'Jasa Lanscape taman'),
 (20, 3, 'Pelatihan budidaya tanaman'),
-(21, 2, 'Gerai Sovenir'),
-(22, 2, 'Wahana Reguler'),
-(23, 2, 'food court'),
-(24, 2, 'HUMI'),
-(25, 2, 'Jembatan Goyang'),
-(26, 2, 'Bumper'),
-(27, 4, 'Kopi Receh');
+(27, 4, 'Kopi Receh'),
+(28, 1, 'Pengelolaan Warung Mewah'),
+(29, 9, 'Pembelian Peralatan Dapur'),
+(30, 9, 'Modal Untuk Sewa Tempat ');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_transaksi`
+-- Struktur dari tabel `tb_transaksi`
 --
 
 CREATE TABLE `tb_transaksi` (
@@ -153,7 +145,7 @@ CREATE TABLE `tb_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_transaksi`
+-- Dumping data untuk tabel `tb_transaksi`
 --
 
 INSERT INTO `tb_transaksi` (`id_jurnal`, `id_transaksi`, `tanggal`, `id_kegiatan`, `kode_akun`, `id_index`, `keterangan`, `debet`, `kredit`) VALUES
@@ -201,60 +193,39 @@ INSERT INTO `tb_transaksi` (`id_jurnal`, `id_transaksi`, `tanggal`, `id_kegiatan
 (44, 'T201114-023', '2020-11-19', 4, '2-111', '0', 'ini keterangan 10', 0, 250000000),
 (45, 'T201114-024', '2020-11-20', 4, '1-111', '0', 'ini keterangan 10', 8000000, 0),
 (46, 'T201114-024', '2020-11-20', 4, '1-112', '0', 'ini keterangan 10', 0, 8000000),
-(54, 'T201115-001', '2020-11-01', 5, '1-111', '3', 'penerimaan kas dari investasi pemilik', 250000000, 0),
-(55, 'T201115-002', '2020-11-02', 5, '1-212', '0', 'pembeliaan tanah dan bangunan tempat usaha', 185000000, 0),
-(56, 'T201115-002', '2020-11-02', 5, '1-111', '2', 'pembeliaan tanah dan bangunan tempat usaha', 0, 185000000),
-(57, 'T201115-003', '2020-11-03', 5, '1-211', '0', 'pembeliaan peralatan kantor', 85000000, 0),
-(58, 'T201115-003', '2020-11-03', 5, '1-111', '1', 'pembeliaan peralatan kantor', 0, 50000000),
-(59, 'T201115-004', '2020-11-02', 5, '1-111', '3', 'penerimaan kas dari investasi tambahan', 50000000, 0),
-(60, 'T201115-005', '2020-11-03', 5, '1-113', '0', 'pembeliaan barang daganngan(persediaaan)', 45000000, 0),
-(61, 'T201115-005', '2020-11-03', 5, '1-111', '1', 'pembeliaan barang daganngan(persediaaan)', 0, 45000000),
-(62, 'T201115-006', '2020-11-01', 5, '1-111', '1', 'pendapatan dari penyewaan barang', 30000000, 0),
-(63, 'T201115-006', '2020-11-01', 5, '1-112', '0', 'pendapatan dari penyewaan barang', 12000000, 0),
-(64, 'T201115-007', '2020-11-10', 5, '1-111', '3', 'pengambilan kas pribadi pemilik', 0, 10000000),
-(65, 'T201115-008', '2020-11-10', 5, '1-111', '1', 'penerimaan hutang usaha dari siapa tgll 12/01/2020', 8000000, 0),
-(66, 'T201115-008', '2020-11-10', 5, '1-112', '0', 'penerimaan hutang usaha dari siapa tgll 12/01/2020', 0, 8000000),
-(67, 'T201115-009', '2020-11-11', 5, '1-111', '1', 'pembayaran dari gaji karyawan', 0, 12500000),
-(68, 'T201115-010', '2020-11-11', 5, '1-113', '0', 'pemakaian persediaan selama bulan ini', 0, 30000000),
-(69, 'T201115-011', '2020-11-12', 5, '1-111', '3', 'kas dari hutang usaha', 250000000, 0),
-(70, 'T201115-012', '2020-11-15', 5, '1-111', '1', 'penerimaan kas dari pembayaran piutang', 8000000, 0),
-(71, 'T201115-012', '2020-11-15', 5, '1-112', '0', 'penerimaan kas dari pembayaran piutang', 0, 8000000),
-(72, 'T201115-013', '2020-11-15', 5, '2-111', '4', 'coba', 10000000, 0),
-(73, 'T201115-014', '2020-11-15', 5, '3-211', '0', 'prive', 1000000000, 0),
-(74, 'T201115-015', '2020-11-15', 5, '3-111', '0', 'modal', 300000000, 0);
+(78, 'T221031-001', '2022-10-31', 28, '3-111', '2', 'Peralatan Dapur', 20000000, 0),
+(79, 'T221031-001', '2022-10-31', 28, '1-211', '1', 'Peralatan Dapur', 5000000, 0),
+(80, 'T221102-001', '2022-11-02', 29, '1-111', '3', 'Beli Panci ', 10000000, 0),
+(81, 'T221102-001', '2022-11-02', 29, '1-111', '1', 'Beli Panci ', 2500000, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_unit`
+-- Struktur dari tabel `tb_unit`
 --
 
 CREATE TABLE `tb_unit` (
   `id_unit` int(11) NOT NULL,
-  `nama_unit` varchar(30) DEFAULT NULL,
-  `jenis_usaha` varchar(100) DEFAULT NULL
+  `nama_unit` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_unit`
+-- Dumping data untuk tabel `tb_unit`
 --
 
-INSERT INTO `tb_unit` (`id_unit`, `nama_unit`, `jenis_usaha`) VALUES
-(1, 'Kampung Flory', 'Jasa'),
-(2, 'Dewi Flory', 'Jasa'),
-(3, 'Taruna Tani', 'Jasa'),
-(4, 'Bali Ndeso Group', 'Jasa');
+INSERT INTO `tb_unit` (`id_unit`, `nama_unit`) VALUES
+(9, 'Warung Mewah'),
+(10, 'Warung Kopi');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_user`
+-- Struktur dari tabel `tb_user`
 --
 
 CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
   `nama_user` varchar(30) DEFAULT NULL,
-  `nama_lengkap_user` varchar(50) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
   `password` varchar(30) DEFAULT NULL,
   `id_unit` int(11) DEFAULT NULL,
@@ -262,95 +233,92 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tb_user`
+-- Dumping data untuk tabel `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `nama_user`, `nama_lengkap_user`, `username`, `password`, `id_unit`, `level_user`) VALUES
-(2, 'flory1', 'flory1', 'flory1', 'flory1', 2, 'Transaksi'),
-(5, 'flory2', 'flory2', 'flory2', 'flory2', 2, 'Ketua'),
-(6, 'taruna', 'taruna', 'taruna', 'taruna', 3, 'Transaksi'),
-(7, 'Bu Nuri', 'Bu Nuriiiii', 'nuri', 'nuri', 4, 'Transaksi'),
-(8, 'Pak Santo', 'Pak Santooo', 'santo', 'santo', 1, 'Transaksi');
+INSERT INTO `tb_user` (`id_user`, `nama_user`, `username`, `password`, `id_unit`, `level_user`) VALUES
+(1, 'Miftakul', 'Mifta', 'Mifta123', 9, 'Transaksi'),
+(6, 'Putra Dwi A.', 'PutraA4321', 'Putra54321', 9, 'Ketua');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tb_admin`
+-- Indeks untuk tabel `tb_admin`
 --
 ALTER TABLE `tb_admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
--- Indexes for table `tb_akun`
+-- Indeks untuk tabel `tb_akun`
 --
 ALTER TABLE `tb_akun`
   ADD PRIMARY KEY (`kode_akun`);
 
 --
--- Indexes for table `tb_index`
+-- Indeks untuk tabel `tb_index`
 --
 ALTER TABLE `tb_index`
   ADD PRIMARY KEY (`id_index`);
 
 --
--- Indexes for table `tb_kegiatan`
+-- Indeks untuk tabel `tb_kegiatan`
 --
 ALTER TABLE `tb_kegiatan`
   ADD PRIMARY KEY (`id_kegiatan`);
 
 --
--- Indexes for table `tb_transaksi`
+-- Indeks untuk tabel `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
   ADD PRIMARY KEY (`id_jurnal`);
 
 --
--- Indexes for table `tb_unit`
+-- Indeks untuk tabel `tb_unit`
 --
 ALTER TABLE `tb_unit`
   ADD PRIMARY KEY (`id_unit`);
 
 --
--- Indexes for table `tb_user`
+-- Indeks untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `tb_admin`
+-- AUTO_INCREMENT untuk tabel `tb_admin`
 --
 ALTER TABLE `tb_admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `tb_kegiatan`
+-- AUTO_INCREMENT untuk tabel `tb_kegiatan`
 --
 ALTER TABLE `tb_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT for table `tb_transaksi`
+-- AUTO_INCREMENT untuk tabel `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
--- AUTO_INCREMENT for table `tb_unit`
+-- AUTO_INCREMENT untuk tabel `tb_unit`
 --
 ALTER TABLE `tb_unit`
-  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `tb_user`
+-- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

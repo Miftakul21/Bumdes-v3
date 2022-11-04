@@ -1,45 +1,35 @@
-<?php
+<?php 
 require_once '../../../setting/koneksi.php';
 
-	$password=$_POST['password'];
-	$uppercase = preg_match('@[A-Z]@', $password);
-	$lowercase = preg_match('@[a-z]@', $password);
-	$number    = preg_match('@[0-9]@', $password);
-	if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
-		echo "<script>alert('Password minimal 8 Character dengan ada huruf kecil, besar dan Nomor')</script>";
-		echo "<script>window.location='javascript:history.go(-1)';</script>";
-	}else{
-		$stmt = $mysqli->prepare("UPDATE tb_user  SET 
-			nama_user=?,
-			username=?,
-			password=?,
-			id_unit=?,
-			level_user=?
-			where id_user=?");
-		$stmt->bind_param("ssssss",
-			$_POST['nama_user'],
-			$_POST['username'],
-			$_POST['password'],
-			$_POST['id_unit'],
-			$_POST['level_user'],
-			$_POST['id_user']);	
+$id_user = $_POST['id_user'];
+$nama = $_POST['nama'];
+$username = $_POST['username'];
+$password = md5($_POST['password']);
+$pjg_password = $_POST['password'];
+$level_user = $_POST['level_user'];
+$id_unit = $_POST['id_unit'];
 
-		if($stmt->execute()) { 
-            // $_SESSION['info'] = [
-            //     'status' => 'success',
-            //     'message' => 'Berhasil update data'
-            // ];
-			echo "<script>alert('Data User berhasil disimpan')</script>";
-			echo "<script>window.location='../../index.php?hal=user';</script>";	
-            // header('Location:../../index.php?hal=user');
-        } else {
-            // $_SESSION['info'] = [
-            //     'status' => 'gagal',
-            //     'message' => 'Gagal upadte data'
-            // ];
-            echo "<script>alert('Data User Gagal disimpan')</script>";
-			echo "<script>window.location='javascript:history.go(-1)';</script>";
-        }
+// echo var_dump($nama.' '.$username.' '.$level_user.' '.$pjg_password.' '.$id_unit.' '.$id_user);
+
+if(strlen($pjg_password) >= 8) {
+	// $stmt = $mysqli->prepare("UPDATE tb_user SET nama = ?, username = ?,id_unit = ?,level_user = ? WHERE id_user = ?");
+	// $stmt->bind_param("sssssd", $nama, $username, $password, $id_unit, $level_user, $id_user);
+	$query = mysqli_query($mysqli, "UPDATE tb_user SET nama = '$nama', username = '$username', password = '$password', id_unit = '$id_unit', level_user = '$level_user' WHERE id_user = '$id_user'");
+
+	// Nanti ditamabahkan alert pesan;
+	if($query) {
+		echo "<script>alert('Berhasil mengubah akun user!')</script>";
+		// nanti halaman redirect di modifikasi;
+		echo "<script>window.location = '../../index.php?hal=user'</script>";
+	} else {
+		echo "<script>alert('Gagal mengubah akun user!')</script>";
+		// nanti halaman redirect di modifikasi;
+		echo "<script>window.location='javascript:history.go(-1)';</script>";
 	}
+    
+} else {
+		echo "<script>alert('Password kurang dari 8 character!')</script>";
+		echo "<script>window.location='javascript:history.go(-1)';</script>";
+}
 
 ?>

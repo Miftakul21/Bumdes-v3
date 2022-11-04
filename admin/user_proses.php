@@ -4,9 +4,10 @@ require_once '../setting/koneksi.php';
 require_once '../setting/tanggal.php';
 require_once '../setting/fungsi.php';
 
+/*
 if(isset($_POST['tambah']))
 {	
-    //Proses penambahan index
+
 	$password=$_POST['password'];
 	$uppercase = preg_match('@[A-Z]@', $password);
 	$lowercase = preg_match('@[a-z]@', $password);
@@ -38,8 +39,11 @@ if(isset($_POST['tambah']))
 			echo "<script>window.location='javascript:history.go(-1)';</script>";
 		}
 	}
+}
+*/
 
-}else if(isset($_POST['ubah'])){
+/*
+else if(isset($_POST['ubah'])){
 
 //Proses ubah data
 	$password=$_POST['password'];
@@ -87,3 +91,4 @@ if(isset($_POST['tambah']))
 	}
 }
 ?>
+*/

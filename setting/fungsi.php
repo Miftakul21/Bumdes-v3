@@ -43,11 +43,13 @@ function UploadFile($fupload_name, $lokasi, $name){
 }
 
 function isselect($x,$y){
-  if($x==$y){
-    echo "selected";
-  }else{
-    echo "";
-  }
+  // if($x==$y){
+  //   echo "selected";
+  // }else{
+  //   echo "";
+  // }
+
+  return $x == $y ? 'selected' : '';
 }
 
 function replunit($id){

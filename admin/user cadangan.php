@@ -3,12 +3,12 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Data Admin</h1>
+        <h1 class="m-0 text-dark">Data user</h1>
       </div><!-- /.col -->
       <div class="col-sm-5">
       </div>
       <div class="col-sm-1">
-        <a href="?hal=admin_olah" style="float: right;" class="btn btn-block bg-gradient-primary btn-sm">Tambah</a>
+        <a href="?hal=user_olah" style="float: right;" class="btn btn-block bg-gradient-primary btn-sm">Tambah</a>
       </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
@@ -32,42 +32,43 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Unit</th>
                 <th>Nama</th>
                 <th>Username</th>
                 <th>Password</th>
-                <th>Level</th>
+                <th>Level User</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
               <?php
-              $query      = "SELECT * from tb_admin";
-              $result     = $mysqli->query($query);
-              $num_result = $result->num_rows;
-              if ($num_result > 0) {
-                $no = 0;
-                while ($data = mysqli_fetch_assoc($result)) {
+
+              $query="SELECT * from tb_user join tb_unit using(id_unit)";
+              $result=$mysqli->query($query);
+              $num_result=$result->num_rows;
+              if ($num_result > 0 ) { 
+                $no=0;
+                while ($data=mysqli_fetch_assoc($result)) {
                   extract($data);
                   ?>
                   <tr>
-                    <td width="5%"><?php echo $no += 1; ?></td>
-                    <td><?php echo $nama_admin; ?></td>
+                    <td width="5%"><?php echo $no+=1; ?></td>
+                    <td><?php echo $nama_unit; ?></td>
+                    <td><?php echo $nama_user; ?></td>
                     <td><?php echo $username; ?></td>
-                    <td><?php echo $password; ?></td>
-                    <td><?php echo $level_admin; ?></td>
+                    <td><?php echo str_repeat('*', strlen($password)); ?></td>
+                    <td><?php echo $level_user; ?></td>
                   </td>
 
                   <td width="15%">
 
-                    <a href="?hal=admin_olah&id=<?php echo $id_admin; ?>"
+                    <a href="?hal=user_edit&id=<?php echo $id_user; ?>" 
                       class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
-
-                      <a class="btn btn-danger" title="Hapus Data" href="admin_proses.php?hapus=<?php echo $id_admin; ?>"
+                      <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/user/delete.php?hapus=<?php echo $id_user;?>" 
                         onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
-
                       </td>
                     </tr>
-                  <?php }}?>
+                  <?php }} ?>
                 </table>
               </div>
               <!-- /.card-body -->

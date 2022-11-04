@@ -21,10 +21,8 @@
       <div class="card card-primary">
         <div class="card-header">
           <h3 class="card-title primary">List Data</h3>
-
           <div class="card-tools">
           </div>
-
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -38,7 +36,6 @@
             </thead>
             <tbody>
               <?php
-
               $query="SELECT * from tb_unit";
               $result=$mysqli->query($query);
               $num_result=$result->num_rows;
@@ -54,28 +51,17 @@
 
                   <td width="15%">
 
-                    <a href="?hal=unit_olah&id=<?=$id_unit; ?>" 
+                    <a href="?hal=unit_edit&id=<?= $id_unit; ?>" 
                       class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
 
-                      <a class="btn btn-danger" title="Hapus Data" href="unit_proses.php?hapus=<?php echo $id_unit;?>" 
+                      <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/unit/delete.php?hapus=<?php echo $id_unit;?>" 
                         onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
-
                       </td>
                     </tr>
                   <?php }} ?>
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </section>
-      <!-- /.content -->
-<?php
-
-
-
-?>

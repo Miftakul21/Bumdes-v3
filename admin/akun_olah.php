@@ -15,11 +15,11 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="nama">Kode Akun</label>
-                <input type="text" name="kode_akun" class="form-control" value="<?=@$kode_akun?>" placeholder="Inputkan Kode Akun" required="" <?=isset($_GET['id'])?'readonly':'';?>>
+                <input type="text" name="kode_akun" class="form-control" value="<?=@$kode_akun?>" placeholder="Masukkan Kode Akun" required="" <?=isset($_GET['id'])?'readonly':'';?>>
               </div>
               <div class="form-group">
                 <label for="nama">Nama Akun</label>
-                <input type="text" name="nama_akun" class="form-control" value="<?=@$nama_akun?>" placeholder="Inputkan Nama Akun" required="">
+                <input type="text" name="nama_akun" class="form-control" value="<?=@$nama_akun?>" placeholder="Masukkan Nama Akun" required="">
               </div>
 
             </div>

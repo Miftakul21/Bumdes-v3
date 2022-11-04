@@ -5,8 +5,11 @@
 	</a>
 </li>
 
+<!-- 
+	Nanti Ditambahkan
+	|| $_SESSION['user_status']=='Bendahara';
+-->
 <?php if($_SESSION['admin_status']=='Administrator'){ ?>
-
 	<li class="nav-item">
 		<hr class="bg-gradient-light">
 	</li>
@@ -41,12 +44,14 @@
 		</a>
     </li>
 
-    <li class="nav-item">
+    <!-- 
+	<li class="nav-item">
 		<a class="nav-link text-light" href="?hal=admin">
 			<i class="fa fa-user nav-icon"></i>
 			<p>Data Admin</p>
 		</a>
-    </li>
+    </li> 
+	-->
 
     <li class="nav-item">
 		<a class="nav-link text-light" href="?hal=user">
@@ -54,6 +59,64 @@
 			<p>Data User</p>
 		</a>
     </li>
+
+
+	<li class="nav-item">
+		<hr class="bg-gradient-light">
+	</li>
+	<div class="sidebar-heading text-white">Data Bumdes</div>
+	<!-- Keuangan Desa -->
+	<li class="nav-item">
+		<a href="#" class="nav-link">
+			<i class="nav-icon far fa-envelope"></i>
+			<p>
+			Data Kas Desa
+			<i class="fas fa-angle-left right"></i>
+			</p>
+		</a>
+		<ul class="nav nav-treeview">
+			<li class="nav-item">
+			<a href="../mailbox/mailbox.html" class="nav-link">
+				<!-- <i class="fas fa-solid fa-money-check nav-icon"></i> -->
+				<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
+				<p>Kas</p>
+			</a>
+			</li>
+			<li class="nav-item">
+			<a href="../mailbox/compose.html" class="nav-link">
+				<i class="fas fa-book nav-icon"></i>
+				<p>Laporan Kas</p>
+			</a>
+			</li>
+		</ul>
+    </li>
+	<!-- Keuangan Pinjaman -->
+	<li class="nav-item">
+		<a href="#" class="nav-link">
+			<i class="nav-icon far fa-envelope"></i>
+			<p>
+			Data Pinjaman
+			<i class="fas fa-angle-left right"></i>
+			</p>
+		</a>
+		<ul class="nav nav-treeview">
+			<li class="nav-item">
+			<a href="../mailbox/mailbox.html" class="nav-link">
+				<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
+				<p>Pinjaman</p>
+			</a>
+			</li>
+			<li class="nav-item">
+			<a href="../mailbox/compose.html" class="nav-link">
+				<i class="fa fa-book nav-icon"></i>
+				<p>Laporan</p>
+			</a>
+			</li>
+		</ul>
+    </li>
+	
+
+
 
 <?php } ?>
 
@@ -73,7 +136,7 @@ if ($num_result > 0 ) {
 				<i class="nav-icon fas fa-list"></i>
 				<p>
 					Unit : <?=$nama_unit;?>
-					<i class="fas fa-angle-down right"></i>
+					<i class="fas fa-angle-left right"></i>
 				</p>
 			</a>
 			<ul class="nav nav-treeview text-light">

@@ -4,16 +4,15 @@
     <div class="row mb-2">
       <div class="col-sm-6">
         <h1 class="m-0 text-dark">Data Index</h1>
-      </div><!-- /.col -->
+      </div>
       <div class="col-sm-5">
       </div>
       <div class="col-sm-1">
         <a href="?hal=ind_olah" style="float: right;" class="btn btn-block bg-gradient-primary btn-sm">Tambah</a>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.content-header -->
 
 <section class="content">
   <div class="row">
@@ -54,10 +53,10 @@
 
                   <td width="15%">
 
-                    <a href="?hal=ind_olah&id=<?php echo $id_index; ?>" 
+                    <a href="?hal=ind_edit&id=<?php echo $id_index; ?>" 
                       class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
 
-                      <a class="btn btn-danger" title="Hapus Data" href="ind_proses.php?hapus=<?php echo $id_index;?>" 
+                      <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/ind/delete.php?hapus=<?php echo $id_index;?>" 
                         onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
 
                       </td>
@@ -65,15 +64,10 @@
                     <?php }} ?>
                   </table>
                 </div>
-                <!-- /.card-body -->
               </div>
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
         </section>
-        <!-- /.content -->
 
 
 <!-- Toastr -->

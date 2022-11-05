@@ -39,7 +39,7 @@
             </thead>
             <tbody>
               <?php
-                $query      = "SELECT * from tb_user LEFT JOIN tb_unit ON tb_user.id_unit = tb_unit.id_unit";
+                $query      = "SELECT * FROM tb_user LEFT JOIN tb_unit ON tb_user.id_unit = tb_unit.id_unit WHERE tb_unit.level_user NOT IN ('Admin')";
                 $result     = $mysqli->query($query);
                 $num_result = $result->num_rows;
               if ($num_result > 0) {

@@ -3,13 +3,13 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h3 class="m-0 text-dark">Selamat Datang, <?=$_SESSION['admin_status'];?> </h3>
+				<h3 class="m-0 text-dark">Selamat Datang, <?=$_SESSION['user_nama'];?> </h3>
 			</div><!-- /.col -->
 		</div><!-- /.row -->
-	</div><!-- /.container-fluid -->
+	</div>
 </div>
-<!-- /.content-header -->
-<?php if($_SESSION['admin_status']=='Admin Transaksi'){ ?>
+
+<?php if($_SESSION['level_user']=='Admin' || $_SESSION['level_user']=='Bendahara'){ ?>
 	<section class="content">
 		<div class="row">
 			<div class="col-lg-3 col-6">

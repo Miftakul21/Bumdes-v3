@@ -28,7 +28,8 @@ session_start();
                         <i class="fas fa-lock"></i>
                         <input type="password" name="password" placeholder="Masukan Password">
                     </div>
-                    <input type="submit" name="submit" value="Masuk" class="btn solid"> 
+                    <!-- <input type="submit" name="submit" value="Masuk" class="btn solid">  -->
+                    <button class="btn btn-primary">Masuk</button>
                 </form>
             </div>
         </div>

@@ -1,4 +1,5 @@
 <?php
+
 function KodeOtomatis($conn,$tabel, $id, $inisial, $index, $panjang)
 {
   $query	= "SELECT max(".$id.") as max_id FROM `".$tabel."` WHERE ".$id." LIKE '".$inisial."%'";

@@ -9,7 +9,7 @@
 	Nanti Ditambahkan
 	|| $_SESSION['user_status']=='Bendahara';
 -->
-<?php if($_SESSION['admin_status']=='Administrator'){ ?>
+<?php if($_SESSION['level_user']=='Admin' || $_SESSION['level_user']=='Bendahara'){ ?>
 	<li class="nav-item">
 		<hr class="bg-gradient-light">
 	</li>
@@ -67,7 +67,7 @@
 	<div class="sidebar-heading text-white">Data Bumdes</div>
 	<!-- Keuangan Desa -->
 	<li class="nav-item">
-		<a href="#" class="nav-link">
+		<a href="#" class="nav-link text-light">
 			<i class="nav-icon far fa-envelope"></i>
 			<p>
 			Data Kas Desa
@@ -76,14 +76,14 @@
 		</a>
 		<ul class="nav nav-treeview">
 			<li class="nav-item">
-			<a href="../mailbox/mailbox.html" class="nav-link">
+			<a href="../mailbox/mailbox.html" class="nav-link text-light">
 				<!-- <i class="fas fa-solid fa-money-check nav-icon"></i> -->
 				<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
 				<p>Kas</p>
 			</a>
 			</li>
 			<li class="nav-item">
-			<a href="../mailbox/compose.html" class="nav-link">
+			<a href="../mailbox/compose.html" class="nav-link text-light">
 				<i class="fas fa-book nav-icon"></i>
 				<p>Laporan Kas</p>
 			</a>
@@ -92,7 +92,7 @@
     </li>
 	<!-- Keuangan Pinjaman -->
 	<li class="nav-item">
-		<a href="#" class="nav-link">
+		<a href="#" class="nav-link text-light">
 			<i class="nav-icon far fa-envelope"></i>
 			<p>
 			Data Pinjaman
@@ -101,13 +101,13 @@
 		</a>
 		<ul class="nav nav-treeview">
 			<li class="nav-item">
-			<a href="../mailbox/mailbox.html" class="nav-link">
+			<a href="?hal=pinjaman" class="nav-link text-light">
 				<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
 				<p>Pinjaman</p>
 			</a>
 			</li>
 			<li class="nav-item">
-			<a href="../mailbox/compose.html" class="nav-link">
+			<a href="?=hal=laporan_pinjaman" class="nav-link text-light">
 				<i class="fa fa-book nav-icon"></i>
 				<p>Laporan</p>
 			</a>
@@ -124,6 +124,7 @@
 	<hr class="bg-light">
 </li>
 
+<div class="sidebar-heading text-white">Data Unit</div>
 <?php
 $query="SELECT * from tb_unit";
 $result=$mysqli->query($query);

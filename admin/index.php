@@ -5,7 +5,7 @@ require_once '../setting/tanggal.php';
 require_once '../setting/fungsi.php';
 
 session_start();
-if(isset($_SESSION['admin'])){
+if(isset($_SESSION['user'])){
   require_once 'layout/top.php';
 ?>
     <nav class="main-header navbar navbar-expand navbar-dark elevation-2 navbar-light">
@@ -18,7 +18,7 @@ if(isset($_SESSION['admin'])){
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-user mr-2"></i>
-            <span>Admin</span>
+            <span><?= $_SESSION['level_user']; ?></span>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <div class="dropdown-divider"></div>
@@ -41,13 +41,11 @@ if(isset($_SESSION['admin'])){
       <div class="sidebar">
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-           <?php include('_menu.php'); ?>
-         </ul>
-       </nav>
-       <!-- /.sidebar-menu -->
-     </div>
-     <!-- /.sidebar -->
-   </aside>
+            <?php include('_menu.php'); ?>
+          </ul>
+        </nav>
+      </div>
+    </aside>
 
   <!-- Sidebar -->
   <div class="content-wrapper">

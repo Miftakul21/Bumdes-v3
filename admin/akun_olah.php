@@ -2,14 +2,11 @@
 <section class="content" style="margin-top: 10px;">
   <div class="container-fluid">
     <div class="row">
-      <!-- left column -->
       <div class="col-md-12">
-        <!-- jquery validation -->
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Tambah Data Akun</h3>
           </div>
-          <!-- /.card-header -->
           <!-- form start -->
           <form role="form" id="quickForm" action="operasi_crud/daftar_akun/store.php" method="post">
             <div class="card-body">
@@ -35,11 +32,7 @@
             </div>
           </form>
         </div>
-        <!-- /.card -->
       </div>
-      <!--/.col (left) -->
     </div>
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
+  </div>
 </section>
-<!-- /.content -->

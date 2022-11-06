@@ -2,7 +2,6 @@
 require_once '../setting/koneksi.php';
 
 $id_anggota = isset($_GET['id_anggota']) ? $_GET['id_anggota'] : '';
-
 // Data Pinjaman
 $query_data = mysqli_query($mysqli, "select tb_anggota_pinjam.id, tb_anggota_pinjam.nama, tb_angsuran_pinjam.* from tb_anggota_pinjam join tb_angsuran_pinjam on tb_anggota_pinjam.id = tb_angsuran_pinjam.id_pinjaman where tb_anggota_pinjam.id = '$id_anggota'");
 
@@ -80,6 +79,30 @@ $query_data = mysqli_query($mysqli, "select tb_anggota_pinjam.id, tb_anggota_pin
                         </tr>
                     </thead>
                     <tbody>
+                        <?php 
+                            $query = "SELECT * FROM tb_angsuran WHERE id_anggota = '$id_anggota'";
+                            $result = $mysqli->query($query);
+                            $num_result = $result->num_rows;
+                            if($num_result > 0) {
+                                $no = 1;
+                                while($data=mysqli_fetch_assoc($result)) {
+                                    extract($data);
+                             
+                        ?>
+                        <tr>
+                            <td><?= $no++; ?></td>
+                            <td><?= $tanggal; ?></td>
+                            <td>Rp. <?= number_format($pokok,2,',','.');  ?></td>
+                            <td>Rp. <?= number_format($jasa,2,',','.'); ?></td>
+                            <td>Rp. <?= number_format($potongan_jasa,2,',','.');  ?></td>
+                            <td>Rp. <?= number_format($sisa_pinjaman_penelusuran,2,',','.'); ?></td>
+                            <td>Rp. <?= number_format($sisa_pinjaman_non_jasa,2,',','.'); ?></td>
+                            <td><?= $keterangan; ?></td>
+                        </tr>
+                        <?php 
+                                }
+                            }
+                        ?>
                 </table>
             </div>
         </div>
@@ -89,7 +112,7 @@ $query_data = mysqli_query($mysqli, "select tb_anggota_pinjam.id, tb_anggota_pin
 
 
 <!-- Live Modal Bayar Angsuran -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -103,21 +126,23 @@ $query_data = mysqli_query($mysqli, "select tb_anggota_pinjam.id, tb_anggota_pin
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal<span class="text-danger">*</span></label>
+                            <input type="hidden" name="id_anggota" value="<?= $id_anggota; ?>" required>
                             <input type="date" class="form-control" id="tanggal" name="tanggal">
                         </div>
                         <div class="mb-3">
                             <label for="pokok" class="form-label">Pokok<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="pokok" name="pokok" placeholder="contoh: 50000">
+                            <input type="number" class="form-control" id="pokok" name="pokok" placeholder="contoh: 50000" required>
                         </div>
                         <div class="mb-3">
                             <label for="jasa" class="form-label">Jasa<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="jasa" name="jasa" placeholder="contoh: 50000">
+                            <input type="number" class="form-control" id="jasa" name="jasa" placeholder="contoh: 50000" required>
                         </div>
                     </div>
-                </form>
+                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Simpan</button>
+                <button class="btn btn-primary">Simpan</button>
+                </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
             </div>
         </div>

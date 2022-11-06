@@ -1,15 +1,29 @@
 <?php 
 require_once '../setting/koneksi.php';
-?>
 
+$id_anggota = isset($_GET['id_anggota']) ? $_GET['id_anggota'] : '';
+
+// Data Pinjaman
+$query_data = mysqli_query($mysqli, "select tb_anggota_pinjam.id, tb_anggota_pinjam.nama, tb_angsuran_pinjam.* from tb_anggota_pinjam join tb_angsuran_pinjam on tb_anggota_pinjam.id = tb_angsuran_pinjam.id_pinjaman where tb_anggota_pinjam.id = '$id_anggota'");
+
+
+
+?>
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
         <!-- Informasi detail anggota pinjaman -->
+        <?php 
+            foreach($query_data as $d):
+        ?>
         <div class="card">
-            <h4 class="card-header font-weight-normal">Detail Pinjaman [nama orang]</h4>
+            <div class="card-header d-flex justify-content-between align-items-center position-relative">
+                <h4 class="font-weight-normal" >Detail Pinjaman <?= $d['nama']; ?></h4>
+                <a href="?hal=pinjaman" class=" btn btn-danger mr-2" style="position: absolute; right:0;"><i class="fas fa-arrow-left mr-1"></i> Kembali</a>
+            </div>
             <div class="card-body">
                 <div class="row">
+                    
                     <div class="col">
                         <h5 class="card-text">Nominal</h5>
                         <h5 class="card-text">Pokok</h5>
@@ -17,10 +31,10 @@ require_once '../setting/koneksi.php';
                         <h5 class="card-text">Jangka Pinjaman</h5>
                     </div>
                     <div class="col">
-                        <h5 class="card-text">: Rp. 500.000</h5>
-                        <h5 class="card-text">: Rp. 50.000</h5>
-                        <h5 class="card-text">: Rp. 10.000</h5>
-                        <h5 class="card-text">: 10 Bulan</h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['nominal_pinjaman'],2,',','.'); ?></h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['pokok'],2,',','.'); ?></h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['jasa'],2,',','.'); ?></h5>
+                        <h5 class="card-text">: <?= $d['jangka_pinjaman']; ?> Bulan</h5>
                     </div>
                     <div class="col">
                         <h5 class="card-text">Total Pokok dan Jasa</h5>
@@ -29,19 +43,19 @@ require_once '../setting/koneksi.php';
                         <h5 class="card-text">Status</h5>
                     </div>
                     <div class="col">
-                        <h5 class="card-text">: Rp. 50.000</h5>
-                        <h5 class="card-text">: Rp. 10.000</h5>
-                        <h5 class="card-text">: Rp. 10.000</h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['total_pokok_jasa'],2,',','.'); ?></h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['sisa_pinjaman_penelusuran'],2,',','.'); ?></h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['sisa_pinjaman_pokok_jasa'],2,',','.'); ?></h5>
                         <h5 class="card-text">: Belum Lunas</h5>
                     </div>
                 </div>
             </div>
         </div>
+        <?php endforeach; ?>
     </div>
 </div>
 
 <section class="content">
-    <!-- <button class="btn btn-success mb-1">Tambah Data</button> -->
     <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#staticBackdrop">
         Tambah Data
     </button>

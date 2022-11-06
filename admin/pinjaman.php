@@ -54,15 +54,15 @@
                         <td><?=$dukuh; ?></td>
                         <td><?=$alamat.' Rt.'.$rt.'/Rw.'.$rw; ?></td>
                         <td width="15%">
-                            <a href="?hal=unit_edit&id=<?php // $id_unit; ?>" 
+                            <a href="?hal=anggota_pinjaman_edit&id=<?= $id; ?>" 
                             class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
 
-                            <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/unit/delete.php?hapus=<?php // echo $id_unit;?>" 
+                            <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/anggota_pinjam/delete.php?hapus=<?php echo $id;?>" 
                                 onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"><i class="fa fa-trash"></i>
                             </a>
                         </td>
                         <td>
-                            <a href="?hal=detail_pinjaman" class="btn btn-info"><i class="fa fa-info mr-2"></i> Detail</a>
+                            <a href="?hal=pinjaman_detail&id_anggota=<?= $id; ?>" class="btn btn-info"><i class="fa fa-info mr-2"></i> Detail</a>
                         </td>
                     </tr>
                     <?php }} ?>

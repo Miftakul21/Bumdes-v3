@@ -5,7 +5,7 @@
 	</a>
 </li>
 
-<?php if($_SESSION['user_status']=='User Transaksi'){ ?>
+<?php if($_SESSION['level_user']=="Ketua" || $_SESSION['level_user']=="Transaksi"){ ?>
 	<li class="nav-item">
 		<hr class="bg-gradient-light">
 	</li>

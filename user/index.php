@@ -5,7 +5,7 @@ require_once '../setting/tanggal.php';
 require_once '../setting/fungsi.php';
 
 session_start();
-if(isset($_SESSION['id'])){
+if(isset($_SESSION['level_user'])=="Ketua"){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +43,6 @@ if(isset($_SESSION['id'])){
         </li>
       </ul>
 
-      <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
@@ -66,55 +65,51 @@ if(isset($_SESSION['id'])){
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       
       <a href="#" class="brand-link text-center">
-        <span class="brand-text font-gradient-light"><?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></span>
+        <span class="brand-text font-gradient-light"><?= caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></span>
       </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-           <?php include('_menu.php'); ?>
-         </ul>
-       </nav>
-     </div>
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <?php include('_menu.php'); ?>
+          </ul>
+        </nav>
+      </div>
     </aside>
 
-   <!-- Content Wrapper. Contains page content -->
-   <div class="content-wrapper">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
     <?php
-    $hal = @$_GET['hal'];
-    $modul = "";
-    $default = $modul."beranda.php";
-    if(!$hal){
-      require_once "$default";
-    }else{
-      switch($hal){
-        case $hal:
-        if(is_file($modul.$hal.".php"))
-        {
-          require_once $modul.$hal.".php";
-        }
-        else
-        {
+      $hal = @$_GET['hal'];
+      $modul = "";
+      $default = $modul."beranda.php";
+      if(!$hal){
+        require_once "$default";
+      }else{
+        switch($hal){
+          case $hal:
+          if(is_file($modul.$hal.".php"))
+          {
+            require_once $modul.$hal.".php";
+          }
+          else
+          {
+            require_once "$default";
+          }
+          break;
+          default:
           require_once "$default";
         }
-        break;
-        default:
-        require_once "$default";
       }
-    }
-
     ?>  
   </div>
-  <!-- /.content-wrapper -->
 
-  <!-- Main Footer -->
   <footer class="main-footer text-center">
     <strong>Universitas 17 Agustus 1945 Surabaya.</strong>
   </footer>
 </div>
-<!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 

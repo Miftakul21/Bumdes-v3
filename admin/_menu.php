@@ -44,22 +44,12 @@
 		</a>
     </li>
 
-    <!-- 
-	<li class="nav-item">
-		<a class="nav-link text-light" href="?hal=admin">
-			<i class="fa fa-user nav-icon"></i>
-			<p>Data Admin</p>
-		</a>
-    </li> 
-	-->
-
     <li class="nav-item">
 		<a class="nav-link text-light" href="?hal=user">
 			<i class="fa fa-user-circle nav-icon"></i>
 			<p>Data User</p>
 		</a>
     </li>
-
 
 	<li class="nav-item">
 		<hr class="bg-gradient-light">
@@ -68,7 +58,7 @@
 	<!-- Keuangan Desa -->
 	<li class="nav-item">
 		<a href="#" class="nav-link text-light">
-			<i class="nav-icon far fa-envelope"></i>
+			<i class="fas fa-solid fa-landmark nav-icon"></i>
 			<p>
 			Data Kas Desa
 			<i class="fas fa-angle-left right"></i>
@@ -76,8 +66,7 @@
 		</a>
 		<ul class="nav nav-treeview">
 			<li class="nav-item">
-			<a href="../mailbox/mailbox.html" class="nav-link text-light">
-				<!-- <i class="fas fa-solid fa-money-check nav-icon"></i> -->
+			<a href="?hal=kas" class="nav-link text-light">
 				<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
 				<p>Kas</p>
 			</a>
@@ -93,7 +82,7 @@
 	<!-- Keuangan Pinjaman -->
 	<li class="nav-item">
 		<a href="#" class="nav-link text-light">
-			<i class="nav-icon far fa-envelope"></i>
+			<i class="fas fa-solid fa-user-tag nav-icon"></i>
 			<p>
 			Data Pinjaman
 			<i class="fas fa-angle-left right"></i>

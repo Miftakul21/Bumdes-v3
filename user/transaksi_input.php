@@ -3,7 +3,6 @@ $tgl=date('ymd');
 $id_transaksi=KodeOtomatis($mysqli,"tb_transaksi","id_transaksi","T$tgl-",8,3);
 $id_unit=$_SESSION['id'];
 
-
 if(isset($_GET['get'])){
   $tanggal=$_SESSION['tanggal'];
   $keterangan=$_SESSION['keterangan'];
@@ -15,7 +14,6 @@ if(isset($_GET['get'])){
   $id_kegiatan='';
 }
 
-
 ?>
 <!-- Main content -->
 <section class="content" style="margin-top: 10px;">
@@ -26,7 +24,7 @@ if(isset($_GET['get'])){
         <!-- jquery validation -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Jurnal Transaksi [Nama Usaha]</h3>
+            <h3 class="card-title">Transaksi <?= caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->

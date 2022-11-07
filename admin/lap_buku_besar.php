@@ -4,11 +4,10 @@
     <div class="row mb-2">
       <div class="col-sm-12">
         <h1 class="m-0 text-dark">Laporan Buku Besar [<?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'")?>]</h1>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.content-header -->
 
 <section class="content">
   <div class="row">

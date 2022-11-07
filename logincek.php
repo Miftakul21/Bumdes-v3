@@ -22,63 +22,48 @@ if(strlen($password) < 8) {
 } else {
 	$pass=md5($password); 
 	$query = mysqli_query($mysqli, "SELECT * FROM tb_user WHERE username = '$username' AND password = '$pass'");
+	$data = mysqli_fetch_array($query);
+	$level = $data['level_user'];
 	$cek_login = mysqli_num_rows($query);
 
-	// ambil data level user
-	$data = mysqli_fetch_array($query);
-	$level_user = $data['level_user'];
 
 	if($cek_login > 0) {
-		if($level_user = 'Admin' || $level_user = 'Bendahara') {
-			/*
-				1. Nanti Ditambahkan Sessionnya
-
-				catatan halaman:
-				- halaman ini nanti bisa memantau keuangan bumdes (kas dan pinjaman), dan memantau keuangan umkn
-				- halaman ini dapat mengelola unit umkm dan menambahkan hak akses kepada sistem
-			*/
-			$_SESSION['user'] = $data;
-			$_SESSION['user_nama'] = $data['nama'];
-			$_SESSION['level_user'] = $data['level_user'];
-			echo "<script>window.location = 'admin/index.php'</script>";
-		} else if($level_user = 'Kepala Desa') {
-			$_SESSION['user'] = $data;
-			$_SESSION['user_nama'] = $data['nama'];
-			$_SESSION['level_user'] = $data['level_user'];
-			// echo '<script>window.location="user/index.php"</script>';
-		} else if($level_user = 'Sekertaris') {
-			/*
-				halaman menu ini nanti hanya bisa menginputkan transaksi dari bumdes (kas dan pinjaman keuangan)
-			*/
-			$_SESSION['user'] = $data;
-			$_SESSION['user_nama'] = $data['nama'];
-			$_SESSION['level_user'] = $data['level_user'];
-			// echo '<script>window.location="user/index.php"</script>';			
-		} else if($level_user = 'Kepala') {
-			/*
-				halaman ini nanti cuman memntau keuangan desa 
-			*/
-			$_SESSION['user'] = $data;
-			$_SESSION['user_nama'] = $data['nama'];
-			$_SESSION['level_user'] = $data['level_user'];
-			// echo '<script>window.location="admin/index.php?hal=beranda"</script>';
-		} else if($level_user = 'Ketua') {
-			/*
-				Halaman ini dapat mengelola keuangan umkm
-				buku besar, buku jurnal, arus kas, laba rugi, neraca, perubahan modal
-			 */
+		// if($level = 'Ketua') {
+		// 	$_SESSION['nama'] = $data['nama'];
+		// 	$_SESSION['level_user'] = $data['level_user'];
+		// 	echo "<script>window.location='user/index.php'</script>";
+		// }
+		switch($level){
+			case 'Admin': // untuk mengelola apa saja
+				$_SESSION['nama'] = $data['nama'];
+				$_SESSION['level_user'] = $data['level_user'];
+				echo "<script>window.location='admin/index.php'</script>";
+				break;
+			case 'Kepala Desa':
+				echo "<script>window.location='admin/index.php'</script>";
+				break;
+			case 'Bendahara': // untuk mengelola apa saja
+				$_SESSION['nama'] = $data['nama'];
+				$_SESSION['level_user'] = $data['level_user'];
+				echo "<script>window.location='admin/index.php'</script>";
+				break;
+			case 'Sekertaris': // untuk mengelola apa saja
+				$_SESSION['nama'] = $data['nama'];
+				$_SESSION['level_user'] = $data['level_user'];
+				echo "<script>window.location='admin/index.php'</script>";
+				break;
+			case 'Ketua': // untuk mengelola unit umkm
+				$_SESSION['id'] = $data['id_unit'];
+				$_SESSION['nama'] = $data['nama'];
+				$_SESSION['level_user'] = $data['level_user'];
+				echo "<script>window.location='user/index.php'</script>";
+				break;
 		}
-
 	} else {
 		echo '<script>alert("Username dan Password tidak ditemukan!")</script>';
 		echo "<script>window.location='index.php'</script>";
 	}
 }
-
-
-
-
-
 
 
 
@@ -115,5 +100,8 @@ else if (CekExist($mysqli,$sqluser1)== true){
 	echo "<script>window.location='index.php'</script>";
 }
 */
+
+
+
 
 ?>

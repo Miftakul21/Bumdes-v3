@@ -22,7 +22,7 @@ if($cek_akun > 0) {
 	$level_user = $_POST['level_user'];
 	$id_unit = $_POST['id_unit'];
 
-	if(strlen($pjg_password) == 8) {
+	if(strlen($pjg_password) < 8) {
 		$stmt = $mysqli->prepare("INSERT INTO tb_user (nama,username,password,id_unit,level_user) VALUES (?,?,?,?,?)");
 		$stmt->bind_param("sssss", $nama, $username, $enkrip_password, $id_unit, $level_user);
 

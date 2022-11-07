@@ -5,7 +5,7 @@ require_once '../setting/tanggal.php';
 require_once '../setting/fungsi.php';
 
 session_start();
-if(isset($_SESSION['user'])){
+if(isset($_SESSION['level_user'])=='Admin' || isset($_SESSION['level_user'])=='Bendahara'){
   require_once 'layout/top.php';
 ?>
     <nav class="main-header navbar navbar-expand navbar-dark elevation-2 navbar-light">

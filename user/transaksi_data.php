@@ -4,11 +4,10 @@
     <div class="row mb-2">
       <div class="col-sm-12">
         <h1 class="m-0 text-dark">Transaksi Keuangan <?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></h1>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.content-header -->
 
 <section class="content">
   <div class="row">
@@ -18,7 +17,6 @@
           <h3 class="card-title primary">Data Transaksi </h3>
           <div class="card-tools">
           </div>
-
         </div>
         <!-- /.card-header -->
         <div class="card-body">

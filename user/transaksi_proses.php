@@ -8,38 +8,27 @@ session_start();
 $id_user=$_SESSION['id'];
 
 if(isset($_POST['tambah'])){	
-	//Simpan Ke Sesi
 	print_r($_POST);
 
 	$_SESSION['tanggal']=$_POST['tanggal'];
 	$_SESSION['keterangan']=$_POST['keterangan'];
 	$_SESSION['kegiatan']=$_POST['id_kegiatan'];
-
-	$_SESSION['transaksi'][date('ymd-h:i:s')]= array($_POST['id_akun'],$_POST['id_index'],$_POST['debet'],$_POST['kredit']);
-	
+	$_SESSION['transaksi'][date('ymd-h:i:s')]= array($_POST['id_akun'],$_POST['id_index'],$_POST['debet'],$_POST['kredit']);	
 	echo "<script>alert('Data berhasil ditambah')</script>";
 	echo "<script>window.location='index.php?hal=transaksi_input&get';</script>";	
 
-
-
 }else if(isset($_GET['hapus'])){
-
 	//Proses hapus
 	unset($_SESSION['transaksi'][$_GET['hapus']]);
-
 	echo "<script>alert('Data Input transaksi Berhasil Dihapus')</script>";
 	echo "<script>window.location='index.php?hal=transaksi_input&get';</script>";	
 
 }else if(isset($_GET['hapusall'])){
-
 	unset($_SESSION['transaksi']);
-
 	echo "<script>alert('Data Input transaksi Berhasil Dihapus')</script>";
 	echo "<script>window.location='index.php?hal=transaksi_input&get';</script>";	
 
-
 }else if(isset($_POST['simpan'])){
-
 	//print_r($_POST);	
 	//Proses penambahan index
 	if (isset($_SESSION['transaksi'])){
@@ -62,7 +51,6 @@ if(isset($_POST['tambah'])){
 			$stmt->execute();
 		}
 	}	
-
 	//Clear Data
 	mysqli_query($mysqli,"DELETE FROM temp_transaksi where id_user='$id_user'");
 
@@ -83,7 +71,6 @@ if(isset($_POST['tambah'])){
 		echo "<script>alert('Data Transaksi Gagal Dihapus')</script>";
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 	}	
-
 
 }else if(isset($_POST['ubah'])){
 

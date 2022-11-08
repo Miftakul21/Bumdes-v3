@@ -109,6 +109,10 @@ if(isset($_GET['get'])){
               <th><input type="submit" name="tambah" class="btn btn-primary" value="Tambah"></th>
             </tr>
             <tbody>
+              <!-- 
+                  Ini menampilkan hasil inputan dari debet dan kredit
+              -->
+
               <?php
               $debitall=0;
               $kreditall=0;

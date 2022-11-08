@@ -5,15 +5,12 @@ $id_transaksi=KodeOtomatis($mysqli,"tb_kas","id_transaksi","T$tgl-",8,3);
 if(isset($_GET['get'])){
   $tanggal=$_SESSION['tanggal'];
   $keterangan=$_SESSION['keterangan'];
-  $id_kegiatan=$_SESSION['kegiatan'];
-
 }else{
   $tanggal='';
   $keterangan='';
-  $id_kegiatan='';
 }
-
 ?>
+
 <!-- Main content -->
 <section class="content" style="margin-top: 10px;">
   <div class="container-fluid">
@@ -72,30 +69,28 @@ if(isset($_GET['get'])){
               <?php
               $debitall=0;
               $kreditall=0;
-              if (isset($_SESSION['transaksi'])){
-              foreach ($_SESSION['transaksi'] as $key => $value) {
+              if (isset($_SESSION['kas'])){
+              foreach ($_SESSION['kas'] as $key => $value) {
                 ?>
                 <tr>
                   <td><?=$value['0']; ?></td>
-                  <td><?=$value['1']; ?></td>
-                  <td><?=number_format($value['2'],0);$debitall+=$value['2']; ?></td>
-                  <td><?=number_format($value['3'],0);$kreditall+=$value['3']; ?></td>
+                  <td><?=number_format($value['1'],0);$debitall+=$value['1']; ?></td>
+                  <td><?=number_format($value['2'],0);$kreditall+=$value['2']; ?></td>
                 </td>
 
                   <td width="15%">
-                    <a class="btn btn-danger" title="Hapus Data" href="transaksi_proses.php?hapus=<?=$key; ?>"
+                    <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/kas/store.php?hapus=<?=$key; ?>"
                       onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i>
                     </a>
                   </td>
                 </tr>
               <?php } } ?>
             </tbody>
-
             <tr> 
               <th colspan="1">Total</th>
               <th><?=number_format($debitall,0)?></th>
               <th><?=number_format($kreditall,0)?></th>
-              <th> <a class="btn btn-danger" title="Hapus Semua" href="transaksi_proses.php?hapusall=1; ?>"
+              <th> <a class="btn btn-danger" title="Hapus Semua" href="operasi_crud/kas/store.php?hapusall=1; ?>"
                 onclick="return confirm('Apakah anda yakin akan menghapus semua transaksi ?')">Clear</a></th>
               </table>
             </div>
@@ -103,7 +98,8 @@ if(isset($_GET['get'])){
             <div class="card-footer">
               <input type="submit" name="simpan" 
               class="btn btn-primary" value="Simpan">
-              <a href="?hal=transaksi_data" class="btn btn-default">Batal</a>
+              <!-- <a href="?hal=transaksi_data" class="btn btn-default">Batal</a> -->
+              <a href="#" class="btn btn-danger">Batal</a>
             </div>
           </form>
         </div>

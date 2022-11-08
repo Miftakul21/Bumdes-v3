@@ -72,7 +72,7 @@
 			</a>
 			</li>
 			<li class="nav-item">
-			<a href="../mailbox/compose.html" class="nav-link text-light">
+			<a href="?hal=laporan_kas" class="nav-link text-light">
 				<i class="fas fa-book nav-icon"></i>
 				<p>Laporan Kas</p>
 			</a>

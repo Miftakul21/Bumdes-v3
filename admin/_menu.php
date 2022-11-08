@@ -43,14 +43,12 @@
 			<p>Data Usaha Unit</p>
 		</a>
     </li>
-
     <li class="nav-item">
 		<a class="nav-link text-light" href="?hal=user">
 			<i class="fa fa-user-circle nav-icon"></i>
 			<p>Data User</p>
 		</a>
     </li>
-
 	<li class="nav-item">
 		<hr class="bg-gradient-light">
 	</li>
@@ -59,24 +57,69 @@
 	<li class="nav-item">
 		<a href="#" class="nav-link text-light">
 			<i class="fas fa-solid fa-landmark nav-icon"></i>
-			<p>
-			Data Kas Desa
-			<i class="fas fa-angle-left right"></i>
-			</p>
+			<p> Data Kas Desa <i class="fas fa-angle-left right"></i></p>
 		</a>
 		<ul class="nav nav-treeview">
 			<li class="nav-item">
-			<a href="?hal=kas" class="nav-link text-light">
-				<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
-				<p>Kas</p>
-			</a>
+				<a href="?hal=kas" class="nav-link text-light">
+					<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
+					<p>Kas</p>
+				</a>
 			</li>
 			<li class="nav-item">
-			<a href="?hal=laporan_kas" class="nav-link text-light">
-				<i class="fas fa-book nav-icon"></i>
-				<p>Laporan Kas</p>
-			</a>
+				<!-- =<?php //$id_unit;?> -->
+				<a href="?hal=lap_jurnal_umum_kas" class="nav-link text-light">
+					<i class="fa fa-bookmark nav-icon"></i>
+					<p>Jurnal Umum</p>
+				</a>
 			</li>
+			<li class="nav-item">
+				<a href="?hal=lap_neraca&id=<?php // $id_unit;?>" class="nav-link text-light"> 
+					<i class="fa fa-balance-scale nav-icon"></i>
+					<p>Neraca</p>
+				</a>
+			</li>
+
+
+			<!-- <li class="nav-item">
+				<a href="?hal=#" class="nav-link text-light">
+					<i class="fas fa-book nav-icon"></i>
+					<p>Laporan Kas</p>
+				</a>
+			</li> -->
+			<!--  
+			<li class="nav-item">
+				<a href="?hal=lap_jurnal_umum&id=<?php //  $id_unit;?>" class="nav-link text-light">
+					<i class="fa fa-bookmark nav-icon"></i>
+					<p>Jurnal Umum</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="?hal=lap_buku_besar&id=<?php // $id_unit;?>" class="nav-link text-light"> 
+					<i class="fa fa-book nav-icon"></i>
+					<p>Buku Besar</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="?hal=lap_arus_kas&id=<?php // $id_unit;?>" class="nav-link text-light"> 
+					<i class="fa fa-angle-double-right nav-icon"></i>
+					<p>Arus Kas</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="?hal=lap_laba_rugi&id=<?php // $id_unit;?>" class="nav-link text-light"> 
+					<i class="fa fa-credit-card nav-icon"></i>
+					<p>Laba Rugi</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="?hal=lap_perubahan_modal&id=<?php // $id_unit;?>" class="nav-link text-light"> 
+					<i class="fa fa-low-vision nav-icon"></i>
+					<p>Perubahan Modal</p>
+				</a>
+			</li>			
+			-->
+
 		</ul>
     </li>
 	<!-- Keuangan Pinjaman -->

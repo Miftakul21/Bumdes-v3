@@ -11,18 +11,18 @@ if(isset($_POST['tambah'])){
 													// 0                  1              2		
 	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$_POST['debet'],$_POST['kredit']);
 	echo "<script>alert('Data berhasil ditambah')</script>";
-	echo "<script>window.location='../../index.php?hal=kas&get';</script>";	
+	echo "<script>window.location='../../index.php?hal=tambah_kas&get'</script>";	
 
 }else if(isset($_GET['hapus'])){
 	//Proses hapus
 	unset($_SESSION['kas'][$_GET['hapus']]);
 	echo "<script>alert('Data Input transaksi Berhasil Dihapus')</script>";
-	echo "<script>window.location='../../index.php?hal=kas&get';</script>";	
+	echo "<script>window.location='../../index.php?hal=tambah_kas&get'</script>";	
 
 }else if(isset($_GET['hapusall'])){
 	unset($_SESSION['kas']);
 	echo "<script>alert('Data Input transaksi Berhasil Dihapus')</script>";
-	echo "<script>window.location='index.php?hal=kas&get';</script>";	
+	echo "<script>window.location='../../index.php?hal=tambah_kas&get'</script>";	
 
 }else if(isset($_POST['simpan'])){
 	//Proses penambahan index
@@ -56,7 +56,7 @@ if(isset($_POST['tambah'])){
 
 	//Notif
 	echo "<script>alert('Transaksi Berhasil Disimpan')</script>";
-	echo "<script>window.location='../../index.php?hal=pinjaman';</script>";	
+	echo "<script>window.location='../../index.php?hal=kas';</script>";	
 
 }else if(isset($_GET['hapusdb'])){
 	//Proses hapus
@@ -65,7 +65,7 @@ if(isset($_POST['tambah'])){
 
 	if ($stmt->execute()) { 
 		echo "<script>alert('Data Transaksi Berhasil Dihapus')</script>";
-		echo "<script>window.location='../../index.php?hal=pinjaman';</script>";	
+		echo "<script>window.location='../../index.php?hal=kas';</script>";	
 	} else {
 		echo "<script>alert('Data Transaksi Gagal Dihapus')</script>";
 		echo "<script>window.location='javascript:history.go(-1)';</script>";

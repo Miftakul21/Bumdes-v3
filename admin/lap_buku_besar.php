@@ -17,15 +17,11 @@
           <h3 class="card-title primary">Data Transaksi </h3>
           <div class="card-tools">
           </div>
-
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
           <?php
           $id_unit=$_GET['id'];
           if(isset($_POST['par1'])){
-
-
             $par1=$_POST['par1'];
             $par2=$_POST['par2'];
             $id_akun=$_POST['id_akun'];
@@ -34,12 +30,10 @@
               $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
             else
               $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and kode_akun='$id_akun'";
-
           }else{
             $par1="";
             $par2="";
             $id_akun="";
-
 
             $where="where id_unit='$id_unit'";
           }

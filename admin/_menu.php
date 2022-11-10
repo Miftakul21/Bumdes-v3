@@ -74,52 +74,11 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a href="?hal=lap_neraca&id=<?php // $id_unit;?>" class="nav-link text-light"> 
+				<a href="?hal=lap_neraca" class="nav-link text-light"> 
 					<i class="fa fa-balance-scale nav-icon"></i>
 					<p>Neraca</p>
 				</a>
 			</li>
-
-
-			<!-- <li class="nav-item">
-				<a href="?hal=#" class="nav-link text-light">
-					<i class="fas fa-book nav-icon"></i>
-					<p>Laporan Kas</p>
-				</a>
-			</li> -->
-			<!--  
-			<li class="nav-item">
-				<a href="?hal=lap_jurnal_umum&id=<?php //  $id_unit;?>" class="nav-link text-light">
-					<i class="fa fa-bookmark nav-icon"></i>
-					<p>Jurnal Umum</p>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="?hal=lap_buku_besar&id=<?php // $id_unit;?>" class="nav-link text-light"> 
-					<i class="fa fa-book nav-icon"></i>
-					<p>Buku Besar</p>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="?hal=lap_arus_kas&id=<?php // $id_unit;?>" class="nav-link text-light"> 
-					<i class="fa fa-angle-double-right nav-icon"></i>
-					<p>Arus Kas</p>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="?hal=lap_laba_rugi&id=<?php // $id_unit;?>" class="nav-link text-light"> 
-					<i class="fa fa-credit-card nav-icon"></i>
-					<p>Laba Rugi</p>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="?hal=lap_perubahan_modal&id=<?php // $id_unit;?>" class="nav-link text-light"> 
-					<i class="fa fa-low-vision nav-icon"></i>
-					<p>Perubahan Modal</p>
-				</a>
-			</li>			
-			-->
-
 		</ul>
     </li>
 	<!-- Keuangan Pinjaman -->

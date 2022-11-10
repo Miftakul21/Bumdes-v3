@@ -41,6 +41,7 @@ if(isset($_GET['get'])){
               <table class="table table-bordered table-hover">
                 <tr id="input">
                   <th> Kode Akun</th>
+                  <th> Sumber</th>
                   <th> Debet</th>
                   <th> Kredit</th>
                   <th>#</th>
@@ -53,10 +54,27 @@ if(isset($_GET['get'])){
                       $result=$mysqli->query($query);
                       $num_result=$result->num_rows;
                       if ($num_result > 0 ) { 
-                          $no=0;
+                          
                           while ($data=mysqli_fetch_assoc($result)) { ?>
                             <option value="<?=$data['kode_akun']?>"><?=$data['kode_akun'].' '.$data['nama_akun']?></option>
                           <?php }
+                      }
+                    ?>
+                  </select>
+                </th>
+                <th>
+                  <select name="sumber" id="sumber" class="form-control select2">
+                    <?php 
+                      // nanti diganti nama tabel
+                      $query = "SELECT * FROM tb_index";
+                      $result = $mysqli->query($query);
+                      $num_result = $result->num_rows;
+                      if($num_result > 0) {
+                        while($data = mysqli_fetch_assoc($result)){                       
+                    ?>
+                        <option value="<?= $data['id_index']; ?>"><?= $data['keterangan'] ?></option>
+                    <?php 
+                        }
                       }
                     ?>
                   </select>
@@ -98,7 +116,6 @@ if(isset($_GET['get'])){
             <div class="card-footer">
               <input type="submit" name="simpan" 
               class="btn btn-primary" value="Simpan">
-              <!-- <a href="?hal=transaksi_data" class="btn btn-default">Batal</a> -->
               <a href="#" class="btn btn-danger">Batal</a>
             </div>
           </form>

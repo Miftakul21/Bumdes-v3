@@ -1,14 +1,12 @@
-<!-- Content Header (Page header) -->
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-12">
         <h1 class="m-0 text-dark">Jurnal Umum <?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></h1>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.content-header -->
 
 <section class="content">
   <div class="row">
@@ -16,11 +14,7 @@
       <div class="card card-primary">
         <div class="card-header">
           <h3 class="card-title primary">Data Jurnal Umum </h3>
-          <div class="card-tools">
-          </div>
-
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
           <?php
           $id_unit=$_SESSION['id'];
@@ -45,7 +39,6 @@
           ?>
           <form role="form" id="quickForm" action="?hal=lap_jurnal_umum&id=<?=$id_unit?>" method="post">
             <div class="form-group row">
-
               <label for="nama" class="col-1 m-2">Usaha</label>
               <select class="form-control select2 col-3" name="id_kegiatan">
                 <option value="Semua">Semua Usaha</option>
@@ -61,8 +54,6 @@
                 }
                 ?>
               </select>
-
-
               <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
               <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
               <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
@@ -71,9 +62,7 @@
               </div>
             </div>
           </form>
-
           <hr>
-
           <table id="example3" class="table table-bordered table-hover">
             <thead>
               <tr>
@@ -123,19 +112,13 @@
                   $_SESSION['laporan']['usaha']='Semua Unit';
                 else
                   $_SESSION['laporan']['usaha']=caridata($mysqli,"select nama_kegiatan from tb_kegiatan where id_kegiatan='".$_POST['id_kegiatan']."'");
-
                   ?>
                 <a href="lap_jurnal_umum_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
 
               <?php } ?>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
-    <!-- /.content -->
 

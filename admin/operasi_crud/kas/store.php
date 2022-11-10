@@ -8,8 +8,9 @@ if(isset($_POST['tambah'])){
 	print_r($_POST);
 	$_SESSION['tanggal']=$_POST['tanggal'];
 	$_SESSION['keterangan']=$_POST['keterangan'];
-													// 0                  1              2		
-	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$_POST['debet'],$_POST['kredit']);
+	$_SESSION['sumber']= $_POST['sumber'];
+												//      0                  1                 2			    3
+	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$_POST['sumber'],$_POST['debet'],$_POST['kredit']);
 	echo "<script>alert('Data berhasil ditambah')</script>";
 	echo "<script>window.location='../../index.php?hal=tambah_kas&get'</script>";	
 
@@ -27,28 +28,15 @@ if(isset($_POST['tambah'])){
 }else if(isset($_POST['simpan'])){
 	//Proses penambahan index
 	if (isset($_SESSION['kas'])){
-		foreach ($_SESSION['kas'] as $key => $value) {
-			// $stmt = $mysqli->prepare("INSERT INTO tb_kas 
-			// 	(tanggal,id_kegiatan,kode_akun,keterangan,debet,kredit) 
-			// 	VALUES (?,?,?,?,?,?)");
-
-			// $stmt->bind_param("ssssdd", 
-			// 	$_POST['tanggal'], // tanggal
-			// 	$_POST['id_transaksi'], // id_transaksi
-			// 	$value['0'], // kode_akun
-			// 	$_POST['keterangan'], // keterangan
-			// 	$value['1'], // debet
-			// 	$value['2'] // kredit
-			// 	);	
-
-			// $stmt->execute();
+		foreach ($_SESSION['kas'] as $key => $value) {  
 			$tanggal = $_POST['tanggal'];
 			$id_transaksi = $_POST['id_transaksi'];
 			$kode_akun = $value['0'];
 			$keterangan = $_POST['keterangan'];
-			$debet = $value['1'];
-			$kredit = $value['2'];
-			mysqli_query($mysqli, "INSERT INTO tb_kas (tanggal, id_transaksi, kode_akun, keterangan, debet, kredit) VALUES ('$tanggal', '$id_transaksi', '$kode_akun', '$keterangan', '$debet', '$kredit')");
+			$sumber = $value['1'];
+			$debet = $value['2'];
+			$kredit = $value['3'];
+			mysqli_query($mysqli, "INSERT INTO tb_kas (tanggal, id_transaksi, kode_akun, sumber, keterangan, debet, kredit) VALUES ('$tanggal', '$id_transaksi', '$kode_akun', '$sumber', '$keterangan', '$debet', '$kredit')");
 		}
 	}	
 	//Clear Data
@@ -75,7 +63,6 @@ if(isset($_POST['tambah'])){
 }
 
 // else if(isset($_POST['ubah'])){
-
 // //Proses ubah data
 // 	$stmt = $mysqli->prepare("UPDATE tb_transaksi  SET 
 // 		kode_akun=?,

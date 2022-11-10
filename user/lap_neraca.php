@@ -45,9 +45,7 @@
             </div>
           </div>
         </form>
-
         <hr>
-
         <?php if(isset($_POST['par1'])){ ?>
           <h3>Aktifa</h3>
           <table class="table table-bordered table-hover">
@@ -62,15 +60,14 @@
           $resultz     = $mysqli->query($queryz);
           $num_resultz = $resultz->num_rows;
           if ($num_resultz > 0) {
-
             while ($dataz = mysqli_fetch_assoc($resultz)) {
               $debetall+=$dataz['debet'];
               ?>
               <tr>
-               <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
-               <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-               <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
-             </tr>
+                  <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
+                  <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
+                  <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
+              </tr>
            <?php }} ?>
            <tr>
             <th colspan="2">Total</th>

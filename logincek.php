@@ -28,11 +28,6 @@ if(strlen($password) < 8) {
 
 
 	if($cek_login > 0) {
-		// if($level = 'Ketua') {
-		// 	$_SESSION['nama'] = $data['nama'];
-		// 	$_SESSION['level_user'] = $data['level_user'];
-		// 	echo "<script>window.location='user/index.php'</script>";
-		// }
 		switch($level){
 			case 'Admin': // untuk mengelola apa saja
 				$_SESSION['nama'] = $data['nama'];

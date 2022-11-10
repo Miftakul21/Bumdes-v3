@@ -9,10 +9,10 @@ $query2 = mysqli_query($mysqli, "DELETE FROM tb_angsuran_pinjam WHERE id_pinjama
 
 if($query && $query2) {
     echo "<script>alert('Data anggota Berhasil Dihapus!')</script>";
-    echo "<script>window.location=../../index.php?hal=pinjaman</script>";
+    echo "<script>window.location='../../index.php?hal=pinjaman'</script>";
 } else {
     echo "<script>alert('Data anggota Gagal Dihapus!')</script>";
-    echo "<script>window.location=javascript:history.go(-1)</script>";
+    echo "<script>window.location='javascript:history.go(-1)'</script>";
 }
 
 

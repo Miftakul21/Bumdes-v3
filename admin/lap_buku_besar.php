@@ -15,8 +15,6 @@
       <div class="card card-primary">
         <div class="card-header">
           <h3 class="card-title primary">Data Transaksi </h3>
-          <div class="card-tools">
-          </div>
         </div>
         <div class="card-body">
           <?php
@@ -63,9 +61,7 @@
               </div>
             </div>
           </form>
-
           <hr>
-
           <table id="example3" class="table table-bordered table-hover">
             <thead>
               <tr>
@@ -116,13 +112,7 @@
 
               <?php } ?>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
-    <!-- /.content -->
-

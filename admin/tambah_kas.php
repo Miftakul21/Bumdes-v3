@@ -11,7 +11,6 @@ if(isset($_GET['get'])){
 }
 ?>
 
-<!-- Main content -->
 <section class="content" style="margin-top: 10px;">
   <div class="container-fluid">
     <div class="row">
@@ -54,7 +53,6 @@ if(isset($_GET['get'])){
                       $result=$mysqli->query($query);
                       $num_result=$result->num_rows;
                       if ($num_result > 0 ) { 
-                          
                           while ($data=mysqli_fetch_assoc($result)) { ?>
                             <option value="<?=$data['kode_akun']?>"><?=$data['kode_akun'].' '.$data['nama_akun']?></option>
                           <?php }
@@ -91,9 +89,10 @@ if(isset($_GET['get'])){
               foreach ($_SESSION['kas'] as $key => $value) {
                 ?>
                 <tr>
-                  <td><?=$value['0']; ?></td>
-                  <td><?=number_format($value['1'],0);$debitall+=$value['1']; ?></td>
-                  <td><?=number_format($value['2'],0);$kreditall+=$value['2']; ?></td>
+                  <td><?= $value['0']; ?></td>
+                  <td><?= $value['1']; ?></td>
+                  <td><?=number_format($value['2'],0);$debitall+=$value['2']; ?></td>
+                  <td><?=number_format($value['3'],0);$kreditall+=$value['3']; ?></td>
                 </td>
 
                   <td width="15%">
@@ -105,7 +104,7 @@ if(isset($_GET['get'])){
               <?php } } ?>
             </tbody>
             <tr> 
-              <th colspan="1">Total</th>
+              <th colspan="2">Total</th>
               <th><?=number_format($debitall,0)?></th>
               <th><?=number_format($kreditall,0)?></th>
               <th> <a class="btn btn-danger" title="Hapus Semua" href="operasi_crud/kas/store.php?hapusall=1; ?>"
@@ -114,9 +113,8 @@ if(isset($_GET['get'])){
             </div>
 
             <div class="card-footer">
-              <input type="submit" name="simpan" 
-              class="btn btn-primary" value="Simpan">
-              <a href="#" class="btn btn-danger">Batal</a>
+              <input type="submit" name="simpan" class="btn btn-primary" value="Simpan">
+              <a href="?hal=kas" class="btn btn-danger">Batal</a>
             </div>
           </form>
         </div>

@@ -8,8 +8,6 @@ session_start();
 $id_user=$_SESSION['id'];
 
 if(isset($_POST['tambah'])){	
-	print_r($_POST);
-
 	$_SESSION['tanggal']=$_POST['tanggal'];
 	$_SESSION['keterangan']=$_POST['keterangan'];
 	$_SESSION['kegiatan']=$_POST['id_kegiatan'];
@@ -29,11 +27,9 @@ if(isset($_POST['tambah'])){
 	echo "<script>window.location='index.php?hal=transaksi_input&get';</script>";	
 
 }else if(isset($_POST['simpan'])){
-	//print_r($_POST);	
 	//Proses penambahan index
 	if (isset($_SESSION['transaksi'])){
 		foreach ($_SESSION['transaksi'] as $key => $value) {
-			
 			$stmt = $mysqli->prepare("INSERT INTO tb_transaksi 
 				(id_transaksi,tanggal,id_kegiatan,kode_akun,id_index,keterangan,debet,kredit) 
 				VALUES (?,?,?,?,?,?,?,?)");
@@ -59,7 +55,6 @@ if(isset($_POST['tambah'])){
 	echo "<script>window.location='index.php?hal=transaksi_data';</script>";	
 
 }else if(isset($_GET['hapusdb'])){
-
 	//Proses hapus
 	$stmt = $mysqli->prepare("DELETE FROM tb_transaksi where id_jurnal=?");
 	$stmt->bind_param("s",$_GET['hapusdb']); 
@@ -73,7 +68,6 @@ if(isset($_POST['tambah'])){
 	}	
 
 }else if(isset($_POST['ubah'])){
-
 //Proses ubah data
 	$stmt = $mysqli->prepare("UPDATE tb_transaksi  SET 
 		kode_akun=?,
@@ -114,7 +108,6 @@ function simpan($mysqli,$id_user,$id_akun,$id_index,$debet,$kredit){
 		$debet,
 		$kredit);	
 	$stmt->execute();
-
 }
 
 

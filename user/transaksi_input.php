@@ -19,19 +19,13 @@ if(isset($_GET['get'])){
 <section class="content" style="margin-top: 10px;">
   <div class="container-fluid">
     <div class="row">
-      <!-- left column -->
       <div class="col-md-12">
-        <!-- jquery validation -->
         <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Transaksi <?= caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></h3>
           </div>
-          <!-- /.card-header -->
-          <!-- form start -->
           <form role="form" id="quickForm" action="transaksi_proses.php" method="post">
-
             <div class="card-body">
-
               <div class="form-group row">
                 <label for="nama" class="col-sm-4">No Transaksi</label>
                 <input type="text" name="id_transaksi" class="form-control col-sm-8" value="<?=@$id_transaksi?>" placeholder="No Transaksi" readonly>
@@ -68,7 +62,7 @@ if(isset($_GET['get'])){
               <table class="table table-bordered table-hover">
                 <tr id="input">
                   <th> Kode Akun</th>
-                  <th> Index</th>
+                  <th> Sumber</th>
                   <th> Debet</th>
                   <th> Kredit</th>
                   <th>#</th>
@@ -112,7 +106,6 @@ if(isset($_GET['get'])){
               <!-- 
                   Ini menampilkan hasil inputan dari debet dan kredit
               -->
-
               <?php
               $debitall=0;
               $kreditall=0;
@@ -130,7 +123,6 @@ if(isset($_GET['get'])){
 
                   <a class="btn btn-danger" title="Hapus Data" href="transaksi_proses.php?hapus=<?=$key; ?>"
                     onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
-
                   </td>
                 </tr>
               <?php } } ?>

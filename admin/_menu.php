@@ -24,9 +24,10 @@
     </li>
 
     <li class="nav-item">
+		<!-- nanti diganti halaman ind ke sumber_arus -->
 		<a class="nav-link text-light" href="?hal=ind">
 			<i class="fa fa-certificate nav-icon"></i>
-			<p>Data index</p>
+			<p>Data sumber arus</p>
 		</a>
     </li>
 	

@@ -2,16 +2,14 @@
 require_once '../../../setting/fungsi.php';
 require_once '../../../setting/koneksi.php';
 session_start();
-$id_user=$_SESSION['id'];
 
 if(isset($_POST['tambah'])){	
-	print_r($_POST);
 	$_SESSION['tanggal']=$_POST['tanggal'];
 	$_SESSION['keterangan']=$_POST['keterangan'];
 	$_SESSION['sumber']= $_POST['sumber'];
 												//      0                  1                 2			    3
 	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$_POST['sumber'],$_POST['debet'],$_POST['kredit']);
-	echo "<script>alert('Data berhasil ditambah')</script>";
+	// echo "<script>alert('Data berhasil ditambah')</script>";
 	echo "<script>window.location='../../index.php?hal=tambah_kas&get'</script>";	
 
 }else if(isset($_GET['hapus'])){
@@ -36,11 +34,15 @@ if(isset($_POST['tambah'])){
 			$sumber = $value['1'];
 			$debet = $value['2'];
 			$kredit = $value['3'];
-			mysqli_query($mysqli, "INSERT INTO tb_kas (tanggal, id_transaksi, kode_akun, sumber, keterangan, debet, kredit) VALUES ('$tanggal', '$id_transaksi', '$kode_akun', '$sumber', '$keterangan', '$debet', '$kredit')");
+
+			$stmt = $mysqli->prepare("INSERT INTO tb_kas (tanggal, id_transaksi, kode_akun, sumber, keterangan, debet, kredit) VALUE (?,?,?,?,?,?,?)");
+			$stmt->bind_param('sssssdd', $tanggal, $id_transaksi, $kode_akun, $keterangan, $sumber, $debet, $kredit);
+
+			$stmt->execute();
 		}
 	}	
-	//Clear Data
-	mysqli_query($mysqli,"DELETE FROM temp_transaksi where id_user='$id_user'");
+	// //Clear Data
+	unset($_SESSION['kas']);
 
 	//Notif
 	echo "<script>alert('Transaksi Berhasil Disimpan')</script>";
@@ -58,10 +60,7 @@ if(isset($_POST['tambah'])){
 		echo "<script>alert('Data Transaksi Gagal Dihapus')</script>";
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 	}	
-
-
 }
-
 // else if(isset($_POST['ubah'])){
 // //Proses ubah data
 // 	$stmt = $mysqli->prepare("UPDATE tb_transaksi  SET 
@@ -88,22 +87,14 @@ if(isset($_POST['tambah'])){
 // 		echo "<script>alert('Data Transaksi Gagal Diubah')</script>";
 // 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 // 	}
-
 // }
 
-// function simpan($mysqli,$id_user,$id_akun,$id_index,$debet,$kredit){
-// 	$stmt = $mysqli->prepare("INSERT INTO temp_transaksi 
-// 		(id_user,id_akun,id_index,debet,kredit) 
-// 		VALUES (?,?,?,?,?)");
+function simpan($mysqli, $tanggal, $id_transaksi, $kode_akun, $sumber, $keterangan, $debet, $kredit){
+	$stmt = $mysqli->prepare("INSERT INTO tb_kas 
+			(tanggal, id_transaksi, kode_akun, sumber, keterangan debet,kredit) 
+			VALUES (?,?,?,?,?)");
 
-// 	$stmt->bind_param("sssss", 
-// 		$id_user,
-// 		$id_akun,
-// 		$id_index,
-// 		$debet,
-// 		$kredit);	
-// 	$stmt->execute();
-
-// }
-
+	$stmt->bind_param("sssssdd", $tanggal, $id_transaksi, $kode_akun, $sumber, $keterangan, $debet, $kredit);	
+	$stmt->execute();
+}
 ?>

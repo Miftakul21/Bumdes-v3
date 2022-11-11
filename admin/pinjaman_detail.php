@@ -42,9 +42,9 @@ $query_data = mysqli_query($mysqli, "select tb_anggota_pinjam.id, tb_anggota_pin
                         <h5 class="card-text">Status</h5>
                     </div>
                     <div class="col">
-                        <h5 class="card-text">: Rp. <?= number_format($d['total_pokok_jasa'],2,',','.'); ?></h5>
-                        <h5 class="card-text">: Rp. <?= number_format($d['sisa_pinjaman_penelusuran'],2,',','.'); ?></h5>
-                        <h5 class="card-text">: Rp. <?= number_format($d['sisa_pinjaman_pokok_jasa'],2,',','.'); ?></h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['total_pokok_jasa'],0); ?></h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['sisa_pinjaman_penelusuran'],0); ?></h5>
+                        <h5 class="card-text">: Rp. <?= number_format($d['sisa_pinjaman_pokok_jasa'],0); ?></h5>
                         <h5 class="card-text">: Belum Lunas</h5>
                     </div>
                 </div>
@@ -87,16 +87,15 @@ $query_data = mysqli_query($mysqli, "select tb_anggota_pinjam.id, tb_anggota_pin
                                 $no = 1;
                                 while($data=mysqli_fetch_assoc($result)) {
                                     extract($data);
-                             
                         ?>
                         <tr>
                             <td><?= $no++; ?></td>
                             <td><?= $tanggal; ?></td>
-                            <td>Rp. <?= number_format($pokok,2,',','.');  ?></td>
-                            <td>Rp. <?= number_format($jasa,2,',','.'); ?></td>
-                            <td>Rp. <?= number_format($potongan_jasa,2,',','.');  ?></td>
-                            <td>Rp. <?= number_format($sisa_pinjaman_penelusuran,2,',','.'); ?></td>
-                            <td>Rp. <?= number_format($sisa_pinjaman_non_jasa,2,',','.'); ?></td>
+                            <td>Rp. <?= number_format($pokok,0);  ?></td>
+                            <td>Rp. <?= number_format($jasa,0); ?></td>
+                            <td>Rp. <?= number_format($potongan_jasa,0);  ?></td>
+                            <td>Rp. <?= number_format($sisa_pinjaman_penelusuran,0); ?></td>
+                            <td>Rp. <?= number_format($sisa_pinjaman_non_jasa,0); ?></td>
                             <td><?= $keterangan; ?></td>
                         </tr>
                         <?php 

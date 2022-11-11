@@ -56,7 +56,7 @@
                         <td width="15%">
                             <a href="?hal=transaksi_edit&id=<?php echo ''; ?>"
                             class="btn btn-icon btn-primary" title="Edit Data"><i class="fa fa-edit"></i> </a>
-                            <a class="btn btn-danger" title="Hapus Data" href="transaksi_proses.php?hapusdb=<?php echo ''; ?>"
+                            <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/kas/delete.php?id_kas=<?= $id_kas; ?>"
                                 onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

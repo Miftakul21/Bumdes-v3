@@ -1,14 +1,12 @@
-<!-- Content Header (Page header) -->
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-12">
         <h1 class="m-0 text-dark">Laporan Arus Kas <?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></h1>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.content-header -->
 
 <section class="content">
   <div class="row">
@@ -18,24 +16,21 @@
           <h3 class="card-title primary"> Informasi Arus Kas</h3>
           <div class="card-tools">
           </div>
-
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
-          <?php
-          $id_unit=$_SESSION['id'];
-          if(isset($_POST['par1'])){
-           $par1=$_POST['par1'];
-           $par2=$_POST['par2'];
-         }else{
-          $par1="";
-          $par2="";
-        }
+        <?php
+            $id_unit=$_SESSION['id'];
+            if(isset($_POST['par1'])){
+              $par1=$_POST['par1'];
+              $par2=$_POST['par2'];
+            }else{
+              $par1="";
+              $par2="";
+            }
         ?>
         <form role="form" id="quickForm" action="?hal=lap_arus_kas&id=<?=$id_unit?>" method="post">
           <div class="form-group row">
             <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
-
             <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
             <span class="col-1 m-2">S/d</span>
             <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
@@ -44,11 +39,8 @@
             </div>
           </div>
         </form>
-
-
         <hr>
-
-        <?php if(isset($_POST['par1'])){
+        <?php if(isset($_POST['pariode1'])){
           $query      = "SELECT * from tb_index where id_index !=0 order by keterangan asc";
           $result     = $mysqli->query($query);
           $num_result = $result->num_rows;
@@ -56,7 +48,7 @@
             while ($data = mysqli_fetch_assoc($result)) {
               extract($data);
               ?>
-              <table id="" class="table table-bordered table-hover">
+              <table class="table table-bordered table-hover">
                 <thead>
                   <tr>
                     <th width="40%"><?=$keterangan?></th>
@@ -70,7 +62,6 @@
                   $debetall=0;
                   $kreditall=0;
                   $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) where id_index ='$id_index' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
-
                   $resultz     = $mysqli->query($queryz);
                   $num_resultz = $result->num_rows;
                   if ($num_result > 0) {
@@ -99,17 +90,9 @@
 
                 ?>
                 <a href="lap_arus_kas_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
-
               <?php } ?>
-
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
-    <!-- /.content -->
-

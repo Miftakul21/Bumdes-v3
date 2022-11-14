@@ -64,14 +64,25 @@
 			<li class="nav-item">
 				<a href="?hal=kas" class="nav-link text-light">
 					<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
-					<p>Kas</p>
+					<p>Transaksi Kas</p>
 				</a>
 			</li>
 			<li class="nav-item">
-				<!-- =<?php //$id_unit;?> -->
+				<a href="?hal=lap_jurnal_umum_kas" class="nav-link text-light">
+					<i class="fa fa-book nav-icon"></i>
+					<p>Jurnal Umum</p>
+				</a>
+			</li>
+			<li class="nav-item">
 				<a href="?hal=lap_jurnal_umum_kas" class="nav-link text-light">
 					<i class="fa fa-bookmark nav-icon"></i>
-					<p>Jurnal Umum</p>
+					<p>Buku Besar</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="?hal=lap_arus_kas_desa" class="nav-link text-light">
+					<i class="fa fa-angle-double-right nav-icon"></i>
+					<p>Arus Kas</p>
 				</a>
 			</li>
 			<li class="nav-item">
@@ -95,7 +106,7 @@
 			<li class="nav-item">
 			<a href="?hal=pinjaman" class="nav-link text-light">
 				<i class="fas fa-solid fa-file-invoice-dollar nav-icon"></i>
-				<p>Pinjaman</p>
+				<p>Transaksi Pinjaman</p>
 			</a>
 			</li>
 			<li class="nav-item">
@@ -106,10 +117,6 @@
 			</li>
 		</ul>
     </li>
-	
-
-
-
 <?php } ?>
 
 <li class="nav-item">

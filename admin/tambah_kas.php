@@ -94,7 +94,6 @@ if(isset($_GET['get'])){
                   <td><?=number_format($value['2'],0);$debitall+=$value['2']; ?></td>
                   <td><?=number_format($value['3'],0);$kreditall+=$value['3']; ?></td>
                 </td>
-
                   <td width="15%">
                     <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/kas/store.php?hapus=<?=$key; ?>"
                       onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i>

@@ -48,7 +48,7 @@ if(isset($_POST['tambah'])){
 		}
 	}	
 	//Clear Data
-	mysqli_query($mysqli,"DELETE FROM temp_transaksi where id_user='$id_user'");
+	// mysqli_query($mysqli,"DELETE FROM temp_transaksi where id_user='$id_user'");
 
 	//Notif
 	echo "<script>alert('Transaksi Berhasil Disimpan')</script>";
@@ -68,7 +68,7 @@ if(isset($_POST['tambah'])){
 	}	
 
 }else if(isset($_POST['ubah'])){
-//Proses ubah data
+	//Proses ubah data
 	$stmt = $mysqli->prepare("UPDATE tb_transaksi  SET 
 		kode_akun=?,
 		id_index=?,

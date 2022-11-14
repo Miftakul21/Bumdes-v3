@@ -70,30 +70,30 @@ if(isset($_GET['get'])){
                 <tr>
                   <th>
                     <select class="form-control select2" name="id_akun">
-                     <?php
-                     $query="SELECT * from tb_akun";
-                     $result=$mysqli->query($query);
-                     $num_result=$result->num_rows;
-                     if ($num_result > 0 ) { 
-                      $no=0;
-                      while ($data=mysqli_fetch_assoc($result)) { ?>
-                        <option value="<?=$data['kode_akun']?>"><?=$data['kode_akun'].' '.$data['nama_akun']?></option>
-                      <?php }
-                    }
+                    <?php
+                        $query="SELECT * from tb_akun";
+                        $result=$mysqli->query($query);
+                        $num_result=$result->num_rows;
+                        if ($num_result > 0 ) { 
+                          $no=0;
+                          while ($data=mysqli_fetch_assoc($result)) { ?>
+                            <option value="<?=$data['kode_akun']?>"><?=$data['kode_akun'].' '.$data['nama_akun']?></option>
+                          <?php }
+                        }
                     ?>
                   </select>
                 </th>
                 <th>
                   <select class="form-control select2" name="id_index">
-                   <?php
-                   $query="SELECT * from tb_index";
-                   $result=$mysqli->query($query);
-                   $num_result=$result->num_rows;
-                   if ($num_result > 0 ) { 
-                    $no=0;
-                    while ($data=mysqli_fetch_assoc($result)) { ?>
-                      <option value="<?=$data['id_index']?>"><?=$data['id_index'].' '.$data['keterangan']?></option>
-                    <?php }
+                  <?php
+                    $query="SELECT * from tb_index";
+                    $result=$mysqli->query($query);
+                    $num_result=$result->num_rows;
+                    if ($num_result > 0 ) { 
+                      $no=0;
+                      while ($data=mysqli_fetch_assoc($result)) { ?>
+                        <option value="<?=$data['id_index']?>"><?=$data['id_index'].' '.$data['keterangan']?></option>
+                      <?php }
                   }
                   ?>
                 </select>
@@ -120,14 +120,12 @@ if(isset($_GET['get'])){
                 </td>
 
                 <td width="15%">
-
                   <a class="btn btn-danger" title="Hapus Data" href="transaksi_proses.php?hapus=<?=$key; ?>"
                     onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
               <?php } } ?>
             </tbody>
-
             <tr> 
               <th colspan="2">Total</th>
               <th><?=number_format($debitall,0)?></th>
@@ -136,23 +134,13 @@ if(isset($_GET['get'])){
                 onclick="return confirm('Apakah anda yakin akan menghapus semua transaksi ?')">Clear</a></th>
               </table>
             </div>
-
-            <!-- /.card-body -->
             <div class="card-footer">
-              <input type="submit" name="simpan" 
-              class="btn btn-primary" value="Simpan">
-              <a href="?hal=transaksi_data" class="btn btn-default">
-                Batal
-              </a>
+              <input type="submit" name="simpan" class="btn btn-primary" value="Simpan">
+              <a href="?hal=transaksi_data" class="btn btn-default">Batal</a>
             </div>
-
           </form>
         </div>
-        <!-- /.card -->
       </div>
-      <!--/.col (left) -->
     </div>
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
+  </div>
 </section>
-<!-- /.content -->

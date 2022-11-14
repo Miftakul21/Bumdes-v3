@@ -7,8 +7,12 @@ if(isset($_POST['tambah'])){
 	$_SESSION['tanggal']=$_POST['tanggal'];
 	$_SESSION['keterangan']=$_POST['keterangan'];
 	$_SESSION['sumber']= $_POST['sumber'];
-												//      0                  1                 2			    3
-	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$_POST['sumber'],$_POST['debet'],$_POST['kredit']);
+	$id_index = $_POST['sumber'];
+	$query_kas = mysqli_query($mysqli, "SELECT keterangan FROM tb_index WHERE id_index = '$id_index'");
+	$data = mysqli_fetch_array($query_kas);
+	$ket_index = $data['keterangan'];
+												// 0             1           2			    3
+	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$ket_index,$_POST['debet'],$_POST['kredit']);
 	// echo "<script>alert('Data berhasil ditambah')</script>";
 	echo "<script>window.location='../../index.php?hal=tambah_kas&get'</script>";	
 
@@ -27,16 +31,20 @@ if(isset($_POST['tambah'])){
 	//Proses penambahan index
 	if (isset($_SESSION['kas'])){
 		foreach ($_SESSION['kas'] as $key => $value) {  
+			$ket_sumber = $value['1'];
+			$query = mysqli_query($mysqli, "SELECT id_index FROM tb_index WHERE keterangan LIKE  '%$ket_sumber%' LIMIT 1");
+			$data = mysqli_fetch_array($query);
+			
 			$tanggal = $_POST['tanggal'];
 			$id_transaksi = $_POST['id_transaksi'];
 			$kode_akun = $value['0'];
+			$sumber = $data['id_index']; // sumber jenis arus kas
 			$keterangan = $_POST['keterangan'];
-			$sumber = $value['1'];
 			$debet = $value['2'];
 			$kredit = $value['3'];
 
 			$stmt = $mysqli->prepare("INSERT INTO tb_kas (tanggal, id_transaksi, kode_akun, sumber, keterangan, debet, kredit) VALUE (?,?,?,?,?,?,?)");
-			$stmt->bind_param('sssssdd', $tanggal, $id_transaksi, $kode_akun, $keterangan, $sumber, $debet, $kredit);
+			$stmt->bind_param('sssssdd', $tanggal, $id_transaksi, $kode_akun, $sumber, $keterangan, $debet, $kredit);
 
 			$stmt->execute();
 		}

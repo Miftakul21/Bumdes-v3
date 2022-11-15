@@ -5,10 +5,6 @@
 	</a>
 </li>
 
-<!-- 
-	Nanti Ditambahkan
-	|| $_SESSION['user_status']=='Bendahara';
--->
 <?php if($_SESSION['level_user']=='Admin' || $_SESSION['level_user']=='Bendahara'){ ?>
 	<li class="nav-item">
 		<hr class="bg-gradient-light">
@@ -86,7 +82,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a href="?hal=lap_neraca" class="nav-link text-light"> 
+				<a href="?hal=lap_neraca_kas" class="nav-link text-light"> 
 					<i class="fa fa-balance-scale nav-icon"></i>
 					<p>Neraca</p>
 				</a>

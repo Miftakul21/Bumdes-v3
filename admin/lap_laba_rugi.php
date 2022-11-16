@@ -3,12 +3,11 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-12">
-        <h1 class="m-0 text-dark">Laporan Laba Rugi [<?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'")?>]</h1>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+        <h1 class="m-0 text-dark">Laporan Laba Rugi <?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'")?></h1>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.content-header -->
 
 <section class="content">
   <div class="row">
@@ -18,9 +17,8 @@
           <h3 class="card-title primary"> Informasi Laba Rugi</h3>
           <div class="card-tools">
           </div>
-
         </div>
-        <!-- /.card-header -->
+
         <div class="card-body">
           <?php
           $id_unit=$_GET['id'];

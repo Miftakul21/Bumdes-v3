@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-12">
-        <h1 class="m-0 text-dark">Jurnal Umum [<?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'")?>]</h1>
+        <h1 class="m-0 text-dark">Jurnal Umum <?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'")?></h1>
       </div>
     </div>
   </div>

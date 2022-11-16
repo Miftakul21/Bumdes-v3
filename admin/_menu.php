@@ -63,14 +63,14 @@
 					<p>Transaksi Kas</p>
 				</a>
 			</li>
-			<li class="nav-item">
+			<!-- <li class="nav-item">
 				<a href="?hal=lap_jurnal_umum_kas" class="nav-link text-light">
 					<i class="fa fa-book nav-icon"></i>
 					<p>Jurnal Umum</p>
 				</a>
-			</li>
+			</li> -->
 			<li class="nav-item">
-				<a href="?hal=lap_jurnal_umum_kas" class="nav-link text-light">
+				<a href="?hal=lap_buku_besar_kas" class="nav-link text-light">
 					<i class="fa fa-bookmark nav-icon"></i>
 					<p>Buku Besar</p>
 				</a>

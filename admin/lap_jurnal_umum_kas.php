@@ -23,7 +23,6 @@
             else   
                 $query_kas = "SELECT * FROM tb_kas WHERE kode_akun = '$kode_akun' AND (tanggal BETWEEN '$periode1' AND '$periode2')";
     }else{
-        // Ketika halaman jurnal umum dibuka dan tidak memilih akun serta periode tertentu
         $periode1="";
         $periode2="";
         $kode_akun="";
@@ -52,10 +51,12 @@
                             $query="SELECT * from tb_akun";
                             $result=$mysqli->query($query);
                             $num_result=$result->num_rows;
+                            $kode_akun = $_POST['kode_akun'] ? $_POST['kode_akun'] : '';
+
                             if ($num_result > 0 ) { 
                             $no=0;
                                 while ($data=mysqli_fetch_assoc($result)) { ?>
-                                    <option value="<?=$data['kode_akun']?>" <?=isselect(@$id_akun,$data['kode_akun'])?>><?=$data['kode_akun'].' '.$data['nama_akun']?></option>
+                                    <option value="<?=$data['kode_akun']?>" <?=isselect(@$kode_akun,$data['kode_akun'])?>><?=$data['kode_akun'].' '.$data['nama_akun']?></option>
                                 <?php }
                             }        
                         ?>
@@ -64,7 +65,6 @@
                     <input type="date" name="periode1" class="form-control col-2" value="<?= @$periode1; ?>" required>
                     <input type="date" name="periode2" class="form-control col-2" value="<?= @$periode2; ?>" required>
                     <div class="col-1">
-                        <!-- <button class="btn btn-primary" type="submit" style="float:right;">Proses</button> -->
                         <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
                     </div>
                 </div>
@@ -90,7 +90,6 @@
                                 extract($data);
                                 $saldo += $debet;
                                 $saldo -= $kredit;
-
                     ?>
                     <tr>
                         <td><?php echo $id_transaksi; ?></td>
@@ -105,6 +104,21 @@
                         }
                     ?>
             </table>
+            <?php 
+                if(isset($_POST['periode1'])){
+                    $periode1 = $_POST['periode1'];
+                    $periode2 = $_POST['periode2'];
+
+                    $kode_akun1 = isset($_POST['kode_akun']) ? $_POST['kode_akun'] : "";
+                    $queryz = mysqli_query($mysqli, "SELECT * FROM tb_akun WHERE kode_akun = '$kode_akun1'");
+                    $dataz = mysqli_fetch_array($queryz);
+                    $nama_akun = isset($dataz['nama_akun']) ? $dataz['nama_akun']: "Semua";
+
+                    $resultz = ($kode_akun == "semua") ? "Semua" : $nama_akun;
+
+            ?>
+                <a href="lap_jurnal_umum_kas_excel.php?kode_akun=<?= $kode_akun1 ?>&nama_akun=<?= $resultz ?>&periode1=<?= $periode1 ?>&periode2=<?= $periode2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak Excel</a>
+            <?php } ?>
         </div>
       </div>
     </div>

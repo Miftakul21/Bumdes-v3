@@ -89,7 +89,7 @@
                   <tr>
                     <td><?php echo $id_transaksi; ?></td>
                     <td><?php echo tgl_indo($tanggal); ?></td>
-                    <td><?php echo $keterangan; ?></td>
+                    <td><?php echo $keterangan_transaksi; ?></td>
                     <td><?php echo number_format($debet,0); ?></td>
                     <td><?php echo number_format($kredit,0); ?></td>
                     <th><?php echo number_format($saldo,0); ?></th>

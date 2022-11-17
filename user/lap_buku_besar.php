@@ -1,14 +1,12 @@
-<!-- Content Header (Page header) -->
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-12">
-        <h1 class="m-0 text-dark">Laporan Buku Besar <?=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></h1>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+        <h1 class="m-0 text-dark">Laporan Buku Besar <?= caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'")?></h1>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- /.content-header -->
 
 <section class="content">
   <div class="row">
@@ -18,15 +16,11 @@
           <h3 class="card-title primary">Data Transaksi </h3>
           <div class="card-tools">
           </div>
-
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
           <?php
           $id_unit=$_SESSION['id'];
           if(isset($_POST['par1'])){
-
-
             $par1=$_POST['par1'];
             $par2=$_POST['par2'];
             $id_akun=$_POST['id_akun'];
@@ -35,12 +29,10 @@
               $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
             else
               $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2') and kode_akun='$id_akun'";
-
           }else{
             $par1="";
             $par2="";
             $id_akun="";
-
 
             $where="where id_unit='$id_unit'";
           }
@@ -70,9 +62,7 @@
               </div>
             </div>
           </form>
-
           <hr>
-
           <table id="example3" class="table table-bordered table-hover">
             <thead>
               <tr>
@@ -100,7 +90,7 @@
                   <tr>
                     <td><?php echo $id_transaksi; ?></td>
                     <td><?php echo tgl_indo($tanggal); ?></td>
-                    <td><?php echo $keterangan; ?></td>
+                    <td><?php echo $keterangan_transaksi; ?></td>
                     <td><?php echo number_format($debet,0); ?></td>
                     <td><?php echo number_format($kredit,0); ?></td>
                     <th><?php echo number_format($saldo,0); ?></th>
@@ -120,16 +110,10 @@
 
                 ?>
                 <a href="lap_buku_besar_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
-
               <?php } ?>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
-    <!-- /.content -->
 

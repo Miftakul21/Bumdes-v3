@@ -6,15 +6,6 @@ require_once 'setting/koneksi.php';
 $username=$_POST['username'];
 $password=$_POST['password']; 
 
-// echo var_dump($username.' '.$password);
-//Pengecekan ada data dalam login tidak
-// $sqladmin="Select id_admin from tb_admin where username='$user' and password='$pass' and level_admin='Administrasi'";
-// $sqladmin1="Select id_admin from tb_admin where username='$user' and password='$pass' and level_admin='Kepala'";
-// $sqluser="Select id_unit, level_user from tb_user where username='$user' and password='$pass' and level_user='Transaksi'";
-// $sqlleveluser="Select level_user from tb_user where username='$user' and password='$pass' and level_user='Transaksi'";
-// $sqluser1="Select id_unit from tb_user where username='$user' and password='$pass' and level_user='Ketua'";
-
-
 // cek jika password kurang dari 8
 if(strlen($password) < 8) {
 	echo "<script>alert('Password kurang dari 8 character!')</script>";
@@ -35,6 +26,8 @@ if(strlen($password) < 8) {
 				echo "<script>window.location='admin/index.php'</script>";
 				break;
 			case 'Kepala Desa':
+				$_SESSION['nama'] = $data['nama'];
+				$_SESSION['level_user'] = $data['level_user'];
 				echo "<script>window.location='admin/index.php'</script>";
 				break;
 			case 'Bendahara': // untuk mengelola apa saja
@@ -60,6 +53,14 @@ if(strlen($password) < 8) {
 	}
 }
 
+
+// echo var_dump($username.' '.$password);
+//Pengecekan ada data dalam login tidak
+// $sqladmin="Select id_admin from tb_admin where username='$user' and password='$pass' and level_admin='Administrasi'";
+// $sqladmin1="Select id_admin from tb_admin where username='$user' and password='$pass' and level_admin='Kepala'";
+// $sqluser="Select id_unit, level_user from tb_user where username='$user' and password='$pass' and level_user='Transaksi'";
+// $sqlleveluser="Select level_user from tb_user where username='$user' and password='$pass' and level_user='Transaksi'";
+// $sqluser1="Select id_unit from tb_user where username='$user' and password='$pass' and level_user='Ketua'";
 
 
 

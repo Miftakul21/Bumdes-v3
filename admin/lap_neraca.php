@@ -16,9 +16,7 @@
           <h3 class="card-title primary"> Informasi Laporan Neraca</h3>
           <div class="card-tools">
           </div>
-
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
           <?php
             $id_unit=$_GET['id'];

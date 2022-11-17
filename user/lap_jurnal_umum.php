@@ -94,7 +94,7 @@
                     <td><?php echo $id_transaksi; ?></td>
                     <td><?php echo tgl_indo($tanggal); ?></td>
                     <td><?php echo $nama_kegiatan; ?></td>
-                    <td><?php echo $keterangan; ?></td>
+                    <td><?php echo $keterangan_transaksi; ?></td>
                     <td><?php echo $kode_akun; ?></td>
                     <td><?php echo $id_index; ?></td>
                     <td><?php echo number_format($debet,0); ?></td>

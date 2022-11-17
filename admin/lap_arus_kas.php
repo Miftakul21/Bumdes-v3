@@ -74,7 +74,7 @@
                       $kreditall+=$dataz['kredit'];
                       ?>
                       <tr>
-                        <td><?php echo $dataz['keterangan']; ?></td>
+                        <td><?php echo $dataz['keterangan_transaksi']; ?></td>
                         <td><?php echo number_format($dataz['debet'],0); ?></td>
                         <td><?php echo number_format($dataz['kredit'],0); ?></td>
                       </tr>

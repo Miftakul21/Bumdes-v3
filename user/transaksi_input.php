@@ -55,7 +55,7 @@ if(isset($_GET['get'])){
 
               <div class="form-group row">
                 <label for="nama" class="col-sm-4">Keterangan</label>
-                <input type="text" name="keterangan" class="form-control col-sm-8" value="<?=@$keterangan?>" placeholder="Inputkan Keterangan" required="">
+                <input type="text" name="keterangan" class="form-control col-sm-8" value="<?=@$keterangan?>" placeholder="Masukkan Keterangan" required="">
               </div>
 
               <hr>
@@ -115,8 +115,8 @@ if(isset($_GET['get'])){
                 <tr>
                   <td><?=$value['0']; ?></td>
                   <td><?=$value['1']; ?></td>
-                  <td><?=number_format($value['2'],0);$debitall+=$value['2']; ?></td>
-                  <td><?=number_format($value['3'],0);$kreditall+=$value['3']; ?></td>
+                  <td><?=number_format($value['2'],0); $debitall+=$value['2']; ?></td>
+                  <td><?=number_format($value['3'],0); $kreditall+=$value['3']; ?></td>
                 </td>
 
                 <td width="15%">

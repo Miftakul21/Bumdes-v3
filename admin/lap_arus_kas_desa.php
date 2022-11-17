@@ -81,18 +81,13 @@
               <?php } } } ?>
 
               <?php 
-                /*
-                if(isset($_POST['par1'])){
-                $_SESSION['laporan']['judul']="Laporan Arus Kas";
-                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
-                $_SESSION['laporan']['sql']=$query;
-                $_SESSION['laporan']['sql1']=" and id_unit='$id_unit' and (tanggal between '".$_POST['par1']."' and '".$_POST['par2']."')";
-                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'");
-                */
-              ?>
-                <!-- <a href="lap_arus_kas_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a> -->
+                if(isset($_POST['periode1'])){
+                  $per1 = $_POST['periode1'];
+                  $per2 = $_POST['periode2'];
+              ?>  
+                <a href="lap_arus_kas_desa_excel.php?periode1=<?= $per1 ?>&periode2=<?= $per2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak Excel</a>
               <?php 
-                // } 
+                } 
             ?>
             </div>
           </div>

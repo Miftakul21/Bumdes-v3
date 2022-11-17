@@ -1,4 +1,4 @@
-<!-- Content Header (Page header) -->
+
 <div class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
@@ -15,7 +15,7 @@
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-info">
 					<div class="inner">
-						<h3><?=JumlahData($mysqli,"tb_unit")?></h3>
+						<h3>0<?php //JumlahData($mysqli,"tb_unit")?></h3>
 						<p>Unit Usaha</p>
 					</div>
 					<div class="icon">
@@ -28,7 +28,7 @@
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-warning">
 					<div class="inner">
-						<h3><?=JumlahData($mysqli,"tb_index")?></h3>
+						<h3>0<?php //JumlahData($mysqli,"tb_index")?></h3>
 						<p>Data Index</p>
 					</div>
 					<div class="icon">
@@ -41,7 +41,7 @@
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-primary">
 					<div class="inner">
-						<h3><?=JumlahData($mysqli,"tb_akun")?></h3>
+						<h3>0<?php //JumlahData($mysqli,"tb_akun")?></h3>
 
 						<p>Data Akun</p>
 					</div>
@@ -55,7 +55,7 @@
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-success">
 					<div class="inner">
-						<h3><?=JumlahData($mysqli,"tb_index")?></h3>
+						<h3>0<?php //JumlahData($mysqli,"tb_index")?></h3>
 						<p>Data User</p>
 					</div>
 					<div class="icon">

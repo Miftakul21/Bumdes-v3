@@ -66,7 +66,7 @@ function KodeOtomatis($conn,$tabel, $id, $inisial, $index, $panjang)
     }
 
   }
-    function caridata($conn,$qry){
+  function caridata($conn,$qry){
     $row = $conn->query($qry)->fetch_array();
     return $row[0];
   }

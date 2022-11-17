@@ -11,8 +11,12 @@ if(isset($_POST['tambah'])){
 	$query_kas = mysqli_query($mysqli, "SELECT keterangan FROM tb_index WHERE id_index = '$id_index'");
 	$data = mysqli_fetch_array($query_kas);
 	$ket_index = $data['keterangan'];
-												// 0             1           2			    3
-	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$ket_index,$_POST['debet'],$_POST['kredit']);
+
+	$debet = isset($_POST['debet']) ? $_POST['debet']: 0;
+	$kredit = isset($_POST['kredit']) ? $_POST['kredit']: 0;
+	
+	// 1. kode_akun,  2. id_sumber arus kas 3. debet 4. kredit 5. keterangan
+	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$ket_index,$debet,$kredit,$_POST['keterangan']);
 	// echo "<script>alert('Data berhasil ditambah')</script>";
 	echo "<script>window.location='../../index.php?hal=tambah_kas&get'</script>";	
 
@@ -39,7 +43,7 @@ if(isset($_POST['tambah'])){
 			$id_transaksi = $_POST['id_transaksi'];
 			$kode_akun = $value['0'];
 			$sumber = $data['id_index']; // sumber jenis arus kas
-			$keterangan = $_POST['keterangan'];
+			$keterangan = $value['4'];
 			$debet = $value['2'];
 			$kredit = $value['3'];
 

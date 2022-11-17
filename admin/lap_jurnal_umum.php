@@ -81,7 +81,7 @@
                 <th>Usaha</th>
                 <th>Keterangan</th>
                 <th>Kode Akun</th>
-                <th>Index</th>
+                <th>Sumber Dana</th>
                 <th>Debet</th>
                 <th>Kredit</th>
                 <th>Saldo</th>
@@ -90,7 +90,7 @@
             <tbody>
               <?php
               $saldo=0;
-              $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) $where";
+              $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_index using(id_index) $where";
               $result     = $mysqli->query($query);
               $num_result = $result->num_rows;
               if ($num_result > 0) {
@@ -104,9 +104,9 @@
                     <td><?php echo $id_transaksi; ?></td>
                     <td><?php echo tgl_indo($tanggal); ?></td>
                     <td><?php echo $nama_kegiatan; ?></td>
-                    <td><?php echo $keterangan; ?></td>
+                    <td><?php echo $keterangan_transaksi; ?></td>
                     <td><?php echo $kode_akun; ?></td>
-                    <td><?php echo $id_index; ?></td>
+                    <td><?php echo $keterangan; ?></td>
                     <td><?php echo number_format($debet,0); ?></td>
                     <td><?php echo number_format($kredit,0); ?></td>
                     <th><?php echo number_format($saldo,0); ?></th>

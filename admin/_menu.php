@@ -23,7 +23,7 @@
 		<!-- nanti diganti halaman ind ke sumber_arus -->
 		<a class="nav-link text-light" href="?hal=ind">
 			<i class="fa fa-certificate nav-icon"></i>
-			<p>Data sumber arus</p>
+			<p>Data sumber dana</p>
 		</a>
     </li>
 	
@@ -113,6 +113,38 @@
 			</li>
 		</ul>
     </li>
+<?php } else if (isset($_SESSION['level_user'])=="Kepala Desa") { ?>
+
+	<li class="nav-item has-treeview">
+			<a href="#" class="nav-link text-light">
+				<i class="nav-icon fas fa-list"></i>
+				<p>
+					Data Bumdes
+					<i class="fas fa-angle-left right"></i>
+				</p>
+			</a>
+			<ul class="nav nav-treeview text-light">
+				<li class="nav-item">
+					<a href="?hal=lap_jurnal_umum&id=<?=$id_unit;?>" class="nav-link text-light">
+						<i class="fa fa-bookmark nav-icon"></i>
+						<p>Buku Besar</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="?hal=lap_jurnal_umum&id=<?=$id_unit;?>" class="nav-link text-light">
+						<i class="fa fa-bookmark nav-icon"></i>
+						<p>Arus Kas</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="?hal=lap_jurnal_umum&id=<?=$id_unit;?>" class="nav-link text-light">
+						<i class="fa fa-bookmark nav-icon"></i>
+						<p>Neraca</p>
+					</a>
+				</li>
+			</ul>
+		</li>
+
 <?php } ?>
 
 <li class="nav-item">

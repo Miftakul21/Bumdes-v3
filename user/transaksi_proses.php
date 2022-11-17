@@ -11,7 +11,18 @@ if(isset($_POST['tambah'])){
 	$_SESSION['tanggal']=$_POST['tanggal'];
 	$_SESSION['keterangan']=$_POST['keterangan'];
 	$_SESSION['kegiatan']=$_POST['id_kegiatan'];
-	$_SESSION['transaksi'][date('ymd-h:i:s')]= array($_POST['id_akun'],$_POST['id_index'],$_POST['debet'],$_POST['kredit']);	
+
+	// buat menampilkan nama keterangan
+	$id_index = $_POST['id_index'];
+	$query_kas = mysqli_query($mysqli, "SELECT keterangan FROM tb_index WHERE id_index = '$id_index'");
+	$data = mysqli_fetch_array($query_kas);
+	$ket_index = $data['keterangan'];
+
+	$debet = isset($_POST['debet']) ? $_POST['debet'] : 0;
+	$kredit = isset($_POST['kredit']) ? $_POST['kredit'] : 0;
+	
+	// 1. id_akun	2. sumber arus   3. debet	4. kredit	 5. keterangan
+	$_SESSION['transaksi'][date('ymd-h:i:s')]= array($_POST['id_akun'],$ket_index,$debet,$kredit,$_POST['keterangan']);	
 	echo "<script>alert('Data berhasil ditambah')</script>";
 	echo "<script>window.location='index.php?hal=transaksi_input&get';</script>";	
 
@@ -31,16 +42,16 @@ if(isset($_POST['tambah'])){
 	if (isset($_SESSION['transaksi'])){
 		foreach ($_SESSION['transaksi'] as $key => $value) {
 			$stmt = $mysqli->prepare("INSERT INTO tb_transaksi 
-				(id_transaksi,tanggal,id_kegiatan,kode_akun,id_index,keterangan,debet,kredit) 
+				(id_transaksi,tanggal,id_kegiatan,kode_akun,id_index,keterangan_transaksi,debet,kredit) 
 				VALUES (?,?,?,?,?,?,?,?)");
 
-			$stmt->bind_param("ssssssss", 
+			$stmt->bind_param("ssssssdd", 
 				$_POST['id_transaksi'],
 				$_POST['tanggal'],
 				$_POST['id_kegiatan'],
 				$value['0'],
 				$value['1'],
-				$_POST['keterangan'],
+				$value['4'],
 				$value['2'],
 				$value['3']);	
 

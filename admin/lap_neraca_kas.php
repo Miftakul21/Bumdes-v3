@@ -100,8 +100,8 @@
          </tbody>
        </table>
 
-       <h3>Pasiva</h3>
-       <table class="table table-bordered table-hover">
+      <h3>Pasiva</h3>
+      <table class="table table-bordered table-hover">
         <?php
         $debetall=0;
         $queryz      = "SELECT (SUM(debet) - SUM(kredit)) AS debet, kode_akun, nama_akun FROM tb_kas JOIN tb_akun USING (kode_akun) WHERE 

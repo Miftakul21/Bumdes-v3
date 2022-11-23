@@ -26,7 +26,7 @@ function KodeOtomatis($conn,$tabel, $id, $inisial, $index, $panjang)
   return $id_baru;
 }
 
-  function DataArray ($mysqli,$qry){
+function DataArray ($mysqli,$qry){
   $query = $qry;
   $result = $mysqli->query($query);
   $num_results = $result->num_rows;

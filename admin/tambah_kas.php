@@ -40,7 +40,7 @@ if(isset($_GET['get'])){
               <table class="table table-bordered table-hover">
                 <tr id="input">
                   <th> Kode Akun</th>
-                  <th> Sumber</th>
+                  <th> Sumber Arus Dana</th>
                   <th> Debet</th>
                   <th> Kredit</th>
                   <th>#</th>

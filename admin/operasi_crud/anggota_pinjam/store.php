@@ -26,8 +26,6 @@ $sisa_pinjaman_pokok_jasa = $total_pinjaman * $jangka_pinjaman;
 // masukkan jumlah pinjaman tiap anggota pinjaman
 $query2=mysqli_query($mysqli, "INSERT INTO tb_angsuran_pinjam (id_pinjaman, jangka_pinjaman, nominal_pinjaman, pokok, jasa, total_pokok_jasa, sisa_pinjaman_penelusuran, sisa_pinjaman_pokok_jasa) VALUES ('$id_anggota_pinjaman', '$jangka_pinjaman', '$nominal_pinjaman', '$pokok','$jasa', '$total_pinjaman', '$sisa_pinjaman_penelusuran', '$sisa_pinjaman_pokok_jasa')");
 
-// echo var_dump($id_anggota_pinjaman.' '.$jangka_pinjaman.' '.$pokok.' '.$jasa.' '.$total_pinjaman.' '.$sisa_pinjaman_penelusuran.' '.$sisa_pinjaman_pokok_jasa);
-
 if($query) {
     echo "<script>alert('Data pinjaman Berhasil Disimpan!')</script>";
     echo "<script>window.location='../../index.php?hal=pinjaman'</script>";

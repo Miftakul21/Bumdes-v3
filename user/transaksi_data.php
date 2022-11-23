@@ -92,9 +92,7 @@
             </div>
           </div>
         </form>
-
         <hr>
-
         <table id="example3" class="table table-bordered table-hover">
           <thead>
             <tr>

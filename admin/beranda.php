@@ -90,8 +90,7 @@
 				<div class="small-box bg-warning">
 					<div class="inner">
 						<h3><?=JumlahData($mysqli,"tb_index")?></h3>
-
-						<p>Data Index</p>
+						<p>Data Sumber Dana</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-book"></i>
@@ -105,7 +104,6 @@
 				<div class="small-box bg-primary">
 					<div class="inner">
 						<h3><?=JumlahData($mysqli,"tb_akun")?></h3>
-
 						<p>Data Akun</p>
 					</div>
 					<div class="icon">

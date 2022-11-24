@@ -66,41 +66,13 @@ if(isset($_POST['tambah'])){
 	$stmt->bind_param("s",$_GET['hapusdb']); 
 
 	if ($stmt->execute()) { 
-		echo "<script>alert('Data Transaksi Berhasil Dihapus')</script>";
+		$_SESSION['success'] = "Data kas Berhasil Disimpan";
 		echo "<script>window.location='../../index.php?hal=kas';</script>";	
 	} else {
-		echo "<script>alert('Data Transaksi Gagal Dihapus')</script>";
+		echo "<script>alert('Data Transaksi Gagal Dihapus')</script>";		
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 	}	
 }
-// else if(isset($_POST['ubah'])){
-// //Proses ubah data
-// 	$stmt = $mysqli->prepare("UPDATE tb_transaksi  SET 
-// 		kode_akun=?,
-// 		id_index=?,
-// 		id_kegiatan=?,
-// 		keterangan=?,
-// 		debet=?,
-// 		kredit=?
-// 		where id_jurnal=?");
-// 	$stmt->bind_param("sssssss",
-// 		$_POST['kode_akun'],
-// 		$_POST['id_index'],
-// 		$_POST['id_kegiatan'],
-// 		$_POST['keterangan'],
-// 		$_POST['debet'],
-// 		$_POST['kredit'],
-// 		$_POST['id_jurnal']);	
-
-// 	if ($stmt->execute()) { 
-// 		echo "<script>alert('Data Transaksi Berhasil Diubah')</script>";
-// 		echo "<script>window.location='index.php?hal=transaksi_data';</script>";	
-// 	} else {
-// 		echo "<script>alert('Data Transaksi Gagal Diubah')</script>";
-// 		echo "<script>window.location='javascript:history.go(-1)';</script>";
-// 	}
-// }
-
 function simpan($mysqli, $tanggal, $id_transaksi, $kode_akun, $sumber, $keterangan, $debet, $kredit){
 	$stmt = $mysqli->prepare("INSERT INTO tb_kas 
 			(tanggal, id_transaksi, kode_akun, sumber, keterangan debet,kredit) 

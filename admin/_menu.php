@@ -125,20 +125,20 @@
 			</a>
 			<ul class="nav nav-treeview text-light">
 				<li class="nav-item">
-					<a href="?hal=lap_jurnal_umum&id=<?=$id_unit;?>" class="nav-link text-light">
+					<a href="?hal=lap_buku_besar_kas" class="nav-link text-light">
 						<i class="fa fa-bookmark nav-icon"></i>
 						<p>Buku Besar</p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="?hal=lap_jurnal_umum&id=<?=$id_unit;?>" class="nav-link text-light">
-						<i class="fa fa-bookmark nav-icon"></i>
+					<a href="?hal=lap_arus_kas_desa" class="nav-link text-light">
+						<i class="fa fa-angle-double-right nav-icon"></i>
 						<p>Arus Kas</p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="?hal=lap_jurnal_umum&id=<?=$id_unit;?>" class="nav-link text-light">
-						<i class="fa fa-bookmark nav-icon"></i>
+					<a href="?hal=lap_neraca_kas" class="nav-link text-light">
+						<i class="fa fa-balance-scale nav-icon"></i>
 						<p>Neraca</p>
 					</a>
 				</li>

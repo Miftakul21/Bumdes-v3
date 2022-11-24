@@ -1,5 +1,12 @@
 <section class="content" style="margin-top: 10px;">
   <div class="container-fluid">
+    <?php 
+      if(isset($_SESSION['gagal'])){
+    ?>
+    <?php 
+      unset($_SESSION['gagal']);
+      }
+    ?>
     <div class="row">
       <div class="col-md-12">
         <div class="card card-primary">

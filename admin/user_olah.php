@@ -8,6 +8,19 @@ if (isset($_GET['id'])){
 ?>
 <section class="content" style="margin-top: 10px;">
   <div class="container-fluid">
+    <?php 
+      if(isset($_SESSION['gagal'])) {
+    ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><?= $_SESSION['gagal']; ?></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php 
+      unset($_SESSION['gagal']);
+      }
+    ?>
     <div class="row">
       <div class="col-md-12">
         <div class="card card-primary">

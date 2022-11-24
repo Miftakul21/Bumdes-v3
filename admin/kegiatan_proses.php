@@ -6,7 +6,6 @@ require_once '../setting/fungsi.php';
 
 if(isset($_POST['tambah']))
 {	
-//Proses penambahan index
 	$stmt = $mysqli->prepare("INSERT INTO tb_kegiatan 
 		(id_unit,nama_kegiatan) 
 		VALUES (?,?)");

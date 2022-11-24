@@ -1,6 +1,6 @@
 <?php 
 require_once '../../../setting/koneksi.php';
-
+session_start();
 $username = $_POST['username'];
 $password = md5($_POST['password']);
 
@@ -26,14 +26,11 @@ if($cek_akun > 0) {
 		$stmt = $mysqli->prepare("INSERT INTO tb_user (nama,username,password,id_unit,level_user) VALUES (?,?,?,?,?)");
 		$stmt->bind_param("sssss", $nama, $username, $enkrip_password, $id_unit, $level_user);
 
-		// Nanti ditamabahkan alert pesan;
 		if($stmt->execute()) {
-			echo "<script>alert('Berhasil menambahkan akun user!')</script>";
-			// nanti halaman redirect di modifikasi;
+			$_SESSION['success'] = "Data user Berhasil Disimpan";
 			echo "<script>window.location = '../../index.php?hal=user'</script>";
 		} else {
-			echo "<script>alert('Gagal menambahkan akun user!')</script>";
-			// nanti halaman redirect di modifikasi;
+			$_SESSION['gagal'] = "Data user Gagak Disimpan";
 			echo "<script>window.location='javascript:history.go(-1)';</script>";
 		}
 	} else {

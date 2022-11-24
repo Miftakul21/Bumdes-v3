@@ -1,5 +1,6 @@
 <?php 
 require_once '../../../setting/koneksi.php';
+session_start();
 
 $stmt = $mysqli->prepare("INSERT INTO tb_unit 
 		(nama_unit) 
@@ -9,10 +10,10 @@ $stmt = $mysqli->prepare("INSERT INTO tb_unit
 		$_POST['nama_unit']);	
 
 if ($stmt->execute()) { 
-	echo "<script>alert('Data unit Berhasil Disimpan')</script>";
+	$_SESSION['success'] = "Data unit Berhasil Disimpan";
 	echo "<script>window.location='../../index.php?hal=unit';</script>";	
 } else {
-	echo "<script>alert('Data unit Gagal Disimpan')</script>";
+	$_SESSION['gagal'] = "Data unit Gagal Disimpan";
 	echo "<script>window.location='javascript:history.go(-1)';</script>";
 }
 

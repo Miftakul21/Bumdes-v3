@@ -6,17 +6,30 @@ $kode_otomatis = (int) $query_id_index['id_index'] + 1;
 
 ?>
 <section class="content" style="margin-top: 10px;">
+<?php 
+  if(isset($_SESSION['gagal'])) {
+?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong><?= $_SESSION['gagal']; ?></strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<?php 
+  unset($_SESSION['gagal']);
+  }
+?>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Tambah Data Index</h3>
+            <h3 class="card-title">Tambah Data Sumber Dana</h3>
           </div>
           <form role="form" id="quickForm" action="operasi_crud/ind/store.php" method="post">
             <div class="card-body">
               <div class="form-group">
-                <label for="nama">Kode Index</label>
+                <label for="nama">Kode Sumber Dana</label>
                 <input type="hidden" name="id_index" value="<?= @$kode_otomatis; ?>">
                 <input type="text" class="form-control" value="<?= @$kode_otomatis; ?>" disabled>
               </div>

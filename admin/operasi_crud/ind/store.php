@@ -1,5 +1,6 @@
 <?php 
 require_once '../../../setting/koneksi.php';
+session_start();
 
 $stmt = $mysqli->prepare("INSERT INTO tb_index 
 		(id_index,keterangan) 
@@ -10,14 +11,10 @@ $stmt->bind_param("ss",
 	$_POST['keterangan']);	
 
 if ($stmt->execute()) { 
-	$_SESSION['info'] = [
-		'status' => 'success',
-		'message' => 'Berhasil menambah data'
-	];
-    echo "<script>alert('Data index Berhasil Disimpan')</script>";
+	$_SESSION['success'] = "Data sumber dana Berhasil Disimpan";
 	echo "<script>window.location='../../index.php?hal=ind';</script>";	
 } else {
-	echo "<script>alert('Data index Gagal Disimpan, Duplikat Kode Index')</script>";
+	$_SESSION['gagal'] = "Data sumber dana Gagal Disimpan";
 	echo "<script>window.location='javascript:history.go(-1)';</script>";
 }
 

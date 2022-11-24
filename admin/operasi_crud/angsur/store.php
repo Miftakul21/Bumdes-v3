@@ -1,5 +1,6 @@
 <?php 
 require_once '../../../setting/koneksi.php';
+session_start();
 
 $id_anggota = $_POST['id_anggota'];
 
@@ -10,10 +11,10 @@ $potongan_pelunasan = (int) isset($_POST['potongan']) ? (int) $_POST['potongan']
 
 function redirect($param1) {
     if($param1) {
-        echo "<script>alert('Data angsuran Berhasil Disimpan!')</script>";
+        $_SESSION['success'] = "Data angsuran Berhasil Disimpan";
         echo "<script>window.location='javascript:history.go(-1)'</script>";
     } else {
-        echo "<script>alert('Data angsuran Gagal Disimpan!')</script>";
+        $_SESSION['gagal'] = "Data angsuran Gagal Disimpan";
         echo "<script>window.location='javascript:history.go(-1)'</script>";
     }
 

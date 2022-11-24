@@ -7,9 +7,8 @@ require_once '../setting/koneksi.php';
 require_once '../setting/tanggal.php';
 require_once '../setting/fungsi.php';
 
-require_once '../dompdf/autoload.inc.php';
+require_once '../dompdf/vendor/autoload.php';
 require_once '../dompdf/style.php';
-
 use Dompdf\Dompdf;
 
 $style=f_bootsrap();

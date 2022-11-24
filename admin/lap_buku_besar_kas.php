@@ -9,10 +9,8 @@
 </div>
 
 <?php 
-
     $query_kas = "";
-    $saldo = 0;
-        
+    $saldo = 0;        
     if(isset($_POST['periode1'])){
             $periode1=$_POST['periode1'];
             $periode2=$_POST['periode2'];
@@ -113,7 +111,7 @@
                     $resultz = ($kode_akun == "semua") ? "Semua" : $nama_akun;
 
             ?>
-                <a href="lap_buku_besar_kas_excel.php?kode_akun=<?= $kode_akun1 ?>&nama_akun=<?= $resultz ?>&periode1=<?= $periode1 ?>&periode2=<?= $periode2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak Excel</a>
+                <a href="lap_buku_besar_kas_pdf.php?kode_akun=<?= $kode_akun1 ?>&nama_akun=<?= $resultz ?>&periode1=<?= $periode1 ?>&periode2=<?= $periode2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
             <?php } ?>
         </div>
       </div>

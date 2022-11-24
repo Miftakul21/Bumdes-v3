@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Nov 2022 pada 10.58
+-- Waktu pembuatan: 24 Nov 2022 pada 16.28
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.0.19
 
@@ -93,7 +93,7 @@ CREATE TABLE `tb_angsuran` (
   `tanggal` varchar(50) NOT NULL,
   `pokok` int(11) NOT NULL,
   `jasa` int(11) NOT NULL,
-  `potongan_jasa` int(11) NOT NULL,
+  `potongan_pelunasan` int(11) NOT NULL,
   `sisa_pinjaman_penelusuran` int(11) NOT NULL,
   `sisa_pinjaman_non_jasa` int(11) NOT NULL,
   `keterangan` varchar(50) NOT NULL
@@ -103,11 +103,15 @@ CREATE TABLE `tb_angsuran` (
 -- Dumping data untuk tabel `tb_angsuran`
 --
 
-INSERT INTO `tb_angsuran` (`id_angsur`, `id_anggota`, `tanggal`, `pokok`, `jasa`, `potongan_jasa`, `sisa_pinjaman_penelusuran`, `sisa_pinjaman_non_jasa`, `keterangan`) VALUES
-(11, '5', '2022-11-06', 80000, 16000, 0, 960000, 800000, 'Belum Lunas'),
-(12, '5', '2022-11-06', 80000, 16000, 0, 864000, 720000, 'Belum Lunas'),
-(13, '5', '2022-11-06', 80000, 16000, 0, 768000, 640000, 'Belum Lunas'),
-(14, '5', '2022-11-06', 80000, 16000, 0, 672000, 560000, 'Belum Lunas');
+INSERT INTO `tb_angsuran` (`id_angsur`, `id_anggota`, `tanggal`, `pokok`, `jasa`, `potongan_pelunasan`, `sisa_pinjaman_penelusuran`, `sisa_pinjaman_non_jasa`, `keterangan`) VALUES
+(43, '3', '2022-01-01', 200000, 40000, 0, 2160000, 1800000, 'Belum Lunas'),
+(45, '3', '2022-02-02', 200000, 40000, 0, 1920000, 1600000, 'Belum Lunas'),
+(46, '3', '2022-02-02', 200000, 40000, 0, 1680000, 1400000, 'Belum Lunas'),
+(47, '3', '2022-02-02', 200000, 40000, 0, 1440000, 1200000, 'Belum Lunas'),
+(49, '5', '2022-01-01', 80000, 16000, 0, 864000, 720000, 'Belum Lunas'),
+(50, '3', '2022-03-04', 200000, 40000, 0, 1200000, 1000000, 'Belum Lunas'),
+(51, '3', '2022-05-04', 200000, 40000, 0, 960000, 800000, 'Belum Lunas'),
+(52, '3', '2022-08-04', 200000, 40000, 0, 720000, 600000, 'Belum Lunas');
 
 -- --------------------------------------------------------
 
@@ -160,8 +164,9 @@ INSERT INTO `tb_index` (`id_index`, `keterangan`) VALUES
 ('1', 'Arus Kas Kegiatan Operasi'),
 ('2', 'Arus Kas kegiatan Investasi'),
 ('3', 'Arus Kas Kegiatan Pendanaan'),
-('4', 'Keuangan Gagal'),
-('5', 'Apa Aja');
+('4', 'Test 1'),
+('5', 'Test 2'),
+('6', 'Test 3');
 
 -- --------------------------------------------------------
 
@@ -185,10 +190,8 @@ CREATE TABLE `tb_kas` (
 --
 
 INSERT INTO `tb_kas` (`id_kas`, `tanggal`, `id_transaksi`, `kode_akun`, `sumber`, `keterangan`, `debet`, `kredit`) VALUES
-(1, '2022-11-08', 'T221108-001', '1-111', '', 'Pembayaran SPP', 10000000, 0),
-(2, '2022-11-08', 'T221108-001', '1-111', '', 'Pembayaran SPP', 15000000, 0),
-(3, '2022-11-08', 'T221108-002', '5-111', '', 'Pendapatan hasil inveratasi umkm', 0, 10000000),
-(4, '2022-11-08', 'T221108-002', '1-111', '', 'Pendapatan hasil inveratasi umkm', 5000000, 0);
+(5, '2022-02-01', 'T221124-001', '4-111', '1', 'Investasi dana desa', 100000, 0),
+(6, '2022-02-01', 'T221124-001', '1-111', '1', 'pembayaran wifi bulanan', 0, 20000);
 
 -- --------------------------------------------------------
 
@@ -220,7 +223,9 @@ INSERT INTO `tb_kegiatan` (`id_kegiatan`, `id_unit`, `nama_kegiatan`) VALUES
 (27, 4, 'Kopi Receh'),
 (28, 1, 'Pengelolaan Warung Mewah'),
 (29, 9, 'Pembelian Peralatan Dapur'),
-(30, 9, 'Modal Untuk Sewa Tempat ');
+(30, 9, 'Modal Untuk Sewa Tempat '),
+(31, 18, 'Bootcamp Web Programming'),
+(32, 18, 'Koding harus pake kopi');
 
 -- --------------------------------------------------------
 
@@ -235,7 +240,7 @@ CREATE TABLE `tb_transaksi` (
   `id_kegiatan` int(11) DEFAULT NULL,
   `kode_akun` varchar(20) DEFAULT NULL,
   `id_index` varchar(20) DEFAULT NULL,
-  `keterangan` varchar(255) DEFAULT NULL,
+  `keterangan_transaksi` varchar(255) DEFAULT NULL,
   `debet` int(11) DEFAULT NULL,
   `kredit` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -244,7 +249,7 @@ CREATE TABLE `tb_transaksi` (
 -- Dumping data untuk tabel `tb_transaksi`
 --
 
-INSERT INTO `tb_transaksi` (`id_jurnal`, `id_transaksi`, `tanggal`, `id_kegiatan`, `kode_akun`, `id_index`, `keterangan`, `debet`, `kredit`) VALUES
+INSERT INTO `tb_transaksi` (`id_jurnal`, `id_transaksi`, `tanggal`, `id_kegiatan`, `kode_akun`, `id_index`, `keterangan_transaksi`, `debet`, `kredit`) VALUES
 (1, 'T201114-001', '2020-11-01', 1, '1-111', '3', 'penerimaan kas dari investasi pemilik', 250000000, 0),
 (2, 'T201114-002', '2020-11-01', 1, '1-212', '0', 'pembeliaan tanah dan bangunan tempat usaha', 185000000, 0),
 (3, 'T201114-002', '2020-11-01', 1, '1-111', '2', 'pembeliaan tanah dan bangunan tempat usaha', 0, 185000000),
@@ -314,7 +319,10 @@ CREATE TABLE `tb_unit` (
 --
 
 INSERT INTO `tb_unit` (`id_unit`, `nama_unit`) VALUES
-(9, 'Warung Mewah');
+(9, 'Warung Mewah'),
+(16, 'Watu Bonang'),
+(17, 'Warung Kopi'),
+(18, 'Warung Coding');
 
 -- --------------------------------------------------------
 
@@ -338,7 +346,7 @@ CREATE TABLE `tb_user` (
 INSERT INTO `tb_user` (`id_user`, `nama`, `username`, `password`, `id_unit`, `level_user`) VALUES
 (1, 'admin', 'admin', '7488e331b8b64e5794da3fa4eb10ad5d', '-', 'Admin'),
 (2, 'Miftakul Huda', 'mifta123', 'e5286a0d9c59e4a2edd1580deae332bd', '-', 'Bendahara'),
-(3, 'Megawati', 'Mega', 'c97a8628ad741dc4ef4ac36ad28ffbf5', '-', 'Kepala Desa'),
+(3, 'Megawati', 'Mega', '46356784f9ece5d9d9319a8f3ddd2fdd', '-', 'Kepala Desa'),
 (5, 'Arya', 'Arya', 'f728d78f5a5dfe25d633fdf0204ccae7', '9', 'Ketua');
 
 --
@@ -413,19 +421,19 @@ ALTER TABLE `tb_anggota_pinjam`
 -- AUTO_INCREMENT untuk tabel `tb_angsuran`
 --
 ALTER TABLE `tb_angsuran`
-  MODIFY `id_angsur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_angsur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_kas`
 --
 ALTER TABLE `tb_kas`
-  MODIFY `id_kas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_kegiatan`
 --
 ALTER TABLE `tb_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_transaksi`
@@ -437,7 +445,7 @@ ALTER TABLE `tb_transaksi`
 -- AUTO_INCREMENT untuk tabel `tb_unit`
 --
 ALTER TABLE `tb_unit`
-  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`

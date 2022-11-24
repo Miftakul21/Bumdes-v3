@@ -13,15 +13,12 @@
     <div class="col-12">
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title primary"> Informasi Laporan Neraca</h3>
+          <h3 class="card-title primary">Informasi Laporan Neraca</h3>
           <div class="card-tools">
           </div>
-
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
           <?php
-            // $id_unit=$_GET['id'];
             if(isset($_POST['periode1'])){
               $periode1=$_POST['periode1'];
               $periode2=$_POST['periode2'];
@@ -117,7 +114,7 @@
             <tr>
               <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
               <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-              <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
+              <td width="18%"><?php echo number_format($dataz['debet'],0); ?></td>
             </tr>
          <?php }} ?>
           <tr>
@@ -128,13 +125,13 @@
      </table>
    <?php } ?>
 
-   <?php 
-    // if(isset($_POST['par1'])){
-    // $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['periode2']);
-    // $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
+  <?php 
+    if(isset($_POST['periode1'])){
+        $periode1 = $_POST['periode1'];
+        $periode2 = $_POST['periode2'];
     ?>
-    <!-- <a href="lap_neraca_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a> -->
-  <?php // } ?>
+        <a href="lap_neraca_kas_pdf.php?periode1=<?= $periode1 ?>&periode2=<?= $periode2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+    <?php } ?>
 
 </div>
 </div>

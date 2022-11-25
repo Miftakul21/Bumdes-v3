@@ -2,7 +2,6 @@
 require_once '../setting/koneksi.php';
 require_once '../dompdf/vendor/autoload.php';
 use Dompdf\Dompdf;
-
 $periode1 = $_GET['periode1'];
 $periode2 = $_GET['periode2'];
 
@@ -12,8 +11,8 @@ $per2 = date_format(date_create($_GET['periode2']), "d-m-Y");
 $dompdf = new Dompdf();
 
 // Heading
-$html = "<center>Laporan Arus Kas Desa Minggirsari</center>";
-$html .= "<center>Periode ".$per1." S/d ".$per2."</center>";
+$html = "<center><span style='font-size: 1.5rem; font-weight: bold;'>Laporan Arus Kas Desa Minggirsari</span></center>";
+$html .= "<center><span>Periode ".$per1." S/d ".$per2."</span></center><br>";
 
 // Loop Field Name
 $sql1 = "SELECT * from tb_index where id_index !=0 order by keterangan asc";
@@ -57,6 +56,4 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'potrait');
 $dompdf->render();
 $dompdf->stream('test2.php', array('Attachment'=>0));
-
-
 ?>

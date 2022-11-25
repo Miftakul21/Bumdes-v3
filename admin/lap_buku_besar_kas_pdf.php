@@ -23,7 +23,7 @@ $query = mysqli_query($mysqli, $sql);
 
 $html = "<center><span style='font-size:1.5rem; font-weight: bold;'>Laporan Buku Kas Desa</span><center>";
 $html .= "<center>Periode ".$periode1." S/d ".$periode2."</center>";
-$html .= "<center>Jenis Akun : ".$nama_akun."</center>";
+$html .= "<center>Jenis Akun : ".$nama_akun."</center><br>";
 
 // nama field tabel
 $html .= "<table border='1' width='100%'>
@@ -50,13 +50,13 @@ while($data1 = mysqli_fetch_array($query)) {
                 <td>".$data1['kredit']."</td>
                 <td>".$saldo."</td>
             </tr>
-    </table>
     ";
 }
 
+$html .= "</table>";
 $html .="</html>";
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'potrait');
 $dompdf->render();
-$dompdf->stream('test.pdf');
+$dompdf->stream('test.pdf', array('Attachment'=>0));
 ?>

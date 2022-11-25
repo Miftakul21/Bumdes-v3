@@ -89,13 +89,13 @@
                 <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
                 <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
               </tr>
-           <?php }} ?>
+          <?php }} ?>
             <tr>
               <th colspan="2">Total</th>
               <th><?=number_format(($debetall),0)?></th>
             </tr>
-         </tbody>
-       </table>
+        </tbody>
+      </table>
 
       <h3>Pasiva</h3>
       <table class="table table-bordered table-hover">
@@ -116,14 +116,14 @@
               <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
               <td width="18%"><?php echo number_format($dataz['debet'],0); ?></td>
             </tr>
-         <?php }} ?>
+        <?php }} ?>
           <tr>
             <th colspan="2">Total Pasifa</th>
             <th><?=number_format(($debetall),0)?></th>
           </tr>
-       </tbody>
-     </table>
-   <?php } ?>
+      </tbody>
+    </table>
+  <?php } ?>
 
   <?php 
     if(isset($_POST['periode1'])){

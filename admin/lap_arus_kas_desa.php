@@ -84,7 +84,7 @@
                   $per1 = $_POST['periode1'];
                   $per2 = $_POST['periode2'];
               ?>  
-                <a href="lap_arus_kas_desa_pdf.php?periode1=<?= $per1 ?>&periode2=<?= $per2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i>Cetak PDF</a>
+                <a href="lap_arus_kas_desa_pdf.php?periode1=<?= $per1 ?>&periode2=<?= $per2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
               <?php 
                 } 
             ?>

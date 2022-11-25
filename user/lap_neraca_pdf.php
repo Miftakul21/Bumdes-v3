@@ -3,40 +3,41 @@ require_once "../setting/koneksi.php";
 require_once "../dompdf/vendor/autoload.php";
 use Dompdf\Dompdf;
 
-// Komponen header
+$dompdf = new Dompdf();
+
 $periode1 = $_GET['periode1'];
 $periode2 = $_GET['periode2'];
+$unit = $_GET['unit'];
 
-$per1 = date_format(date_create($_GET['periode1']), "d-m-Y");
-$per2 = date_format(date_create($_GET['periode2']), "d-m-Y");
+$per1 = date_format(date_create($periode1), 'd-m-Y');
+$per2 = date_format(date_create($periode2), 'd-m-Y');
 
 // Aktiva Lancar
-$sql1 = "SELECT (SUM(debet) - SUM(kredit)) AS debet, kode_akun, nama_akun FROM tb_kas JOIN tb_akun 
-        USING (kode_akun) WHERE tb_akun.`kode_akun` LIKE '1-1%' AND (tb_kas.`tanggal` BETWEEN '$periode1' 
-        AND '$periode2') GROUP BY kode_akun, nama_akun";
+$sql1 = "SELECT (SUM(debet)-SUM(kredit)) AS debet,kode_akun,nama_akun FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun) 
+        WHERE tb_akun.kode_akun LIKE '1-1%' AND id_unit='9' AND (tanggal BETWEEN '2022-01-01' AND '2022-12-01') GROUP BY kode_akun,nama_akun";
 $query1 = mysqli_query($mysqli, $sql1);
 
 // Aktiva Tetap
-$sql2 = "SELECT (SUM(debet) - SUM(kredit)) AS debet, kode_akun, nama_akun FROM tb_kas JOIN tb_akun 
-        USING (kode_akun) WHERE tb_akun.`kode_akun` LIKE '1-2%' AND (tb_kas.`tanggal` BETWEEN '$periode1' 
-        AND '$periode2') GROUP BY kode_akun, nama_akun"; 
+$sql2 = "SELECT (SUM(debet)-SUM(kredit)) AS debet,kode_akun,nama_akun FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun)
+        WHERE tb_akun.kode_akun LIKE '1-2%' AND id_unit='$unit' AND (tanggal BETWEEN '$periode1' AND '$periode2') GROUP BY kode_akun,nama_akun"; 
 $query2 = mysqli_query($mysqli, $sql2);
 
 // Pasiva
-$sql3 = "SELECT (SUM(debet) - SUM(kredit)) AS debet, kode_akun, nama_akun FROM tb_kas JOIN 
-        tb_akun USING (kode_akun) WHERE tb_akun.`kode_akun` LIKE '2%' AND (tb_kas.`tanggal` 
-        BETWEEN '$periode1' AND '$periode2') GROUP BY kode_akun, nama_akun";
+$sql3 = "SELECT (SUM(debet)-SUM(kredit)) AS debet,kode_akun,nama_akun FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun) 
+        WHERE tb_akun.kode_akun LIKE '2%' AND id_unit='$unit' AND (tanggal BETWEEN '$periode1' AND '$periode2') GROUP BY kode_akun,nama_akun";
 $query3 = mysqli_query($mysqli, $sql3);
 
-$dompdf = new Dompdf();
+// nama unit
+$sql = "SELECT * FROM tb_unit WHERE id_unit = '$unit'";
+$query = mysqli_query($mysqli,$sql);
+$data = mysqli_fetch_array($query);
 
-// Header
-$html = "<center><span style='font-size: 1.5rem; font-weight: bold;'>Laporan Necara Kas Bumdes</span></center>";
+// Heding / Judul
+$html = "<center><span style='font-size: 1.5rem; font-weight: bold;'>Laporan Neraca ".$data['nama_unit']."</span></center>";
 $html .= "<center><span>Periode ".$per1." S/d ".$per2."</span></center>";
-$html .= "<br>";
+$html .="<br>";
 
 // Tabel 1 Aktiva
-// - Aktiva Lancar
 $html .= "<h4 style='font-weight: bold;'>Aktiva Lancar</h4>";
 $html .= "<table border='1' width='100%'>
     <tr>
@@ -45,9 +46,8 @@ $html .= "<table border='1' width='100%'>
         <th>#<</th>
     </tr>
 ";
-
 $debetall1 = 0;
-while($data1 = mysqli_fetch_array($query1)) {
+while($data1 = mysqli_fetch_array($query1)){
     $debetall1 += $data1['debet'];
     $cek = isset($debetall1) ? $debetall1 : 0;
 
@@ -66,6 +66,7 @@ while($data1 = mysqli_fetch_array($query1)) {
 
 $html .= "</table>";
 $html .= "<br>";
+
 
 // - Aktiva Tetap
 $html .= "<h4 style='font-weight: bold;'>Aktiva Tetap</h4>";

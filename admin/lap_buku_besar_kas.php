@@ -102,7 +102,6 @@
                 if(isset($_POST['periode1'])){
                     $periode1 = $_POST['periode1'];
                     $periode2 = $_POST['periode2'];
-
                     $kode_akun1 = isset($_POST['kode_akun']) ? $_POST['kode_akun'] : "";
                     $queryz = mysqli_query($mysqli, "SELECT * FROM tb_akun WHERE kode_akun = '$kode_akun1'");
                     $dataz = mysqli_fetch_array($queryz);

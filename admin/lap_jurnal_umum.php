@@ -1,4 +1,3 @@
-<!-- Content Header (Page header) -->
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -17,9 +16,7 @@
           <h3 class="card-title primary">Data Jurnal Umum </h3>
           <div class="card-tools">
           </div>
-
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
           <?php
           $id_unit=$_GET['id'];
@@ -60,8 +57,6 @@
                 }
                 ?>
               </select>
-
-
               <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
               <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
               <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
@@ -70,9 +65,7 @@
               </div>
             </div>
           </form>
-
           <hr>
-
           <table id="example3" class="table table-bordered table-hover">
             <thead>
               <tr>
@@ -114,17 +107,19 @@
                 <?php }}?>
               </table>
               <?php if(isset($_POST['par1'])){
-                $_SESSION['laporan']['judul']="Laporan Jurnal Umum";
-                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
-                $_SESSION['laporan']['sql']=$query;
-                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
-                if($_POST['id_kegiatan']=='Semua')
-                  $_SESSION['laporan']['usaha']='Semua Unit';
-                else
-                  $_SESSION['laporan']['usaha']=caridata($mysqli,"select nama_kegiatan from tb_kegiatan where id_kegiatan='".$_POST['id_kegiatan']."'");
+                $par1 = $_POST['par1'];
+                $par2 = $_POST['par2'];
 
-                  ?>
-                <a href="lap_jurnal_umum_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+                $id_kegiatan = $_POST['id_kegiatan'];
+                
+                // Usaha Unit Atau Kegaitan
+                $kode_akun1 = isset($_POST['kode_akun']) ? $_POST['kode_akun'] : "";
+                $queryz = mysqli_query($mysqli, "SELECT * FROM tb_akun WHERE kode_akun = '$kode_akun1'");
+                $dataz = mysqli_fetch_array($queryz);                
+                $nama_akun = isset($dataz['nama_akun']) ? $dataz['nama_akun']: "Semua";
+                $resultz = ($kode_akun == "semua") ? "Semua" : $nama_akun;
+              ?>
+                <a href="lap_jurnal_umum_pdf.php?id_kegiatan=<?= $id_kegiatan; ?>&periode1=<?= $par1 ?>&periode2=<?= $par2?>&usaha=<?= $resultz ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
               <?php } ?>
             </div>
           </div>

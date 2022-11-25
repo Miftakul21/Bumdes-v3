@@ -1,84 +1,66 @@
-<?php
-//error_reporting(0);
-session_start();
-// include autoloader
-require_once '../setting/crud.php';
-require_once '../setting/koneksi.php';
-require_once '../setting/tanggal.php';
-require_once '../setting/fungsi.php';
-
-require_once '../dompdf/autoload.inc.php';
-require_once '../dompdf/style.php';
-
+<?php 
+require_once "../setting/koneksi.php";
+require_once "../dompdf/vendor/autoload.php";
 use Dompdf\Dompdf;
 
-$style=f_bootsrap();
-$judul=$_SESSION['laporan']['judul'];
-$periode=$_SESSION['laporan']['periode'];
-$unit=$_SESSION['laporan']['unit'];
-$sql=$_SESSION['laporan']['sql'];
-$sql1=$_SESSION['laporan']['sql1'];
+$dompdf = new Dompdf();
 
+$periode1 = $_GET['periode1'];
+$periode2 = $_GET['periode2'];
+$unit = $_GET['unit'];
 
-$header='<h1 align="center" style="margin:0px">'.$judul.'</h1>';
-$header=$header.'<h4 align="center" style="margin:0px"> Unit : '.$unit.' </h4>';
-$periode='<p align="center" style="margin:0px"> Periode : '.$periode.'</p><h1>';
-$isi='';
-$query      = $sql;
-$result     = $mysqli->query($query);
-$num_result = $result->num_rows;
-if ($num_result > 0) {
-while ($data = mysqli_fetch_assoc($result)) {
-  extract($data);
+$per1 = date_format(date_create($periode1), 'd-m-Y');
+$per2 = date_format(date_create($periode2), 'd-m-Y');
 
-$isi=$isi.'<table class="table table-bordered table-hover">
-	    <thead>
-	      <tr>
-	        <th width="40%">'.$keterangan.'</th>
-            <th width="20%">Debet</th>
-            <th width="20%">Kredit</th>
+// nama unit
+$sql1 = "SELECT * FROM tb_unit WHERE id_unit = '$unit'";
+$query1 = mysqli_query($mysqli,$sql1);
+$data1 = mysqli_fetch_array($query1);
+
+// Heding / Judul
+$html = "<center><span style='font-size: 1.5rem; font-weight: bold;'>Laporan Arus Kas ".$data1['nama_unit']."</span></center>";
+$html .= "<center><span>Periode ".$per1." S/d ".$per2."</span></center>";
+$html .="<br>";
+
+// Loop Filed Name
+$sql2 = "SELECT * FROM tb_index WHERE id_index !=0 ORDER BY keterangan ASC";
+$query2 = mysqli_query($mysqli, $sql2);
+
+while($data2 = mysqli_fetch_array($query2)){
+    $html .= "<table border='1' width='100%'>
+        <tr>
+            <th style='text-align: left;'>".$data2['keterangan']."</th>
+            <th>Debet</th>
+            <th>Kredit</th>
             <th>#</th>
-	      </tr>
-	    </thead>
-    <tbody>';
-      $debetall=0;
-      $kreditall=0;
-	  $query1     = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) where id_index =".$id_index.$sql1;
-	  $resultz     = $mysqli->query($query1);
-	  $num_resultz = $resultz->num_rows;
-	  if ($num_resultz > 0) {
+        </tr>    
+    ";
 
-	    while ($dataz = mysqli_fetch_assoc($resultz)) {
-	    	$debetall+=$dataz['debet'];
-            $kreditall+=$dataz['kredit'];
-	      	
-	      	$isi=$isi.'<tr>';
-	       	$isi=$isi.'<td>'.$dataz['keterangan'].'</td>';
-	        $isi=$isi.'<td>'.number_format($dataz['debet'],0).'</td>';
-	        $isi=$isi.'<td>'.number_format($dataz['kredit'],0).'</td>';
-	      	$isi=$isi.'</tr>';
-	    }
-	}
-	$isi=$isi.'<th colspan="3"></th>';
-	$isi=$isi.' <th>'.number_format(($debetall-$kreditall),0).'</th>';
+    $id_index = $data2['id_index'];
+    $sql3 = "SELECT * FROM tb_transaksi JOIN tb_kegiatan using(id_kegiatan) WHERE id_index ='$id_index' AND id_unit='$unit' AND (tanggal BETWEEN '$periode1' AND '$periode2')";
+    $query3 = mysqli_query($mysqli, $sql3);
 
-	$isi=$isi.'</tbody></table>';
-	}
+    $debetall = 0;
+    $kreditall = 0;
+    while($data3 = mysqli_fetch_array($query3)){
+        $debetall += $data3['debet'];
+        $kreditall += $data3['kredit'];
+        $html .= "<tr>
+            <td>".$data3['keterangan_transaksi']."</td>
+            <td>".number_format($data3['debet'],0)."</td>
+            <td>".number_format($data3['kredit'],0)."</td>
+        </tr>";
+    }
+    $html .= "
+        <th colspan='3'>Total</th>
+        <th>".number_format($debetall - $kreditall,0)."</th>
+    ";
+    $html .="</table>";
 }
 
-//echo $style.$header.$periode.$isi;
-
-// instantiate and use the dompdf class
-$dompdf = new Dompdf();
-$dompdf->loadHtml($style.$header.$periode.$isi);
-
-// (Optional) Setup the paper size and orientation
-$dompdf->setPaper('A4', 'landscape');
-
-// Render the HTML as PDF
+$html .="</html>";
+$dompdf->loadHtml($html);
+$dompdf->setPaper('A4','potrait');
 $dompdf->render();
-
-// Output the generated PDF to Browser
-$filename = "Laporan_Jurnal_Umum_".date("Y-m-d_H-i-s");
-$dompdf->stream($filename);
+$dompdf->stream('test3.php', array('Attachment'=>0));
 ?>

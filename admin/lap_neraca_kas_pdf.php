@@ -35,7 +35,6 @@ $html = "<center>Laporan Necara Kas Bumdes</center>";
 $html .= "<center>Periode ".$per1." S/d ".$per2."</center>";
 $html .= "<br>";
 
-
 // Tabel 1 Aktiva
 // - Aktiva Lancar
 $html .= "<table border='1' width='100%'>

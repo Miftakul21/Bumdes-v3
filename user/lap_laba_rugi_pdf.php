@@ -1,82 +1,81 @@
 <?php
-//error_reporting(0);
-session_start();
-// include autoloader
-require_once '../setting/crud.php';
-require_once '../setting/koneksi.php';
-require_once '../setting/tanggal.php';
-require_once '../setting/fungsi.php';
-
-require_once '../dompdf/autoload.inc.php';
-require_once '../dompdf/style.php';
-
+require_once "../setting/koneksi.php";
+require_once "../dompdf/vendor/autoload.php";
 use Dompdf\Dompdf;
 
-$style=f_bootsrap();
-$judul=$_SESSION['laporan']['judul'];
-$periode=$_SESSION['laporan']['periode'];
-$unit=$_SESSION['laporan']['unit'];
-$sql1=$_SESSION['laporan']['sql1'];
-$sql2=$_SESSION['laporan']['sql2'];
+$dompdf = new Dompdf();
 
+// komponen
+$periode1 = $_GET['periode1'];
+$periode2 = $_GET['periode2'];
+$unit = $_GET['unit'];
 
-$header='<h1 align="center" style="margin:0px">'.$judul.'</h1>';
-$header=$header.'<h4 align="center" style="margin:0px"> Unit : '.$unit.' </h4>';
-$periode='<p align="center" style="margin:0px"> Periode : '.$periode.'</p><h1>';
-$isi='';
+$per1 = date_format(date_create($periode1), 'd-m-Y');
+$per2 = date_format(date_create($periode2), 'd-m-Y');
 
-$isi=$isi.'<h3>Pendapatan</h3><table class="table table-bordered table-hover">';
+// nama unit
+$sql1 = "SELECT * FROM tb_unit WHERE id_unit = '$unit'";
+$query1 = mysqli_query($mysqli,$sql1);
+$data1 = mysqli_fetch_array($query1);
 
-$kreditall=0;
-$query      = $sql1;
+// Heading / Judul
+$html = "<center><span style='font-size: 1.5rem; font-weight: bold;'>Laporan Laba Rugi ".$data1['nama_unit']."</span></center>";
+$html .= "<center><span>Periode ".$per1." S/d ".$per2."</span></center>";
+$html .="<br>";
 
-$resultz     = $mysqli->query($query);
-$num_resultz = $resultz->num_rows;
-if ($num_resultz > 0) {
+// field name table 1
+$sql1 = "SELECT * FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun) WHERE tb_akun.kode_akun LIKE '4%' AND id_unit='$unit' AND (tanggal BETWEEN '$periode1' AND '$periode2')";
+$query1 = mysqli_query($mysqli, $sql1);
 
-	while ($dataz = mysqli_fetch_assoc($resultz)) {
-		$kreditall+=$dataz['kredit'];
-		$isi=$isi.'<tr><td width="10%">'.$dataz['kode_akun'].'</td>';
-		$isi=$isi.'<td width="50%">'.$dataz['nama_akun'].'</td>';
-		$isi=$isi.'<td width="20%">'.number_format($dataz['kredit'],0).'</td></tr>';
-	}}
-	$isi=$isi.'<th colspan="3">Total Pendapatan</th>';
-	$isi=$isi.'<th>'.number_format(($kreditall),0).'</th>';
-	$isi=$isi.'</tbody></table>';
+$html .= "<h5>Pendapatan</h5>";
 
-	$isi=$isi.'<h3>Pengeluaran</h3><table class="table table-bordered table-hover">';
+$kreditall = 0;
+while($data1 = mysqli_fetch_array($query1)){
+    $kreditall += $data1['kredit'];
+    $html .= "<table border='1' width='100%'>
+        <tr>
+            <td width='10%'>".$data1['kode_akun']."</td>
+            <td width='60%'>".$data1['nama_akun']."</td>
+            <td width='30%'>".number_format($data1['kode_akun'],0)."</td>
+        </tr>
+        <tr>
+            <th colspan='3' style='text-align: left;'>Total Pendapatan</th>
+            <th>".number_format($kreditall,0)."</th>
+        </tr>
+    ";
+}
 
-	$debetall=0;
-	$queryz      = $sql2;
-	$resultz     = $mysqli->query($queryz);
-	$num_resultz = $resultz->num_rows;
-	if ($num_resultz > 0) {
+$html .= "</table><br>";
 
-		while ($dataz = mysqli_fetch_assoc($resultz)) {
-			$debetall+=$dataz['debet'];
-			$isi=$isi.'<tr><td width="10%">'.$dataz['kode_akun'].'</td>';
-			$isi=$isi.'<td width="50%">'.$dataz['nama_akun'].'</td>';
-			$isi=$isi.'<td width="20%">'.number_format($dataz['debet'],0).'</td></tr>';
-		}}
-		$isi=$isi.'<tr><th colspan="3">Total Pengeluaran</th>';
-		$isi=$isi.'<th>'.number_format(($debetall),0).'</th></tr>';
-		$isi=$isi.'<tr><th colspan="3">Laba Rugi Berish</th>';
-		$isi=$isi.'<th>'.number_format(($kreditall-$debetall),0).'</th></tr>';
-		$isi=$isi.'</tbody></table>';
+$sql2 = "SELECT * FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun) WHERE tb_akun.kode_akun LIKE '5%' AND id_unit='$unit' AND (tanggal BETWEEN '$periode1' AND '$periode2')";
+$query2 = mysqli_query($mysqli, $sql2);
 
-//		echo $style.$header.$periode.$isi;
+$html .= "<h5>Pengeluaran</h5>";
+$debetall = 0;
+while($data2 = mysqli_fetch_array($query2)){
+    $debetall += $data1['debet'];
+    $html .= "<table border='1' width='100%'>
+        <tr>
+            <td width='10%'>".$data1['kode_akun']."</td>
+            <td width='60%'>".$data1['nama_akun']."</td>
+            <td width='30%'>".number_format($data1['kode_akun'],0)."</td>
+        </tr>
+        <tr>
+            <th colspan='3' style='text-align: left;'>Total Pengeluaran</th>
+            <th>".number_format($debetall,0)."</th>
+        </tr>
+        <tr>
+            <th colspan='3' style='text-align: left;'>Laba Rugi Bersih</th>
+            <th>".number_format($kreditall-$debetall,0)."</th>
+        </tr>
+    ";
+}
 
-// instantiate and use the dompdf class
-		$dompdf = new Dompdf();
-		$dompdf->loadHtml($style.$header.$periode.$isi);
+$html .= "</table><br>";
 
-// (Optional) Setup the paper size and orientation
-		$dompdf->setPaper('A4', 'landscape');
-
-// Render the HTML as PDF
-		$dompdf->render();
-
-// Output the generated PDF to Browser
-		$filename = "Laporan_Laba_Rugi_".date("Y-m-d_H-i-s");
-$dompdf->stream($filename);
-		?>
+$html .="</html>";
+$dompdf->loadHtml($html);
+$dompdf->setPaper('A4','potrait');
+$dompdf->render();
+$dompdf->stream('test3.php', array('Attachment'=>0));
+?>

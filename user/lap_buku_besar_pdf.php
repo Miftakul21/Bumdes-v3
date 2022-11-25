@@ -1,79 +1,76 @@
-<?php
-//error_reporting(0);
-session_start();
-// include autoloader
-require_once '../setting/crud.php';
-require_once '../setting/koneksi.php';
-require_once '../setting/tanggal.php';
-require_once '../setting/fungsi.php';
-
-require_once '../dompdf/autoload.inc.php';
-require_once '../dompdf/style.php';
+<?php 
+require_once "../setting/koneksi.php";
+require_once "../dompdf/vendor/autoload.php";
 
 use Dompdf\Dompdf;
 
-$style=f_bootsrap();
-$judul=$_SESSION['laporan']['judul'];
-$periode=$_SESSION['laporan']['periode'];
-$unit=$_SESSION['laporan']['unit'];
-$akun=$_SESSION['laporan']['akun'];
-$sql=$_SESSION['laporan']['sql'];
+$dompdf = new Dompdf();
 
-$header='<h1 align="center" style="margin:0px">'.$judul.'</h1>';
-$header=$header.'<h4 align="center" style="margin:0px"> Unit : '.$unit.' </h4>';
-$header=$header.'<h4 align="center" style="margin:0px"> Akun : '.$akun.' </h4>';
-$periode='<p align="center" style="margin:0px"> Periode : '.$periode.'</p><h1>';
+// komponen
+$kode = $_GET['akun'];
+$unit = $_GET['unit'];
+$periode1 = $_GET['periode1'];
+$periode2 = $_GET['periode2'];
 
-$isi='<table class="table table-bordered table-hover">
-	    <thead>
-	      <tr>
-	        <th>No Transaksi</th>
+$per1 = date_format(date_create($periode1), "d-m-Y");
+$per2 = date_format(date_create($periode2), "d-m-Y");
+
+// nama unit
+$sql1 = "SELECT * FROM tb_unit WHERE id_unit = '$unit'";
+$query1 = mysqli_query($mysqli, $sql1);
+$data1 = mysqli_fetch_array($query1);
+
+$sql2 = "";
+if($kode == "Semua") {
+    $sql2 = "SELECT * FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) WHERE id_unit = '$unit' 
+            AND (tanggal BETWEEN '$periode1' AND '$periode2')";
+} else {   
+    $sql2 = "SELECT * FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) WHERE id_unit = '$unit' AND 
+            kode_akun = '$kode' AND (tanggal BETWEEN '$periode1' AND '$periode2')";
+}
+
+// nama akun
+$nama = $_GET['nama_akun'];
+
+$query2 = mysqli_query($mysqli, $sql2);
+// Heading
+$html = "<center><span style='font-size: 1.5rem; font-weight: bold;'>Laporan Buku Besar ".$data1['nama_unit']."</span></center>";
+$html .= "<center><span>Periode ".$per1." S/d ".$per2."</span></center>";
+$html .= "<center><span>Jenis Akun : ".$nama."</span></center>";
+$html .= "<br>";
+
+// nama filed tabel
+$html .= "<table border='1' width='100%'>
+        <tr>
+            <th>No Transaksi</th>
             <th>Tanggal</th>
             <th>Keterangan Transaksi</th>
             <th>Debet</th>
             <th>Kredit</th>
             <th>Saldo</th>
-	      </tr>
-	    </thead>
-    <tbody>';
+        </tr>
+";
 
-      $saldo=0;
-	  $query      = $sql;
-	  $result     = $mysqli->query($query);
-	  $num_result = $result->num_rows;
-	  if ($num_result > 0) {
+$saldo = 0;
+while($data2 = mysqli_fetch_array($query2)){
+    $saldo += $data2['debet'];
+    $saldo -= $data2['kredit'];
+    $tanggal = date_format(date_create($data2['tanggal']), 'd-m-Y');
 
-	    while ($data = mysqli_fetch_assoc($result)) {
-	      extract($data);
-	      $saldo+=$debet;
-	      $saldo-=$kredit;
+    $html .= "<tr>
+            <td>".$data2['id_transaksi']."</td>
+            <td>".$tanggal."</td>
+            <td>".$data2['keterangan_transaksi']."</td>
+            <td>".number_format($data2['debet'],0)."</td>
+            <td>".number_format($data2['kredit'],0)."</td>
+            <td>".number_format($saldo,0)."</td>
+    </tr>";
+}
 
-	      	$isi=$isi.'<tr>';
-	       	$isi=$isi.'<td>'.$id_transaksi.'</td>';
-	        $isi=$isi.'<td>'.tgl_indo($tanggal).'</td>';
-	        $isi=$isi.'<td>'.$keterangan.'</td>';
-	        $isi=$isi.'<td>'.number_format($debet,0).'</td>';
-	        $isi=$isi.'<td>'.number_format($kredit,0).'</td>';
-	        $isi=$isi.'<th>'.number_format($saldo,0).'</th>';
-	      	$isi=$isi.'</tr>';
-	    }
-	}
+$html .= "</table>";
 
-$isi=$isi.'</tbody></table>';
-
-//echo $style.$header.$periode.$isi;
-
-// instantiate and use the dompdf class
-$dompdf = new Dompdf();
-$dompdf->loadHtml($style.$header.$periode.$isi);
-
-// (Optional) Setup the paper size and orientation
-$dompdf->setPaper('A4', 'landscape');
-
-// Render the HTML as PDF
+$dompdf->loadHtml($html);
+$dompdf->setPaper('A4', 'potrait');
 $dompdf->render();
-
-// Output the generated PDF to Browser
-$filename = "Laporan_Jurnal_Umum_".date("Y-m-d_H-i-s");
-$dompdf->stream($filename);
+$dompdf->stream('test3.php', array('Attachment'=>0));
 ?>

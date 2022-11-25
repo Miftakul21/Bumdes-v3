@@ -7,7 +7,6 @@
     </div>
   </div>
 </div>
-
 <section class="content">
   <div class="row">
     <div class="col-12">
@@ -71,7 +70,7 @@
                 <th>Usaha</th>
                 <th>Keterangan</th>
                 <th>Kode Akun</th>
-                <th>Index</th>
+                <th>Sumber Dana</th>
                 <th>Debet</th>
                 <th>Kredit</th>
                 <th>Saldo</th>
@@ -80,7 +79,7 @@
             <tbody>
               <?php
               $saldo=0;
-              $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) $where";
+              $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_index using (id_index) $where";
               $result     = $mysqli->query($query);
               $num_result = $result->num_rows;
               if ($num_result > 0) {
@@ -96,7 +95,7 @@
                     <td><?php echo $nama_kegiatan; ?></td>
                     <td><?php echo $keterangan_transaksi; ?></td>
                     <td><?php echo $kode_akun; ?></td>
-                    <td><?php echo $id_index; ?></td>
+                    <td><?php echo $keterangan; ?></td>
                     <td><?php echo number_format($debet,0); ?></td>
                     <td><?php echo number_format($kredit,0); ?></td>
                     <th><?php echo number_format($saldo,0); ?></th>
@@ -104,17 +103,13 @@
                 <?php }}?>
               </table>
               <?php if(isset($_POST['par1'])){
-                $_SESSION['laporan']['judul']="Laporan Jurnal Umum";
-                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
-                $_SESSION['laporan']['sql']=$query;
-                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'");
-                if($_POST['id_kegiatan']=='Semua')
-                  $_SESSION['laporan']['usaha']='Semua Unit';
-                else
-                  $_SESSION['laporan']['usaha']=caridata($mysqli,"select nama_kegiatan from tb_kegiatan where id_kegiatan='".$_POST['id_kegiatan']."'");
-                  ?>
-                <a href="lap_jurnal_umum_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+                $par1 = $_POST['par1'];
+                $par2 = $_POST['par2'];
 
+                $id_kegiatan = $_POST['id_kegiatan'];
+                $unit=$_SESSION['id'];
+              ?>
+                <a href="lap_jurnal_umum_pdf.php?id_kegiatan=<?= $id_kegiatan; ?>&periode1=<?= $par1 ?>&periode2=<?= $par2?>&unit=<?= $unit ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
               <?php } ?>
             </div>
           </div>

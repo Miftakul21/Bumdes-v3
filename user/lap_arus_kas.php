@@ -7,7 +7,6 @@
     </div>
   </div>
 </div>
-
 <section class="content">
   <div class="row">
     <div class="col-12">
@@ -40,7 +39,7 @@
           </div>
         </form>
         <hr>
-        <?php if(isset($_POST['pariode1'])){
+        <?php if(isset($_POST['par1'])){
           $query      = "SELECT * from tb_index where id_index !=0 order by keterangan asc";
           $result     = $mysqli->query($query);
           $num_result = $result->num_rows;
@@ -61,7 +60,7 @@
                   <?php
                   $debetall=0;
                   $kreditall=0;
-                  $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) where id_index ='$id_index' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+                  $queryz      = "SELECT * FROM tb_transaksi JOIN tb_kegiatan using(id_kegiatan) WHERE id_index ='$id_index' AND id_unit='$id_unit' AND (tanggal BETWEEN '$par1' AND '$par2')";
                   $resultz     = $mysqli->query($queryz);
                   $num_resultz = $result->num_rows;
                   if ($num_result > 0) {
@@ -70,7 +69,7 @@
                       $kreditall+=$dataz['kredit'];
                       ?>
                       <tr>
-                        <td><?php echo $dataz['keterangan']; ?></td>
+                        <td><?php echo $dataz['keterangan_transaksi']; ?></td>
                         <td><?php echo number_format($dataz['debet'],0); ?></td>
                         <td><?php echo number_format($dataz['kredit'],0); ?></td>
                       </tr>
@@ -82,14 +81,13 @@
               <?php } } } ?>
 
               <?php if(isset($_POST['par1'])){
-                $_SESSION['laporan']['judul']="Laporan Arus Kas";
-                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
-                $_SESSION['laporan']['sql']=$query;
-                $_SESSION['laporan']['sql1']=" and id_unit='$id_unit' and (tanggal between '".$_POST['par1']."' and '".$_POST['par2']."')";
-                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_SESSION['id']."'");
+                $par1 = $_POST['par1'];
+                $par2 = $_POST['par2'];
 
-                ?>
-                <a href="lap_arus_kas_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+                $unit = $_SESSION['id'];
+
+              ?>
+                <a href="lap_arus_kas_pdf.php?unit=<?= $unit ?>&periode1=<?= $par1 ?>&periode2=<?= $par2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
               <?php } ?>
             </div>
           </div>

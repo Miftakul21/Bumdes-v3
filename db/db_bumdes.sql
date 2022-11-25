@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Nov 2022 pada 16.28
+-- Waktu pembuatan: 25 Nov 2022 pada 17.02
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.0.19
 
@@ -163,10 +163,7 @@ CREATE TABLE `tb_index` (
 INSERT INTO `tb_index` (`id_index`, `keterangan`) VALUES
 ('1', 'Arus Kas Kegiatan Operasi'),
 ('2', 'Arus Kas kegiatan Investasi'),
-('3', 'Arus Kas Kegiatan Pendanaan'),
-('4', 'Test 1'),
-('5', 'Test 2'),
-('6', 'Test 3');
+('3', 'Arus Kas Kegiatan Pendanaan');
 
 -- --------------------------------------------------------
 
@@ -191,7 +188,8 @@ CREATE TABLE `tb_kas` (
 
 INSERT INTO `tb_kas` (`id_kas`, `tanggal`, `id_transaksi`, `kode_akun`, `sumber`, `keterangan`, `debet`, `kredit`) VALUES
 (5, '2022-02-01', 'T221124-001', '4-111', '1', 'Investasi dana desa', 100000, 0),
-(6, '2022-02-01', 'T221124-001', '1-111', '1', 'pembayaran wifi bulanan', 0, 20000);
+(7, '2022-11-25', 'T221125-001', '4-111', '1', 'Investasi Dana Bumdes', 5000000, 0),
+(8, '2022-11-25', 'T221125-002', '1-111', '1', 'Pemasukan Dana Operasional', 2500000, 0);
 
 -- --------------------------------------------------------
 
@@ -427,7 +425,7 @@ ALTER TABLE `tb_angsuran`
 -- AUTO_INCREMENT untuk tabel `tb_kas`
 --
 ALTER TABLE `tb_kas`
-  MODIFY `id_kas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_kas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_kegiatan`

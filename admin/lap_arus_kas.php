@@ -17,9 +17,7 @@
           <h3 class="card-title primary"> Informasi Arus Kas</h3>
           <div class="card-tools">
           </div>
-
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
           <?php
           $id_unit=$_GET['id'];
@@ -94,17 +92,10 @@
 
                 ?>
                 <a href="lap_arus_kas_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
-
               <?php } ?>
-
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
-    <!-- /.content -->
 

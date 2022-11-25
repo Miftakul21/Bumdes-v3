@@ -21,7 +21,7 @@ if($kode_akun == "semua") {
 
 $query = mysqli_query($mysqli, $sql);
 
-$html = "<center>Laporan Buku Kas Desa<center>";
+$html = "<center><span style='font-size:1.5rem; font-weight: bold;'>Laporan Buku Kas Desa</span><center>";
 $html .= "<center>Periode ".$periode1." S/d ".$periode2."</center>";
 $html .= "<center>Jenis Akun : ".$nama_akun."</center>";
 
@@ -40,10 +40,11 @@ $saldo = 0;
 while($data1 = mysqli_fetch_array($query)) {
     $saldo += $data1['debet'];
     $saldo -= $data1['kredit'];
+    $tanggal = date_format(date_create($data1['tanggal']),'d-m-Y');
     $html .= "
             <tr>
                 <td>".$data1['id_transaksi']."</td>
-                <td>".$data1['tanggal']."</td>
+                <td>".$tanggal."</td>
                 <td>".$data1['keterangan']."</td>
                 <td>".$data1['debet']."</td>
                 <td>".$data1['kredit']."</td>

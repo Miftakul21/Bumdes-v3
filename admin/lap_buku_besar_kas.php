@@ -38,7 +38,8 @@
         <div class="card-body">
             <form role="form" id="quickForm" action="?hal=lap_buku_besar_kas" method="POST">
                 <div class="form-group row">
-                    <label for="nama" class="col-1 m-2">Akun</label>
+                    
+                    <!-- <label for="nama" class="col-1 m-2">Akun</label>
                     <select class="form-control select2 col-3" name="kode_akun">
                         <option value="semua">Semua Akun</option>
                         <?php
@@ -54,7 +55,8 @@
                                 <?php }
                             }        
                         ?>
-                    </select>
+                    </select> -->
+
                     <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
                     <input type="date" name="periode1" class="form-control col-2" value="<?= @$periode1; ?>" required>
                     <input type="date" name="periode2" class="form-control col-2" value="<?= @$periode2; ?>" required>

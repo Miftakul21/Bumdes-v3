@@ -91,11 +91,11 @@
           </tbody>
         </table>
       <?php } ?>
-      <?php if(isset($_POST['par1'])){
+    <?php if(isset($_POST['par1'])){
         $unit = $_SESSION['id'];
         $per1 = $_POST['par1'];
         $per2 = $_POST['par2'];
-      ?>
+    ?>
       <a href="lap_laba_rugi_pdf.php?unit=<?= $unit ?>&periode1=<?= $per1 ?>&periode2=<?= $per2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
     <?php } ?>
   </div>

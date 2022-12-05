@@ -37,31 +37,29 @@
 					<a href="?hal=ind" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
-
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-primary">
 					<div class="inner">
 						<h3>0<?php //JumlahData($mysqli,"tb_akun")?></h3>
 
-						<p>Data Akun</p>
+						<p>Total Pengeluaran Unit</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-book"></i>
 					</div>
-					<a href="?hal=akun" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
-
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-success">
 					<div class="inner">
 						<h3>0<?php //JumlahData($mysqli,"tb_index")?></h3>
-						<p>Data User</p>
+						<p>Total Transaksi Unit</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-book"></i>
 					</div>
-					<a href="?hal=user" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 		</div>

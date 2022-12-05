@@ -7,6 +7,7 @@ if(isset($_POST['tambah'])){
 	$_SESSION['tanggal']=$_POST['tanggal'];
 	$_SESSION['keterangan']=$_POST['keterangan'];
 	$_SESSION['sumber']= $_POST['sumber'];
+
 	$id_index = $_POST['sumber'];
 	$query_kas = mysqli_query($mysqli, "SELECT keterangan FROM tb_index WHERE id_index = '$id_index'");
 	$data = mysqli_fetch_array($query_kas);
@@ -57,7 +58,8 @@ if(isset($_POST['tambah'])){
 	unset($_SESSION['kas']);
 
 	//Notif
-	echo "<script>alert('Transaksi Berhasil Disimpan')</script>";
+	// echo "<script>alert('Transaksi Berhasil Disimpan')</script>";
+	$_SESSION['success'] = "Data Transaksi berhasil Disimpan";
 	echo "<script>window.location='../../index.php?hal=kas';</script>";	
 
 }else if(isset($_GET['hapusdb'])){

@@ -106,20 +106,14 @@
                   </tr>
                 <?php }}?>
               </table>
-              <?php if(isset($_POST['par1'])){
+                <?php if(isset($_POST['par1'])){
                 $par1 = $_POST['par1'];
                 $par2 = $_POST['par2'];
 
                 $id_kegiatan = $_POST['id_kegiatan'];
-                
-                // Usaha Unit Atau Kegaitan
-                $kode_akun1 = isset($_POST['kode_akun']) ? $_POST['kode_akun'] : "";
-                $queryz = mysqli_query($mysqli, "SELECT * FROM tb_akun WHERE kode_akun = '$kode_akun1'");
-                $dataz = mysqli_fetch_array($queryz);                
-                $nama_akun = isset($dataz['nama_akun']) ? $dataz['nama_akun']: "Semua";
-                $resultz = ($kode_akun == "semua") ? "Semua" : $nama_akun;
+                $unit=$id_unit;
               ?>
-                <a href="lap_jurnal_umum_pdf.php?id_kegiatan=<?= $id_kegiatan; ?>&periode1=<?= $par1 ?>&periode2=<?= $par2?>&usaha=<?= $resultz ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+                <a href="lap_jurnal_umum_pdf.php?id_kegiatan=<?= $id_kegiatan; ?>&periode1=<?= $par1 ?>&periode2=<?= $par2?>&unit=<?= $unit ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
               <?php } ?>
             </div>
           </div>

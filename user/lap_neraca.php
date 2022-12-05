@@ -127,7 +127,6 @@
     ?>
     <a href="lap_neraca_pdf.php?unit=<?= $unit ?>&periode1=<?= $periode1 ?>&periode2=<?= $periode2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
   <?php } ?>
-
 </div>
 </div>
 </div>

@@ -14,6 +14,32 @@
 </div>
 
 <section class="content">
+    <?php  
+        if(isset($_SESSION['success'])) {
+    ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><?= $_SESSION['success']; ?></strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    <?php 
+            unset($_SESSION['success']);
+        }  
+    ?>
+    <?php  
+        if(isset($_SESSION['gagal'])) {
+    ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><?= $_SESSION['gagal']; ?></strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    <?php 
+            unset($_SESSION['gagal']);
+        }  
+    ?>
     <div class="row">
     <div class="col-12">
         <div class="card card-primary">

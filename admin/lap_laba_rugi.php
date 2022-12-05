@@ -1,4 +1,4 @@
-<!-- Content Header (Page header) -->
+
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -22,13 +22,13 @@
         <div class="card-body">
           <?php
           $id_unit=$_GET['id'];
-          if(isset($_POST['par1'])){
-           $par1=$_POST['par1'];
-           $par2=$_POST['par2'];
-         }else{
-          $par1="";
-          $par2="";
-        }
+            if(isset($_POST['par1'])){
+            $par1=$_POST['par1'];
+            $par2=$_POST['par2'];
+          }else{
+            $par1="";
+            $par2="";
+          }
         ?>
         <form role="form" id="quickForm" action="?hal=lap_laba_rugi&id=<?=$id_unit?>" method="post">
           <div class="form-group row">
@@ -93,33 +93,23 @@
              <th><?=number_format(($debetall),0)?></th>
            </tr>
            <tr>
-             <th colspan="3">Laba Rugi Berish</th>
+             <th colspan="3">Laba Rugi Bersih</th>
              <th><?=number_format(($kreditall-$debetall),0)?></th>
            </tr>
          </tbody>
        </table>
      <?php } ?>
 
-     <?php if(isset($_POST['par1'])){
-      $_SESSION['laporan']['judul']="Laporan Laba Rugi";
-      $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
-      $_SESSION['laporan']['sql1']=$query;
-      $_SESSION['laporan']['sql2']=$queryz;
-      $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
-
-      ?>
-      <a href="lap_laba_rugi_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
-
+    <?php if(isset($_POST['par1'])){
+        $unit = $id_unit;
+        $per1 = $_POST['par1'];
+        $per2 = $_POST['par2'];
+    ?>
+      <a href="lap_laba_rugi_pdf.php?unit=<?= $unit ?>&periode1=<?= $per1 ?>&periode2=<?= $per2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
     <?php } ?>
-
   </div>
-  <!-- /.card-body -->
 </div>
-<!-- /.card -->
 </div>
-<!-- /.col -->
 </div>
-<!-- /.row -->
 </section>
-<!-- /.content -->
 

@@ -82,12 +82,10 @@ if(isset($_SESSION['level_user'])=='Admin' || isset($_SESSION['level_user'])=='B
 
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <a href="#" class="brand-link text-center">
       <span class="brand-text font-gradient-light">BUMDES MAJU MAKMUR</span>
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -97,11 +95,9 @@ if(isset($_SESSION['level_user'])=='Admin' || isset($_SESSION['level_user'])=='B
     </div>
   </aside>
 
-
   <div class="content-wrapper">
       <?php require_once 'layout/sidebar.php'; ?>
   </div>
-
 <?php
   require_once 'layout/footer.php'; 
   require_once 'layout/bottom.php';

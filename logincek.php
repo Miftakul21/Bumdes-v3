@@ -26,6 +26,7 @@ if(strlen($password) < 8) {
 				echo "<script>window.location='admin/index.php'</script>";
 				break;
 			case 'Kepala Desa':
+				$_SESSION['id'] = $data['id_unit'];
 				$_SESSION['nama'] = $data['nama'];
 				$_SESSION['level_user'] = $data['level_user'];
 				echo "<script>window.location='admin/index.php'</script>";

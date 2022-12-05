@@ -7,7 +7,6 @@
     </div>
   </div>
 </div>
-
 <section class="content">
   <div class="row">
     <div class="col-12">
@@ -125,16 +124,13 @@
      </table>
    <?php } ?>
 
-   <?php if(isset($_POST['par1'])){
-          
-    $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
-    $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
-
+  <?php if(isset($_POST['par1'])){
+      $unit = $id_unit;
+      $periode1 = $_POST['par1'];
+      $periode2 = $_POST['par2'];
     ?>
-    <a href="lap_neraca_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
-
+    <a href="lap_neraca_pdf.php?unit=<?= $unit ?>&periode1=<?= $periode1 ?>&periode2=<?= $periode2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
   <?php } ?>
-
 </div>
 </div>
 </div>

@@ -1,4 +1,3 @@
-<!-- Content Header (Page header) -->
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -19,15 +18,15 @@
           </div>
         </div>
         <div class="card-body">
-          <?php
+        <?php
           $id_unit=$_GET['id'];
           if(isset($_POST['par1'])){
-           $par1=$_POST['par1'];
-           $par2=$_POST['par2'];
-         }else{
-          $par1="";
-          $par2="";
-        }
+            $par1=$_POST['par1'];
+            $par2=$_POST['par2'];
+          }else{
+            $par1="";
+            $par2="";
+          }
         ?>
         <form role="form" id="quickForm" action="?hal=lap_arus_kas&id=<?=$id_unit?>" method="post">
           <div class="form-group row">
@@ -84,14 +83,13 @@
               <?php } } } ?>
 
               <?php if(isset($_POST['par1'])){
-                $_SESSION['laporan']['judul']="Laporan Arus Kas";
-                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
-                $_SESSION['laporan']['sql']=$query;
-                $_SESSION['laporan']['sql1']=" and id_unit='$id_unit' and (tanggal between '".$_POST['par1']."' and '".$_POST['par2']."')";
-                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
+                $par1 = $_POST['par1'];
+                $par2 = $_POST['par2'];
 
-                ?>
-                <a href="lap_arus_kas_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+                $unit = $id_unit;
+
+              ?>
+                <a href="lap_arus_kas_pdf.php?unit=<?= $unit ?>&periode1=<?= $par1 ?>&periode2=<?= $par2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
               <?php } ?>
             </div>
           </div>

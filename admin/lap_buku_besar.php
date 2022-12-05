@@ -95,20 +95,22 @@
                   </tr>
                 <?php }}?>
               </table>
-
               <?php if(isset($_POST['par1'])){
-                $_SESSION['laporan']['judul']="Laporan Buku Besar";
-                $_SESSION['laporan']['periode'] =tgl_indo($_POST['par1'])." S/d ".tgl_indo($_POST['par2']);
-                $_SESSION['laporan']['sql']=$query;
-                $_SESSION['laporan']['unit']=caridata($mysqli,"select nama_unit from tb_unit where id_unit='".$_GET['id']."'");
-                if($_POST['id_akun']=='Semua')
-                  $_SESSION['laporan']['akun']='Semua Akun';
-                else
-                  $_SESSION['laporan']['akun']=caridata($mysqli,"select nama_akun from tb_akun where kode_akun='".$_POST['id_akun']."'");
+                $par1 = $_POST['par1'];
+                $par2 = $_POST['par2'];
 
-                ?>
-                <a href="lap_buku_besar_pdf.php" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+                $kode_akun = $_POST['id_akun'];
+                $unit=$id_unit;
 
+                $kode_akun1 = isset($_POST['id_akun']) ? $_POST['id_akun'] : "";
+                $queryz = mysqli_query($mysqli, "SELECT * FROM tb_akun WHERE kode_akun = '$kode_akun1'");
+                $dataz = mysqli_fetch_array($queryz);
+                $nama_akun = isset($dataz['nama_akun']) ? $dataz['nama_akun']: "Semua";
+
+                $resultz = ($kode_akun == "semua") ? "Semua" : $nama_akun;
+
+              ?>
+                <a href="lap_buku_besar_pdf.php?akun=<?= $kode_akun; ?>&periode1=<?= $par1 ?>&periode2=<?= $par2?>&unit=<?= $unit ?>&nama_akun=<?= $resultz ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
               <?php } ?>
             </div>
           </div>

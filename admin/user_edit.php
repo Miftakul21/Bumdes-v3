@@ -38,7 +38,6 @@ if (isset($_GET['id'])){
                 <select class="form-control select2" name="level_user">
                   <option value="Kepala Desa" <?=isselect("Kepala Desa",@$level_admin)?>>Kepala Desa</option>
                   <option value="Bendahara" <?=isselect("Bendahara",@$level_admin);?>>Bendahara</option>
-                  <option value="Sekertaris" <?=isselect("Sekertaris",@$level_admin)?>>Sekertaris</option>
                   <option value="Ketua" <?=isselect("Ketua",@$level_admin)?>>Ketua</option>
                 </select>
               </div>

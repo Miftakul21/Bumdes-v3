@@ -1,5 +1,6 @@
 <?php
 require_once '../../../setting/koneksi.php';
+session_start();
 
 $id_kas = $_POST['id_kas'];
 $tanggal = $_POST['tanggal'];
@@ -14,10 +15,10 @@ $stmt = $mysqli->prepare("UPDATE tb_kas SET tanggal=?, id_transaksi=?, sumber=?,
 $stmt->bind_param("sssssdds", $tanggal, $id_transaksi, $sumber, $kode_akun, $keterangan, $debet, $kredit, $id_kas);
 
 if($stmt->execute()) {
-    echo "<script>alert('Data kas Berhasil Diubah!')</script>";
+    $_SESSION['success'] = 'Data kas Berhasil DiUbah!';
     echo "<script>window.location='../../index.php?hal=kas'</script>";
 } else {
-    echo "<script>alert('Data kas Gagal Diubah!')</script>";
+    $_SESSION['success'] = 'Data kas Gagal DiUbah!';
     echo "<script>window.location='javascript:history.go(-1)'</script>";
 }
 

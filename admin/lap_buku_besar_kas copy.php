@@ -16,18 +16,18 @@
         </div>
         <div class="card-body">
             <form role="form" id="quickForm" action="?hal=lap_buku_besar_kas" method="POST">
+                <?php 
+                    $per1 = isset($_POST['periode1']) ? $_POST['periode1'] : '';
+                    $per2 = isset($_POST['periode2']) ? $_POST['periode2'] : '';
+                ?>
                 <div class="form-group row">
                     <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
-                    <input type="date" name="periode1" class="form-control col-2" value="<?= @$periode1; ?>" required>
-                    <input type="date" name="periode2" class="form-control col-2" value="<?= @$periode2; ?>" required>
+                    <input type="date" name="periode1" class="form-control col-2" value="<?= @$per1; ?>" required>
+                    <input type="date" name="periode2" class="form-control col-2" value="<?= @$per2; ?>" required>
                     <div class="col-1">
                         <input type="submit" name="proses" class="btn btn-primary" style="float: right" value="Proses">
                     </div>
                     <div class="col-2 offset-2">
-                        <?php 
-                            $per1 = isset($_POST['periode1']) ? $_POST['periode1'] : '';
-                            $per2 = isset($_POST['periode2']) ? $_POST['periode2'] : '';
-                        ?>
                         <a href="export_buku_besar_kas.php?per1=<?= $per1; ?>&per2=<?= $per2; ?>" class="btn btn-success">Export Excel</a>
                     </div>
                 </div>
@@ -49,11 +49,19 @@
                         extract($data);                                
             ?> 
                 <table class="table table-bordered table-hover">
-                    <div class="d-flex mt-3 mb-3" style="font-weight: bold; font-size: 1rem;">
-                        <span class="fw-bold"><?= $kode_akun ?></span>
-                        <span class="fw-bold ml-2"><?= $nama_akun ?></span>
-                    </div>
                     <thead>
+                        <tr>
+                            <th><?= $kode_akun; ?></th>
+                            <th><?= $nama_akun; ?></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead> 
+                    <tbody>
                             <tr>
                                 <th>Tanggal</th>
                                 <th>No. Transaksi</th>
@@ -64,8 +72,6 @@
                                 <th>Kredit</th>
                                 <th>Saldo</>
                             </tr>
-                    </thead> 
-                    <tbody>
                         <?php
                             $debet = 0;
                             $kredit = 0;
@@ -106,11 +112,6 @@
                     </tbody>
                 </table>
             <?php } } ?>
-
-
-
-
-
         </div>
       </div>
     </div>

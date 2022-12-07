@@ -1,5 +1,6 @@
 <?php 
 require_once '../../../setting/koneksi.php';
+session_start();
 
 $stmt = $mysqli->prepare("UPDATE tb_akun  SET 
         nama_akun=?
@@ -9,10 +10,10 @@ $stmt->bind_param("ss",
 	$_POST['kode_akun']);	
 
 if ($stmt->execute()) { 
-	echo "<script>alert('Data akun Berhasil Diubah')</script>";
+	$_SESSION['success'] = 'Data akun Berhasil Diubah';
 	echo "<script>window.location='../../index.php?hal=akun';</script>";	
 } else {
-	echo "<script>alert('Data akun Gagal Diubah')</script>";
+	$_SESSION['gagal'] = 'Data akun Gagal Diubah';
 	echo "<script>window.location='javascript:history.go(-1)';</script>";
 }
 ?>

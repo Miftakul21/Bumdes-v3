@@ -10,15 +10,15 @@ if(!$hal){
         case $hal:
         if(is_file($modul.$hal.".php"))
         {
-        require_once $modul.$hal.".php";
+            require_once $modul.$hal.".php";
         }
         else
         {
-        require_once "$default";
+            require_once "$default";
         }
         break;
         default:
-        require_once "$default";
+            require_once "$default";
     }
 }
 ?>  

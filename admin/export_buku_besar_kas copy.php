@@ -40,8 +40,8 @@ require_once "../setting/tanggal.php";
                 <table class="table table-bordered table-hover" id="id_table">
                     <thead>
                             <tr>
-                                <th><?= $kode_akun ?></th>
-                                <th><?= $nama_akun ?></th>
+                                <th><?php echo $kode_akun ?></th>
+                                <th><?php echo $nama_akun ?></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -49,8 +49,8 @@ require_once "../setting/tanggal.php";
                                 <th></th>
                                 <th></th>
                             </tr>
-                    </thead>
-                    <thead>
+                    </thead> 
+                    <tbody>
                             <tr>
                                 <th>Tanggal</th>
                                 <th>No. Transaksi</th>
@@ -61,8 +61,6 @@ require_once "../setting/tanggal.php";
                                 <th>Kredit</th>
                                 <th>Saldo</th>
                             </tr>
-                    </thead> 
-                    <tbody>
                         <?php
                             $debet = 0;
                             $kredit = 0;
@@ -90,14 +88,14 @@ require_once "../setting/tanggal.php";
                         ?>
 
                             <tr>
-                                <td><?= tgl_indo($tanggal); ?></td>                            
-                                <td><?= $id_transaksi; ?></td>                            
-                                <td><?= $kode_akun; ?></td>                            
-                                <td><?= $sumber; ?></td>                            
-                                <td><?= $keterangan; ?></td>                            
-                                <td><?= $debet; ?></td>                            
-                                <td><?= $kredit; ?></td>                            
-                                <td><?= number_format(10,0); ?></td>                            
+                                <td><?php echo tgl_indo($tanggal); ?></td>                            
+                                <td><?php echo $id_transaksi; ?></td>                            
+                                <td><?php echo $kode_akun; ?></td>                            
+                                <td><?php echo $sumber; ?></td>                            
+                                <td><?php echo $keterangan; ?></td>                            
+                                <td><?php echo $debet; ?></td>                            
+                                <td><?php echo $kredit; ?></td>                            
+                                <td><?php echo number_format(10,0); ?></td>                            
                             </tr>
 
                         <?php 

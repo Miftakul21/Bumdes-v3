@@ -28,12 +28,12 @@ $html .= "<center>Jenis Akun : ".$nama_akun."</center><br>";
 // nama field tabel
 $html .= "<table border='1' width='100%'>
         <tr>
-            <th>No Transaksi</th>
-            <th>Tanggal</th>
-            <th>Keterangan Transaksi</th>
-            <th>Debet</th>
-            <th>Kredit</th>
-            <th>Saldo</th>
+            <th style='padding: 10px;'>No Transaksi</th>
+            <th style='padding: 10px;'>Tanggal</th>
+            <th style='padding: 10px;'>Keterangan Transaksi</th>
+            <th style='padding: 10px;'>Debet</th>
+            <th style='padding: 10px;'>Kredit</th>
+            <th style='padding: 10px;'>Saldo</th>
         </tr>";
 
 $saldo = 0;
@@ -43,12 +43,12 @@ while($data1 = mysqli_fetch_array($query)) {
     $tanggal = date_format(date_create($data1['tanggal']),'d-m-Y');
     $html .= "
             <tr>
-                <td>".$data1['id_transaksi']."</td>
-                <td>".$tanggal."</td>
-                <td>".$data1['keterangan']."</td>
-                <td>".$data1['debet']."</td>
-                <td>".$data1['kredit']."</td>
-                <td>".$saldo."</td>
+                <td style='padding: 5px;'>".$data1['id_transaksi']."</td>
+                <td style='padding: 5px;'>".$tanggal."</td>
+                <td style='padding: 5px;'>".$data1['keterangan']."</td>
+                <td style='padding: 5px;'>".$data1['debet']."</td>
+                <td style='padding: 5px;'>".$data1['kredit']."</td>
+                <td style='padding: 5px;'>".$saldo."</td>
             </tr>
     ";
 }

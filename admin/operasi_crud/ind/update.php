@@ -9,10 +9,10 @@ $stmt->bind_param("ss",
 	$_POST['id_index']);	
 
 if ($stmt->execute()) { 
-    echo "<script>alert('Data index Berhasil Diubah')</script>";
+	$_SESSION['success'] = 'Data sumber Dana Berhasil DiUbah';
 	echo "<script>window.location='../../index.php?hal=ind';</script>";	
 } else {
-	echo "<script>alert('Data index Gagal Diubah')</script>";
+	$_SESSION['success'] = 'Data sumber Dana Gagal DiUbah';
 	echo "<script>window.location='javascript:history.go(-1)';</script>";
 }
 ?>

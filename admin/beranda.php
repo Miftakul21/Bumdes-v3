@@ -1,3 +1,36 @@
+<?php 
+$bulan1 = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
+$tahun = date('Y');
+$bln = date('m');
+
+for($bulan = 1; $bulan<13; $bulan++){
+	$query = mysqli_query($mysqli, "SELECT SUM(debet) AS debet FROM tb_kas WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
+	$row = mysqli_fetch_array($query);
+	$debet[] = isset($row['debet']) ? $row['debet'] : 0;
+}
+
+for($bulan2 = 1; $bulan2<13; $bulan2++){
+	$query = mysqli_query($mysqli, "SELECT SUM(kredit) AS kredit FROM tb_kas WHERE MONTH(tanggal) = '$bulan2' AND YEAR(tanggal) = '$tahun'");
+	$row = mysqli_fetch_array($query);
+	$kredit[] = isset($row['kredit']) ? $row['kredit'] : 0;
+}
+
+// unit 
+$queryz = mysqli_query($mysqli, "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON 	a.id_kegiatan = b.id_kegiatan 
+						JOIN tb_unit AS c ON b.id_unit = c.id_unit GROUP BY c.id_unit ASC");
+// Penghasialan
+$queryz2 = mysqli_query($mysqli, "SELECT *, SUM(debet) AS penghasilan FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON 	a.id_kegiatan = b.id_kegiatan 
+						JOIN tb_unit AS c ON b.id_unit = c.id_unit GROUP BY c.id_unit ASC");
+
+// Data Desa
+$total_pendapatan_desa = mysqli_query($mysqli, "SELECT SUM(debet) AS total_pendapatan FROM tb_kas WHERE MONTH(tanggal) = '$bln'");
+$data1 = mysqli_fetch_array($total_pendapatan_desa);
+$hasil1 = isset($data1['total_pendapatan']) ? $data1['total_pendapatan'] : 0;
+
+$total_pengeluaran_desa = mysqli_query($mysqli, "SELECT SUM(kredit) AS total_pengeluaran FROM tb_kas WHERE MONTH(tanggal) = '$bln'");
+$data2 = mysqli_fetch_array($total_pengeluaran_desa);
+$hasil2 = isset($data2['total_pengeluaran']) ? $data2['total_pengeluaran'] : 0;
+?>
 
 <div class="content-header">
 	<div class="container-fluid">
@@ -15,7 +48,7 @@
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-info">
 					<div class="inner">
-						<h3>0<?php //JumlahData($mysqli,"tb_unit")?></h3>
+						<h3><?=JumlahData($mysqli,"tb_index")?></h3>
 						<p>Unit Usaha</p>
 					</div>
 					<div class="icon">
@@ -28,8 +61,8 @@
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-warning">
 					<div class="inner">
-						<h3>0<?php //JumlahData($mysqli,"tb_index")?></h3>
-						<p>Data Index</p>
+						<h3><?=JumlahData($mysqli,"tb_index")?></h3>
+						<p>Data Sumber Dana</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-book"></i>
@@ -40,9 +73,8 @@
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-primary">
 					<div class="inner">
-						<h3>0<?php //JumlahData($mysqli,"tb_akun")?></h3>
-
-						<p>Total Pengeluaran Unit</p>
+						<h3>Rp. <?= number_format($hasil1,0); ?></h3>
+						<p>Pendapatan Desa Perbulan</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-book"></i>
@@ -53,8 +85,8 @@
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-success">
 					<div class="inner">
-						<h3>0<?php //JumlahData($mysqli,"tb_index")?></h3>
-						<p>Total Transaksi Unit</p>
+						<h3>Rp. <?= number_format($hasil2,0); ?></h3>
+						<p>Pengeluaran Desa Perbulan</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-book"></i>
@@ -65,15 +97,45 @@
 		</div>
 	</section>
 
+		<div class="container-fluid">
+		<div class="row">
+			<div class="col-8">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<div class="d-flex justify-content-between">
+							<h6 id="test" class="m-0 font-weight-bold ">Grafik Keuangan Desa</h6>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myAreaChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<div class="col-4">
+			<div class="card shadow mb-4">
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold">Pendapatan Unit</h6>
+			</div>
+			<div class="card-body">
+				<div class="chart-pie">
+					<canvas id="myPieChart"></canvas>
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
 <?php }else{ ?>
 	<section class="content">
 		<div class="row">
 			<div class="col-lg-3 col-6">
-				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
 						<h3><?=JumlahData($mysqli,"tb_unit")?></h3>
-
 						<p>Unit Usaha</p>
 					</div>
 					<div class="icon">
@@ -82,9 +144,7 @@
 					<a href="#" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
-			<!-- ./col -->
 			<div class="col-lg-3 col-6">
-				<!-- small box -->
 				<div class="small-box bg-warning">
 					<div class="inner">
 						<h3><?=JumlahData($mysqli,"tb_index")?></h3>
@@ -112,7 +172,6 @@
 			</div>
 
 			<div class="col-lg-3 col-6">
-				<!-- small box -->
 				<div class="small-box bg-success">
 					<div class="inner">
 						<h3><?=JumlahData($mysqli,"tb_user")?></h3>
@@ -126,4 +185,96 @@
 			</div>
 		</div>
 	</section>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-8">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<div class="d-flex justify-content-between">
+							<h6 id="test" class="m-0 font-weight-bold ">Grafik Keuangan Desa</h6>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myAreaChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<div class="col-4">
+			<div class="card shadow mb-4">
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold">Pendapatan Unit</h6>
+			</div>
+			<div class="card-body">
+				<div class="chart-pie">
+					<canvas id="myPieChart"></canvas>
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+
 	<?php } ?>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		let ctx = document.getElementById('myAreaChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: <?php echo json_encode($bulan1); ?>,
+				datasets: [
+					{
+						label: 'Pendapatan Desa',
+						data: <?php echo json_encode($debet); ?>,
+						borderWidth: 1
+					},
+					{
+						label: 'Pendapatan Desa',
+						data: <?php echo json_encode($kredit); ?>,
+						borderWidth: 1
+					},					
+				]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				},
+				responsive: true
+			}
+		});
+		
+		let ctx2 = document.getElementById('myPieChart').getContext('2d');
+		let myChart2 = new Chart(ctx2, {
+			type:'pie',
+			data: {
+				labels: [<?php while($dataz3 = mysqli_fetch_array($queryz)) { echo '"'.$dataz3['nama_unit'].'",'; } ?>],
+				datasets: [
+					{
+						label: 'Pendapatan Unit Usaha',
+						data: [<?php while($dataz4 = mysqli_fetch_array($queryz2)) { echo '"'.$dataz4['penghasilan'].'",';} ?> ],
+						backgroundColor: [
+							'#29B0D0',
+							'#2A516E',
+							'#F07124',
+							'#CBE0E3',
+							'#979193'
+						]
+
+					}
+				]
+			},
+			options: {responsive: true}
+		});
+
+
+
+	</script>

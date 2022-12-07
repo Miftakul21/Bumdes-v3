@@ -40,9 +40,9 @@ $html .= "<br>";
 $html .= "<h4 style='font-weight: bold;'>Aktiva Lancar</h4>";
 $html .= "<table border='1' width='100%'>
     <tr>
-        <th>Kode Akun<</th>
-        <th>Nama Akun<</th>
-        <th>#<</th>
+        <th style='padding:5px'>Kode Akun<</th>
+        <th style='padding:5px'>Nama Akun<</th>
+        <th style='padding:5px'>#<</th>
     </tr>
 ";
 
@@ -53,13 +53,13 @@ while($data1 = mysqli_fetch_array($query1)) {
 
     $html .= "
         <tr>
-            <td width='20%'>".$data1['kode_akun']."</td>
-            <td width='50%'>".$data1['nama_akun']."</td>
-            <td width='30%'>".number_format($data1['debet'],0)."</td>
+            <td width='20%' style='padding: 5px;'>".$data1['kode_akun']."</td>
+            <td width='50%' style='padding: 5px;'>".$data1['nama_akun']."</td>
+            <td width='30%' style='padding: 5px;'>".number_format($data1['debet'],0)."</td>
         </tr>
         <tr>
-            <th colspan='2' style='text-align: left;'>Total</th>
-            <th style='text-align:left;'>".number_format($cek,0)."</th>
+            <th colspan='2' style='text-align: left; padding: 5px;'>Total</th>
+            <th style='text-align:left; padding: 5px;'>".number_format($cek,0)."</th>
         </tr>
     ";
 }
@@ -71,9 +71,9 @@ $html .= "<br>";
 $html .= "<h4 style='font-weight: bold;'>Aktiva Tetap</h4>";
 $html .= "<table border='1' width='100%'>
     <tr>
-        <th>Kode Akun<</th>
-        <th>Nama Akun<</th>
-        <th>#<</th>
+        <th style='padding: 5px;'>Kode Akun<</th>
+        <th style='padding: 5px;'>Nama Akun<</th>
+        <th style='padding: 5px;'>#<</th>
     </tr>
 ";
 
@@ -84,13 +84,13 @@ while($data2 = mysqli_fetch_array($query2)) {
 
     $html .= "
         <tr>
-            <td width='20%'>".$data2['kode_akun']."</td>
-            <td width='50%'>".$data2['nama_akun']."</td>
-            <td width='30%'>".number_format($data2['debet'],0)."</td>
+            <td width='20%' style='padding: 5px;'>".$data2['kode_akun']."</td>
+            <td width='50%' style='padding: 5px;'>".$data2['nama_akun']."</td>
+            <td width='30%' style='padding: 5px;'>".number_format($data2['debet'],0)."</td>
         </tr>
         <tr>
-            <th colspan='2' style='text-align: left;'>Total</th>
-            <th style='text-align:left;'>".number_format($cek,0)."</th>
+            <th colspan='2' style='text-align: left; padding: 5px;'>Total</th>
+            <th style='text-align:left; padding: 5px;'>".number_format($cek,0)."</th>
         </tr>
     ";
 }
@@ -102,9 +102,9 @@ $html .= "<br>";
 $html .= "<h4 style='font-weight: bold;'>Pasiva</h4>";
 $html .= "<table border='1' width='100%'>
     <tr>
-        <th>Kode Akun<</th>
-        <th>Nama Akun<</th>
-        <th>#<</th>
+        <th style='padding: 5px;'>Kode Akun<</th>
+        <th style='padding: 5px;'>Nama Akun<</th>
+        <th style='padding: 5px;'>#<</th>
     </tr>
 ";
 
@@ -115,13 +115,13 @@ while($data3 = mysqli_fetch_array($query3)) {
 
     $html .= "
         <tr>
-            <td width='20%'>".$data3['kode_akun']."</td>
-            <td width='50%'>".$data3['nama_akun']."</td>
-            <td width='30%'>".number_format($data3['debet'],0)."</td>
+            <td width='20%' style='padding: 5px;'>".$data3['kode_akun']."</td>
+            <td width='50%' style='padding: 5px;'>".$data3['nama_akun']."</td>
+            <td width='30%' style='padding: 5px;'>".number_format($data3['debet'],0)."</td>
         </tr>
         <tr>
-            <th colspan='2' style='text-align: left;'>Total</th>
-            <th style='text-align: left;'>".number_format($cek,0)."</th>
+            <th colspan='2' style='text-align: left; padding: 5px;'>Total</th>
+            <th style='text-align: left; padding: 5px;'>".number_format($cek,0)."</th>
         </tr>
     ";
 }

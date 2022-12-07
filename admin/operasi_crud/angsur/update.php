@@ -1,5 +1,6 @@
 <?php
 require_once "../../../setting/koneksi.php";
+session_start();
 
 $id_anggota = $_GET['id_anggota'];
 $id_angsur = $_POST['id_angsur'];
@@ -34,10 +35,10 @@ $stmt = $mysqli->prepare("UPDATE tb_angsuran SET
 $stmt->bind_param('ssddddds', $id_anggota, $tanggal, $pokok, $jasa, $potongan, $temp2, $temp2, $ket, $id_angsur);
 
 if($stmt->execute()) {
-    echo "<script>alert('Data angsuran Berhasil Disimpan!')</script>";
+    $_SESSION['success'] = 'Data angsuran Berhasil Diubah!';
     echo "<script>window.location='javascript:history.go(-1)'</script>";
 } else {
-    echo "<script>alert('Data angsuran Gagal Disimpan!')</script>";
+    $_SESSION['gagal'] = 'Data angsuran Gagal Diubah!';
     echo "<script>window.location='javascript:history.go(-1)'</script>";
 }
 ?>

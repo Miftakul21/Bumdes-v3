@@ -28,14 +28,13 @@ session_start();
                         <i class="fas fa-lock"></i>
                         <input type="password" name="password" placeholder="Masukan Password">
                     </div>
-                    <!-- <input type="submit" name="submit" value="Masuk" class="btn solid">  -->
                     <button class="btn btn-primary">Masuk</button>
                 </form>
             </div>
         </div>
         <div class="panels-container">
             <div class="panel left-panel">
-                <img src="assets/dist/img/data.svg" class="image" alt="">
+                <img src="assets/dist/img/data3.svg" class="image" alt="">
             </div>
             <div class="panel right-panel">
                 <div class="content">

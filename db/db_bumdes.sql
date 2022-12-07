@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Nov 2022 pada 17.02
+-- Waktu pembuatan: 07 Des 2022 pada 16.07
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.0.19
 
@@ -47,9 +47,7 @@ INSERT INTO `tb_akun` (`kode_akun`, `nama_akun`) VALUES
 ('3-211', 'Prive'),
 ('4-111', 'Pendapatan'),
 ('5-111', 'Beban Gaji'),
-('5-112', 'beban Operasional dan Lain - Lain'),
-('5-120', 'Akun Kami'),
-('5-191', 'Terserah');
+('5-112', 'beban Operasional dan Lain - Lain');
 
 -- --------------------------------------------------------
 
@@ -187,9 +185,11 @@ CREATE TABLE `tb_kas` (
 --
 
 INSERT INTO `tb_kas` (`id_kas`, `tanggal`, `id_transaksi`, `kode_akun`, `sumber`, `keterangan`, `debet`, `kredit`) VALUES
-(5, '2022-02-01', 'T221124-001', '4-111', '1', 'Investasi dana desa', 100000, 0),
-(7, '2022-11-25', 'T221125-001', '4-111', '1', 'Investasi Dana Bumdes', 5000000, 0),
-(8, '2022-11-25', 'T221125-002', '1-111', '1', 'Pemasukan Dana Operasional', 2500000, 0);
+(1, '2022-12-07', 'T221207-001', '1-111', '1', 'Pemasukan Dana Unit Warung Mewah', 6000000, 0),
+(2, '2022-12-07', 'T221207-002', '5-112', '1', 'Pembayaran wifi bulanan Desa', 0, 200000),
+(3, '2022-12-07', 'T221207-003', '2-111', '3', 'Pembayaran Hutang Bank BRI (example)', 0, 600000),
+(4, '2022-10-01', 'T221207-004', '3-111', '3', 'Pembelian Unit Ban, Pelampung, Tenaga Kerja', 9000000, 0),
+(5, '2022-01-01', 'T221207-005', '5-112', '3', 'Investasi lahan untuk sacing ', 10000000, 0);
 
 -- --------------------------------------------------------
 
@@ -223,7 +223,8 @@ INSERT INTO `tb_kegiatan` (`id_kegiatan`, `id_unit`, `nama_kegiatan`) VALUES
 (29, 9, 'Pembelian Peralatan Dapur'),
 (30, 9, 'Modal Untuk Sewa Tempat '),
 (31, 18, 'Bootcamp Web Programming'),
-(32, 18, 'Koding harus pake kopi');
+(32, 18, 'Koding harus pake kopi'),
+(35, 16, 'Wisata Watu Bonang');
 
 -- --------------------------------------------------------
 
@@ -299,7 +300,8 @@ INSERT INTO `tb_transaksi` (`id_jurnal`, `id_transaksi`, `tanggal`, `id_kegiatan
 (82, 'T221107-001', '2022-11-07', 30, '1-111', '1', 'jhvjhvghvhg', 900000, 0),
 (83, 'T221107-001', '2022-11-07', 30, '1-111', '1', 'jhvjhvghvhg', 0, 80000),
 (84, 'T221108-001', '2022-11-08', 29, '1-111', '1', 'Pembayaran SPP', 10000, 0),
-(85, 'T221108-001', '2022-11-08', 29, '1-111', '1', 'Pembayaran SPP', 20000, 0);
+(85, 'T221108-001', '2022-11-08', 29, '1-111', '1', 'Pembayaran SPP', 20000, 0),
+(86, 'T221207-001', '2022-12-07', 35, '4-111', 'Arus Kas Kegiatan Op', 'Pendanaan modal untuk wisata watu bonang', 10000000, 0);
 
 -- --------------------------------------------------------
 
@@ -345,7 +347,10 @@ INSERT INTO `tb_user` (`id_user`, `nama`, `username`, `password`, `id_unit`, `le
 (1, 'admin', 'admin', '7488e331b8b64e5794da3fa4eb10ad5d', '-', 'Admin'),
 (2, 'Miftakul Huda', 'mifta123', 'e5286a0d9c59e4a2edd1580deae332bd', '-', 'Bendahara'),
 (3, 'Megawati', 'Mega', '46356784f9ece5d9d9319a8f3ddd2fdd', '-', 'Kepala Desa'),
-(5, 'Arya', 'Arya', 'f728d78f5a5dfe25d633fdf0204ccae7', '9', 'Ketua');
+(5, 'Arya', 'Arya', 'f728d78f5a5dfe25d633fdf0204ccae7', '9', 'Ketua'),
+(6, 'User2', 'user2', '80ec08504af83331911f5882349af59d', '16', 'Ketua'),
+(7, 'User 3', 'user3', '80ec08504af83331911f5882349af59d', '17', 'Ketua'),
+(8, 'User 4', 'user4', '80ec08504af83331911f5882349af59d', '18', 'Ketua');
 
 --
 -- Indexes for dumped tables
@@ -425,19 +430,19 @@ ALTER TABLE `tb_angsuran`
 -- AUTO_INCREMENT untuk tabel `tb_kas`
 --
 ALTER TABLE `tb_kas`
-  MODIFY `id_kas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_kegiatan`
 --
 ALTER TABLE `tb_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_unit`
@@ -449,7 +454,7 @@ ALTER TABLE `tb_unit`
 -- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

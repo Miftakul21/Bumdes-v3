@@ -4,32 +4,40 @@ $tahun = date('Y');
 $bln = date('m');
 
 for($bulan = 1; $bulan<13; $bulan++){
-	$query = mysqli_query($mysqli, "SELECT SUM(debet) AS debet FROM tb_kas WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun'");
+	$query = mysqli_query($mysqli, "SELECT *, SUM(debet) AS debet, SUM(kredit) AS kredit FROM tb_kas WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun' AND kode_akun LIKE '4%'");
 	$row = mysqli_fetch_array($query);
-	$debet[] = isset($row['debet']) ? $row['debet'] : 0;
+	$debet1[] = isset($row['debet']) ? $row['debet'] : 0;
+	$kredit1[] = isset($row['kredit']) ? $row['kredit'] : 0; 
+	$hasil1[] = $debet1 + $kredit1;
+
 }
 
 for($bulan2 = 1; $bulan2<13; $bulan2++){
-	$query = mysqli_query($mysqli, "SELECT SUM(kredit) AS kredit FROM tb_kas WHERE MONTH(tanggal) = '$bulan2' AND YEAR(tanggal) = '$tahun'");
+	$query = mysqli_query($mysqli, "SELECT *, SUM(debet) AS debet, SUM(kredit) AS kredit FROM tb_kas WHERE MONTH(tanggal) = '$bulan2' AND YEAR(tanggal) = '$tahun' AND (kode_akun LIKE '3-2%' OR kode_akun LIKE '5-1%')");
 	$row = mysqli_fetch_array($query);
-	$kredit[] = isset($row['kredit']) ? $row['kredit'] : 0;
+	$debet2 = isset($row['debet']) ? $row['debet'] : 0;
+	$kredit2 =  isset($row['kredit']) ? $row['kredit'] : 0;
+	$hasil2[] = $debet2 + $kredit2;
 }
 
 // unit 
-$queryz = mysqli_query($mysqli, "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON 	a.id_kegiatan = b.id_kegiatan 
+$queryz = mysqli_query($mysqli, "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.id_kegiatan = b.id_kegiatan 
 						JOIN tb_unit AS c ON b.id_unit = c.id_unit GROUP BY c.id_unit ASC");
-// Penghasialan
-$queryz2 = mysqli_query($mysqli, "SELECT *, SUM(debet) AS penghasilan FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON 	a.id_kegiatan = b.id_kegiatan 
-						JOIN tb_unit AS c ON b.id_unit = c.id_unit GROUP BY c.id_unit ASC");
+// Penghasilan
+$queryz2 = mysqli_query($mysqli, "SELECT *, SUM(debet) AS penghasilan1, SUM(kredit) AS penghasilan2 FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.id_kegiatan = b.id_kegiatan JOIN tb_unit AS c ON b.id_unit = c.id_unit GROUP BY c.id_unit ASC");
 
 // Data Desa
-$total_pendapatan_desa = mysqli_query($mysqli, "SELECT SUM(debet) AS total_pendapatan FROM tb_kas WHERE MONTH(tanggal) = '$bln'");
+$total_pendapatan_desa = mysqli_query($mysqli, "SELECT SUM(debet) AS total_pendapatan1, SUM(kredit) AS total_pendapatan2 FROM tb_kas WHERE MONTH(tanggal) = '$bln' AND kode_akun LIKE '4%'");
 $data1 = mysqli_fetch_array($total_pendapatan_desa);
-$hasil1 = isset($data1['total_pendapatan']) ? $data1['total_pendapatan'] : 0;
+$hasil3 = isset($data1['total_pendapatan1']) ? $data1['total_pendapatan1'] : 0;
+$hasil4 = isset($data1['total_pendapatan2']) ? $data1['total_pendapatan2'] : 0;
+$result1 = $hasil3 + $hasil4;
 
-$total_pengeluaran_desa = mysqli_query($mysqli, "SELECT SUM(kredit) AS total_pengeluaran FROM tb_kas WHERE MONTH(tanggal) = '$bln'");
+$total_pengeluaran_desa = mysqli_query($mysqli, "SELECT SUM(debet) AS total_pengeluaran1, SUM(kredit) AS total_pengeluaran2 FROM tb_kas WHERE MONTH(tanggal) = '$bln' AND (kode_akun LIKE '3-2%' OR kode_akun LIKE '5-1%')");
 $data2 = mysqli_fetch_array($total_pengeluaran_desa);
-$hasil2 = isset($data2['total_pengeluaran']) ? $data2['total_pengeluaran'] : 0;
+$hasil5 = isset($data2['total_pengeluaran1']) ? $data2['total_pengeluaran2'] : 0;
+$hasil6 = isset($data2['total_pengeluaran2']) ? $data2['total_pengeluaran2'] : 0;
+$result2 = $hasil5 + $hasil6;
 ?>
 
 <div class="content-header">
@@ -73,7 +81,7 @@ $hasil2 = isset($data2['total_pengeluaran']) ? $data2['total_pengeluaran'] : 0;
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-primary">
 					<div class="inner">
-						<h3>Rp. <?= number_format($hasil1,0); ?></h3>
+						<h3>Rp. <?= number_format($result1,0); ?></h3>
 						<p>Pendapatan Desa Perbulan</p>
 					</div>
 					<div class="icon">
@@ -85,7 +93,7 @@ $hasil2 = isset($data2['total_pengeluaran']) ? $data2['total_pengeluaran'] : 0;
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-success">
 					<div class="inner">
-						<h3>Rp. <?= number_format($hasil2,0); ?></h3>
+						<h3>Rp. <?= number_format($result2,0); ?></h3>
 						<p>Pengeluaran Desa Perbulan</p>
 					</div>
 					<div class="icon">
@@ -218,7 +226,6 @@ $hasil2 = isset($data2['total_pengeluaran']) ? $data2['total_pengeluaran'] : 0;
 		</div>
 	</div>
 
-
 	<?php } ?>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
@@ -230,12 +237,12 @@ $hasil2 = isset($data2['total_pengeluaran']) ? $data2['total_pengeluaran'] : 0;
 				datasets: [
 					{
 						label: 'Pendapatan Desa',
-						data: <?php echo json_encode($debet); ?>,
+						data: <?php echo json_encode($hasil1) ?>,
 						borderWidth: 1
 					},
 					{
-						label: 'Pendapatan Desa',
-						data: <?php echo json_encode($kredit); ?>,
+						label: 'Pengeluaran Desa',
+						data: <?php echo json_encode($hasil2) ?>,
 						borderWidth: 1
 					},					
 				]
@@ -256,11 +263,19 @@ $hasil2 = isset($data2['total_pengeluaran']) ? $data2['total_pengeluaran'] : 0;
 		let myChart2 = new Chart(ctx2, {
 			type:'pie',
 			data: {
-				labels: [<?php while($dataz3 = mysqli_fetch_array($queryz)) { echo '"'.$dataz3['nama_unit'].'",'; } ?>],
+				labels: [<?php  while($dataz3 = mysqli_fetch_array($queryz)) { echo '"'.$dataz3['nama_unit'].'",'; } ?>],
 				datasets: [
 					{
 						label: 'Pendapatan Unit Usaha',
-						data: [<?php while($dataz4 = mysqli_fetch_array($queryz2)) { echo '"'.$dataz4['penghasilan'].'",';} ?> ],
+						data: [
+								<?php  
+									while($dataz4 = mysqli_fetch_array($queryz2)) { 
+										$data_penghasilan_unit = $dataz4['penghasilan1'] + $dataz4['penghasilan2'];
+										$result3 = isset($data_penghasilan_unit) ? $data_penghasilan_unit : 0;
+										echo '"'.$result3.'",';
+									}
+								?> 
+							],
 						backgroundColor: [
 							'#29B0D0',
 							'#2A516E',
@@ -274,7 +289,4 @@ $hasil2 = isset($data2['total_pengeluaran']) ? $data2['total_pengeluaran'] : 0;
 			},
 			options: {responsive: true}
 		});
-
-
-
 	</script>

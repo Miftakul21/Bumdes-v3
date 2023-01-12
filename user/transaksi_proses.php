@@ -12,18 +12,16 @@ if(isset($_POST['tambah'])){
 	$_SESSION['keterangan']=$_POST['keterangan'];
 	$_SESSION['kegiatan']=$_POST['id_kegiatan'];
 
-	// buat menampilkan nama keterangan
-	$id_index = $_POST['id_index'];
-	$query_kas = mysqli_query($mysqli, "SELECT keterangan FROM tb_index WHERE id_index = '$id_index'");
-	$data = mysqli_fetch_array($query_kas);
-	$ket_index = $data['keterangan'];
+	// buat menampilkan nama keterangan RALAT!!!!
+	$id_index = $_POST['id_index']; // sumber arus
 
-	$debet = isset($_POST['debet']) ? $_POST['debet'] : 0;
-	$kredit = isset($_POST['kredit']) ? $_POST['kredit'] : 0;
-	
-	// 1. id_akun	2. sumber arus   3. debet	4. kredit	 5. keterangan
-	$_SESSION['transaksi'][date('ymd-h:i:s')]= array($_POST['id_akun'],$ket_index,$debet,$kredit,$_POST['keterangan']);	
-	echo "<script>alert('Data berhasil ditambah')</script>";
+	$debet = isset($_POST['debet']) != ''  ? $_POST['debet'] : 0;
+	$kredit = isset($_POST['kredit']) != '' ? $_POST['kredit'] : 0;
+
+	// RALAT !!!
+	// [0] id_akun  [1] id_sumber arus [2] debet [3] kredit [4] keterangan 
+	$_SESSION['transaksi'][date('ymd-h:i:s')]= array($_POST['id_akun'],$id_index,$debet,$kredit,$_POST['keterangan']);	
+
 	echo "<script>window.location='index.php?hal=transaksi_input&get';</script>";	
 
 }else if(isset($_GET['hapus'])){
@@ -58,11 +56,10 @@ if(isset($_POST['tambah'])){
 			$stmt->execute();
 		}
 	}	
-	//Clear Data
-	// mysqli_query($mysqli,"DELETE FROM temp_transaksi where id_user='$id_user'");
-
+	
 	//Notif
-	echo "<script>alert('Transaksi Berhasil Disimpan')</script>";
+	// echo "<script>alert('Transaksi Berhasil Disimpan')</script>";
+	$_SESSION['success'] = "Data Transaksi berhasil Disimpan";
 	echo "<script>window.location='index.php?hal=transaksi_data';</script>";	
 
 }else if(isset($_GET['hapusdb'])){
@@ -98,10 +95,12 @@ if(isset($_POST['tambah'])){
 		$_POST['id_jurnal']);	
 
 	if ($stmt->execute()) { 
-		echo "<script>alert('Data Transaksi Berhasil Diubah')</script>";
+		// echo "<script>alert('Data Transaksi Berhasil Diubah')</script>";
+		$_SESSION['success'] = 'Data Transaksi Berhasil DiUbah!';
 		echo "<script>window.location='index.php?hal=transaksi_data';</script>";	
 	} else {
-		echo "<script>alert('Data Transaksi Gagal Diubah')</script>";
+		// echo "<script>alert('Data Transaksi Gagal Diubah')</script>";
+		$_SESSION['gagal'] = 'Data Transaksi Gagal DiUbah!';
 		echo "<script>window.location='javascript:history.go(-1)';</script>";
 	}
 

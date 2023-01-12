@@ -29,10 +29,10 @@ $query2 = mysqli_query($mysqli, $sql2);
 while($data2 = mysqli_fetch_array($query2)){
     $html .= "<table border='1' width='100%'>
         <tr>
-            <th style='text-align: left;'>".$data2['keterangan']."</th>
-            <th>Debet</th>
-            <th>Kredit</th>
-            <th>#</th>
+            <th style='text-align: left; left: padding: 10px;'>".$data2['keterangan']."</th>
+            <th style='padding: 10px'>Debet</th>
+            <th style='padding: 10px'>Kredit</th>
+            <th style='padding: 10px'>#</th>
         </tr>    
     ";
 
@@ -46,13 +46,13 @@ while($data2 = mysqli_fetch_array($query2)){
         $debetall += $data3['debet'];
         $kreditall += $data3['kredit'];
         $html .= "<tr>
-            <td>".$data3['keterangan_transaksi']."</td>
-            <td>".number_format($data3['debet'],0)."</td>
-            <td>".number_format($data3['kredit'],0)."</td>
+            <td style='padding:5px'>".$data3['keterangan_transaksi']."</td>
+            <td style='padding:5px'>".number_format($data3['debet'],0)."</td>
+            <td style='padding:5px'>".number_format($data3['kredit'],0)."</td>
         </tr>";
     }
     $html .= "
-        <th colspan='3'>Total</th>
+        <th colspan='3' style='padding: 5px;'>Total</th>
         <th>".number_format($debetall - $kreditall,0)."</th>
     ";
     $html .="</table>";

@@ -35,15 +35,15 @@ if($id_kegiatan == 'Semua') {
 // Nama Field Tabel
 $html .= "<table border='1' width='100%'>
         <tr>
-            <th>No Transaksi</th>
-            <th>Tanggal</th>
-            <th>Usaha</th>
-            <th>Keterangan</th>
-            <th>Kode_akun</th>
-            <th>Sumber Dana</th>
-            <th>Debet</th>
-            <th>Kredit</th>
-            <th>Saldo</th>
+            <th style='padding: 4px;'>No Transaksi</th>
+            <th style='padding: 4px;'>Tanggal</th>
+            <th style='padding: 4px;'>Usaha</th>
+            <th style='padding: 4px;'>Keterangan</th>
+            <th style='padding: 4px;'>Kode_akun</th>
+            <th style='padding: 4px;'>Sumber Dana</th>
+            <th style='padding: 4px;'>Debet</th>
+            <th style='padding: 4px;'>Kredit</th>
+            <th style='padding: 4px;'>Saldo</th>
         </tr>
 ";
 
@@ -57,19 +57,18 @@ while($data2 = mysqli_fetch_array($query2)){
 
     $html .= "
         <tr>
-            <td>".$data2['id_transaksi']."</td>
-            <td>".$tanggal."</td>
-            <td>".$data2['nama_kegiatan']."</td>
-            <td>".$data2['keterangan_transaksi']."</td>
-            <td>".$data2['kode_akun']."</td>
-            <td>".$data2['keterangan']."</td>
-            <td>".number_format($data2['debet'],0)."</td>
-            <td>".number_format($data2['kredit'],0)."</td>
-            <td>".number_format($saldo,0)."</td>
+            <td style='padding: 5px;'>".$data2['id_transaksi']."</td>
+            <td style='padding: 5px;'>".$tanggal."</td>
+            <td style='padding: 5px;'>".$data2['nama_kegiatan']."</td>
+            <td style='padding: 5px;'>".$data2['keterangan_transaksi']."</td>
+            <td style='padding: 5px;'>".$data2['kode_akun']."</td>
+            <td style='padding: 5px;'>".$data2['keterangan']."</td>
+            <td style='padding: 5px;'>".number_format($data2['debet'],0)."</td>
+            <td style='padding: 5px;'>".number_format($data2['kredit'],0)."</td>
+            <td style='padding: 5px;'>".number_format($saldo,0)."</td>
         </tr>
     ";
 }
-
 $html .= "</table>"; 
 
 $dompdf->loadHtml($html);

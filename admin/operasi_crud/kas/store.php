@@ -18,7 +18,6 @@ if(isset($_POST['tambah'])){
 	
 	// 1. kode_akun,  2. id_sumber arus kas 3. debet 4. kredit 5. keterangan
 	$_SESSION['kas'][date('ymd-h:i:s')]= array($_POST['id_akun'],$ket_index,$debet,$kredit,$_POST['keterangan']);
-	// echo "<script>alert('Data berhasil ditambah')</script>";
 	echo "<script>window.location='../../index.php?hal=tambah_kas&get'</script>";	
 
 }else if(isset($_GET['hapus'])){

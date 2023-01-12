@@ -10,6 +10,32 @@
 </div>
 
 <section class="content">
+  <?php  
+        if(isset($_SESSION['success'])) {
+  ?>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong><?= $_SESSION['success']; ?></strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+  <?php 
+          unset($_SESSION['success']);
+      }  
+  ?>
+  <?php  
+      if(isset($_SESSION['gagal'])) {
+  ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong><?= $_SESSION['gagal']; ?></strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+  <?php 
+          unset($_SESSION['gagal']);
+      }  
+  ?>
   <div class="row">
     <div class="col-12">
       <div class="card card-primary">
@@ -41,8 +67,6 @@
           $par2="";
           $id_akun="";
           $id_kegiatan="";
-
-
           $where="where id_unit='$id_unit'";
         }
         ?>
@@ -134,7 +158,6 @@
 
                       <a class="btn btn-danger" title="Hapus Data" href="transaksi_proses.php?hapusdb=<?php echo $id_jurnal; ?>"
                         onclick="return confirm('Apakah anda yakin akan menghapus data ini?')"> <i class="fa fa-trash"></i></a>
-
                       </td>
                     </tr>
                   <?php }}?>

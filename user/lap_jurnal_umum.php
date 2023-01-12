@@ -17,6 +17,8 @@
         <div class="card-body">
           <?php
           $id_unit=$_SESSION['id'];
+          $where = '';
+          
           if(isset($_POST['par1'])){
 
             @$par1=$_POST['par1'];
@@ -24,16 +26,16 @@
             @$id_kegiatan=$_POST['id_kegiatan'];
 
             if($_POST['id_kegiatan']=='Semua')
-              $where="where id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+              $where="WHERE tb_unit.`id_unit` = '$id_unit' AND (tb_transaksi.tanggal between '$par1' AND '$par2')";
             else
-              $where="where id_kegiatan='$id_kegiatan' and (tanggal between '$par1' and '$par2')";
+              $where="WHERE tb_transaksi.`id_kegiatan` = '$id_kegiatan' AND tb_unit.`id_unit` 
+                      AND (tb_transaksi.tanggal between '$par1' AND '$par2')";
 
           }else{
             $par1="";
             $par2="";
             $id_kegiatan="";
-
-            $where="where id_unit='$id_unit'";
+            $where = "WHERE tb_unit.`id_unit` = '$id_unit'";
           }
           ?>
           <form role="form" id="quickForm" action="?hal=lap_jurnal_umum&id=<?=$id_unit?>" method="post">
@@ -79,7 +81,10 @@
             <tbody>
               <?php
               $saldo=0;
-              $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_index using (id_index) $where";
+              // $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_index using (id_index) $where";
+              $query = "SELECT * FROM tb_transaksi JOIN tb_kegiatan ON tb_transaksi.`id_kegiatan` = tb_kegiatan.`id_kegiatan` 
+                        JOIN tb_unit ON tb_kegiatan.`id_unit` = tb_unit.`id_unit` JOIN tb_index ON tb_transaksi.`id_index` = 
+                        tb_index.`id_index`".$where;
               $result     = $mysqli->query($query);
               $num_result = $result->num_rows;
               if ($num_result > 0) {

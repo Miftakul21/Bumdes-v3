@@ -60,7 +60,8 @@
                   <?php
                   $debetall=0;
                   $kreditall=0;
-                  $queryz      = "SELECT * FROM tb_transaksi JOIN tb_kegiatan using(id_kegiatan) WHERE id_index ='$id_index' AND id_unit='$id_unit' AND (tanggal BETWEEN '$par1' AND '$par2')";
+                  $queryz      = "SELECT * FROM tb_transaksi JOIN tb_kegiatan using(id_kegiatan) WHERE id_index ='$id_index' 
+                                  AND id_unit='$id_unit' AND (tanggal BETWEEN '$par1' AND '$par2')";
                   $resultz     = $mysqli->query($queryz);
                   $num_resultz = $result->num_rows;
                   if ($num_result > 0) {

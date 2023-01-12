@@ -77,8 +77,8 @@ if(isset($_GET['get'])){
                     ?>
                   </select>
                 </th>
-              <th><input type="number" class="form-control" name="debet" value="0" min="0"></th>
-              <th><input type="number" class="form-control" name="kredit" value="0" min="0"></th>
+              <th><input type="number" class="form-control" name="debet" value="0" min="0" required></th>
+              <th><input type="number" class="form-control" name="kredit" value="0" min="0"  required></th>
               <th><input type="submit" name="tambah" class="btn btn-primary" value="Tambah"></th>
             </tr>
             <tbody>
@@ -91,8 +91,8 @@ if(isset($_GET['get'])){
                 <tr>
                   <td><?= $value['0']; ?></td>
                   <td><?= $value['1']; ?></td>
-                  <td><?=number_format($value['2'],0);$debitall+=$value['2']; ?></td>
-                  <td><?=number_format($value['3'],0);$kreditall+=$value['3']; ?></td>
+                  <td><?=number_format((int) $value['2'],0);$debitall+=$value['2']; ?></td>
+                  <td><?=number_format((int) $value['3'],0);$kreditall+=$value['3']; ?></td>
                 </td>
                   <td width="15%">
                     <a class="btn btn-danger" title="Hapus Data" href="operasi_crud/kas/store.php?hapus=<?=$key; ?>"

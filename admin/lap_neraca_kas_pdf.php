@@ -63,7 +63,6 @@ while($data1 = mysqli_fetch_array($query1)) {
         </tr>
     ";
 }
-
 $html .= "</table>";
 $html .= "<br>";
 

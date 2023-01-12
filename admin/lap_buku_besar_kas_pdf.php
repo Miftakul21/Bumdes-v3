@@ -52,7 +52,6 @@ while($data1 = mysqli_fetch_array($query)) {
             </tr>
     ";
 }
-
 $html .= "</table>";
 $html .="</html>";
 $dompdf->loadHtml($html);

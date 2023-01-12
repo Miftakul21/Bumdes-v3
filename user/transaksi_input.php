@@ -98,8 +98,8 @@ if(isset($_GET['get'])){
                   ?>
                 </select>
               </th>
-              <th><input type="number" class="form-control" name="debet" value="0" min="0"></th>
-              <th><input type="number" class="form-control" name="kredit" value="0" min="0"></th>
+              <th><input type="number" class="form-control" name="debet" value="0" min="0" required></th>
+              <th><input type="number" class="form-control" name="kredit" value="0" min="0" required></th>
               <th><input type="submit" name="tambah" class="btn btn-primary" value="Tambah"></th>
             </tr>
             <tbody>

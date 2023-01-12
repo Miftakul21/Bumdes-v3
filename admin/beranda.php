@@ -3,16 +3,15 @@ $bulan1 = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt',
 $tahun = date('Y');
 $bln = date('m');
 
-for($bulan = 1; $bulan<13; $bulan++){
-	$query = mysqli_query($mysqli, "SELECT *, SUM(debet) AS debet, SUM(kredit) AS kredit FROM tb_kas WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun' AND kode_akun LIKE '4%'");
+for($bulan = 1; $bulan<=$bln; $bulan++){
+	$query = mysqli_query($mysqli, "SELECT *, SUM(debet) AS debet, SUM(kredit) AS kredit FROM tb_kas WHERE MONTH(tanggal) = '$bulan' AND YEAR(tanggal) = '$tahun' AND (kode_akun LIKE '4%')");
 	$row = mysqli_fetch_array($query);
-	$debet1[] = isset($row['debet']) ? $row['debet'] : 0;
-	$kredit1[] = isset($row['kredit']) ? $row['kredit'] : 0; 
+	$debet1 = isset($row['debet']) ? $row['debet'] : 0;
+	$kredit1 = isset($row['kredit']) ? $row['kredit'] : 0; 
 	$hasil1[] = $debet1 + $kredit1;
-
 }
 
-for($bulan2 = 1; $bulan2<13; $bulan2++){
+for($bulan2 = 1; $bulan2<=$bln; $bulan2++){
 	$query = mysqli_query($mysqli, "SELECT *, SUM(debet) AS debet, SUM(kredit) AS kredit FROM tb_kas WHERE MONTH(tanggal) = '$bulan2' AND YEAR(tanggal) = '$tahun' AND (kode_akun LIKE '3-2%' OR kode_akun LIKE '5-1%')");
 	$row = mysqli_fetch_array($query);
 	$debet2 = isset($row['debet']) ? $row['debet'] : 0;
@@ -24,7 +23,9 @@ for($bulan2 = 1; $bulan2<13; $bulan2++){
 $queryz = mysqli_query($mysqli, "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.id_kegiatan = b.id_kegiatan 
 						JOIN tb_unit AS c ON b.id_unit = c.id_unit GROUP BY c.id_unit ASC");
 // Penghasilan
-$queryz2 = mysqli_query($mysqli, "SELECT *, SUM(debet) AS penghasilan1, SUM(kredit) AS penghasilan2 FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.id_kegiatan = b.id_kegiatan JOIN tb_unit AS c ON b.id_unit = c.id_unit GROUP BY c.id_unit ASC");
+$queryz2 = mysqli_query($mysqli, "SELECT *, SUM(debet) AS penghasilan1, SUM(kredit) AS penghasilan2 FROM tb_transaksi AS a JOIN 
+						tb_kegiatan AS b ON a.id_kegiatan = b.id_kegiatan JOIN tb_unit AS c ON b.id_unit = c.id_unit 
+						WHERE a.kode_akun LIKE '4-111%' GROUP BY c.id_unit ASC");
 
 // Data Desa
 $total_pendapatan_desa = mysqli_query($mysqli, "SELECT SUM(debet) AS total_pendapatan1, SUM(kredit) AS total_pendapatan2 FROM tb_kas WHERE MONTH(tanggal) = '$bln' AND kode_akun LIKE '4%'");
@@ -60,7 +61,7 @@ $result2 = $hasil5 + $hasil6;
 						<p>Unit Usaha</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-user"></i>
+						<i class="nav-icon fas fa-list"></i>
 					</div>
 					<a href="?hal=unit" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
@@ -73,7 +74,7 @@ $result2 = $hasil5 + $hasil6;
 						<p>Data Sumber Dana</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-book"></i>
+						<i class="fa fa-certificate nav-icon"></i>
 					</div>
 					<a href="?hal=ind" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
@@ -84,8 +85,8 @@ $result2 = $hasil5 + $hasil6;
 						<h3>Rp. <?= number_format($result1,0); ?></h3>
 						<p>Pendapatan Desa Perbulan</p>
 					</div>
-					<div class="icon">
-						<i class="fa fa-book"></i>
+					<div class="icon">	
+					<i class="fas fa-solid fa-landmark nav-icon"></i>
 					</div>
 					<a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
@@ -97,7 +98,7 @@ $result2 = $hasil5 + $hasil6;
 						<p>Pengeluaran Desa Perbulan</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-book"></i>
+						<i class="fas fa-solid fa-landmark nav-icon"></i>
 					</div>
 					<a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
@@ -147,7 +148,7 @@ $result2 = $hasil5 + $hasil6;
 						<p>Unit Usaha</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-user"></i>
+						<i class="nav-icon fas fa-list"></i>
 					</div>
 					<a href="#" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
@@ -159,7 +160,7 @@ $result2 = $hasil5 + $hasil6;
 						<p>Data Sumber Dana</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-book"></i>
+						<i class="fa fa-certificate nav-icon"></i>
 					</div>
 					<a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
@@ -186,7 +187,7 @@ $result2 = $hasil5 + $hasil6;
 						<p>Data User</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-book"></i>
+						<i class="fa fa-user"></i>
 					</div>
 					<a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
@@ -281,7 +282,10 @@ $result2 = $hasil5 + $hasil6;
 							'#2A516E',
 							'#F07124',
 							'#CBE0E3',
-							'#979193'
+							'#979193',
+							'#263159',
+							'#395B64',
+							'#3A5BA0'
 						]
 
 					}

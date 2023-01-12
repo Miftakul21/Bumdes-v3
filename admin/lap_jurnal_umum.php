@@ -46,7 +46,7 @@
               <select class="form-control select2 col-3" name="id_kegiatan">
                 <option value="Semua">Semua Usaha</option>
                 <?php
-                $query="SELECT * from tb_kegiatan where id_unit='$id_unit'";
+                $query="SELECT * FROM  tb_kegiatan WHERE id_unit='$id_unit'";
                 $result=$mysqli->query($query);
                 $num_result=$result->num_rows;
                 if ($num_result > 0 ) { 

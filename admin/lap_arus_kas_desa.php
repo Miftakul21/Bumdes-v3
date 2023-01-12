@@ -7,7 +7,6 @@
     </div>
   </div>
 </div>
-
 <section class="content">
   <div class="row">
     <div class="col-12">
@@ -60,7 +59,12 @@
                   <?php
                   $debetall=0;
                   $kreditall=0;
-                  $queryz      = "SELECT a.* FROM tb_kas AS a JOIN tb_index AS b ON a.`sumber` = b.`id_index` WHERE a.sumber = '$id_index' AND (a.`tanggal` BETWEEN '$periode1' AND '$periode2')";
+                  // $queryz      = "SELECT a.* FROM tb_kas AS a JOIN tb_index AS b ON a.`sumber` = b.`id_index`
+                  //                 WHERE a.sumber = '$id_index' AND (a.`tanggal` BETWEEN '$periode1' AND '$periode2')";
+                  // $queryz      = "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.`id_kegiatan` = b.`id_kegiatan` JOIN 
+                  //                 tb_unit AS c ON b.`id_unit` = c.`id_unit` WHERE c.`id_unit` = '9' AND (a.`tanggal` BETWEEN '2022-01-01' 
+                  //                 AND '2023-01-01');";
+
                   $resultz     = $mysqli->query($queryz);
                   $num_resultz = $result->num_rows;
                   if ($num_result > 0) {

@@ -18,7 +18,7 @@ if($stmt->execute()) {
     $_SESSION['success'] = 'Data kas Berhasil DiUbah!';
     echo "<script>window.location='../../index.php?hal=kas'</script>";
 } else {
-    $_SESSION['success'] = 'Data kas Gagal DiUbah!';
+    $_SESSION['gagal'] = 'Data kas Gagal DiUbah!';
     echo "<script>window.location='javascript:history.go(-1)'</script>";
 }
 

@@ -36,20 +36,20 @@ $html .="<br>";
 
 $html .= "<table border='1' width='100%'>
         <tr>
-            <th width='50%' style='text-align: left;'>Modal Setor</th>
-            <th style='text-align: left;'>".number_format($modal,0)."</th>
+            <th width='50%' style='text-align: left; padding: 5px;'>Modal Setor</th>
+            <th style='text-align: left; padding: 5px;'>".number_format($modal,0)."</th>
         </tr>
         <tr>
-            <th width='50%' style='text-align: left;'>Prive</th>
-            <th style='text-align: left;'>".number_format($prive,0)."</th>
+            <th width='50%' style='text-align: left; padding: 5px;'>Prive</th>
+            <th style='text-align: left; padding: 5px;'>".number_format($prive,0)."</th>
         </tr>
         <tr >
-            <th width='50%' style='text-align: left;'>Laba / Rugi Bersih</th>
-            <th style='text-align: left;'>".number_format($labarugi,0)."</th>
+            <th width='50%' style='text-align: left; padding: 5px;'>Laba / Rugi Bersih</th>
+            <th style='text-align: left; padding: 5px;'>".number_format($labarugi,0)."</th>
         </tr>
         <tr>
-            <th width='50%' style='text-align: left;'>Modal Akhir</th>
-            <th style='text-align: left;'>".number_format($modalakhir,0)."</th>
+            <th width='50%' style='text-align: left; padding: 5px;'>Modal Akhir</th>
+            <th style='text-align: left; padding: 5px;'>".number_format($modalakhir,0)."</th>
         </tr>
         </table><br>
 "; 

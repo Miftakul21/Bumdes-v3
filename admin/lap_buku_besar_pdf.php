@@ -42,12 +42,12 @@ $html .= "<br>";
 // nama filed tabel
 $html .= "<table border='1' width='100%'>
         <tr>
-            <th>No Transaksi</th>
-            <th>Tanggal</th>
-            <th>Keterangan Transaksi</th>
-            <th>Debet</th>
-            <th>Kredit</th>
-            <th>Saldo</th>
+            <th style='padding: 4px;'>No Transaksi</th>
+            <th style='padding: 4px;'>Tanggal</th>
+            <th style='padding: 4px;'>Keterangan Transaksi</th>
+            <th style='padding: 4px;'>Debet</th>
+            <th style='padding: 4px;'>Kredit</th>
+            <th style='padding: 4px;'>Saldo</th>
         </tr>
 ";
 
@@ -58,12 +58,12 @@ while($data2 = mysqli_fetch_array($query2)){
     $tanggal = date_format(date_create($data2['tanggal']), 'd-m-Y');
 
     $html .= "<tr>
-            <td>".$data2['id_transaksi']."</td>
-            <td>".$tanggal."</td>
-            <td>".$data2['keterangan_transaksi']."</td>
-            <td>".number_format($data2['debet'],0)."</td>
-            <td>".number_format($data2['kredit'],0)."</td>
-            <td>".number_format($saldo,0)."</td>
+            <td style='padding: 4px;'>".$data2['id_transaksi']."</td>
+            <td style='padding: 4px;'>".$tanggal."</td>
+            <td style='padding: 4px;'>".$data2['keterangan_transaksi']."</td>
+            <td style='padding: 4px;'>".number_format($data2['debet'],0)."</td>
+            <td style='padding: 4px;'>".number_format($data2['kredit'],0)."</td>
+            <td style='padding: 4px;'>".number_format($saldo,0)."</td>
     </tr>";
 }
 

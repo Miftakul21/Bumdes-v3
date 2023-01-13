@@ -44,49 +44,63 @@
           <h3>Pendapatan</h3>
           <table class="table table-bordered table-hover">
             <?php
-            $kreditall=0;
-            $query      = "SELECT * FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun) WHERE tb_akun.kode_akun LIKE '4%' AND id_unit='$id_unit' AND (tanggal BETWEEN '$par1' AND '$par2')";
-
+            $kreditall = 0;
+            $pendapatan = 0;
+            $query       = "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b  ON a.`id_kegiatan` = b.`id_kegiatan` JOIN tb_akun 
+                            AS c ON a.`kode_akun` = c.`kode_akun` WHERE c.`kode_akun` LIKE '4-11%' AND (a.`tanggal` BETWEEN '$par1' 
+                            AND '$par2') AND b.`id_unit` = '$id_unit'";
             $resultz     = $mysqli->query($query);
             $num_resultz = $resultz->num_rows;
             if ($num_resultz > 0) {
               while ($dataz = mysqli_fetch_assoc($resultz)) {
-                $kreditall+=$dataz['kredit'];
+                $kreditall += $dataz['debet'];
+                $kreditall += $dataz['kredit'];
+                $pendapatan =  $pendapatan + $kreditall;
+
             ?>
             <tr>
               <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
-              <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-              <td width="20%"><?php echo number_format($dataz['kredit'],0); ?></td>
+              <td width="20%"><?php echo $dataz['nama_akun']; ?></td>
+              <td width="40%"><?php echo $dataz['keterangan_transaksi']; ?></td>
+              <td width="20%"><?php echo number_format($kreditall,0); ?></td>
             </tr>
             <?php }} ?>
               <th colspan="3">Total Pendapatan</th>
-              <th><?=number_format(($kreditall),0)?></th>
+              <th><?=number_format($pendapatan,0)?></th>
             </tbody>
         </table>
         <h3>Pengeluaran</h3>
         <table class="table table-bordered table-hover">
           <?php
             $debetall=0;
-            $queryz      = "SELECT * FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun) WHERE tb_akun.kode_akun LIKE '5%' AND id_unit='$id_unit' AND (tanggal BETWEEN '$par1' AND '$par2')";
+            $pengeluaran = 0;
+          
+            $queryz      = "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.`id_kegiatan` = b.`id_kegiatan` JOIN tb_akun 
+                            AS c ON a.`kode_akun` = c.`kode_akun` WHERE c.`kode_akun` LIKE '5-11%' AND (a.`tanggal` BETWEEN '$par1' 
+                            AND '$par2') AND b.`id_unit` = '$id_unit'";
             $resultz     = $mysqli->query($queryz);
             $num_resultz = $resultz->num_rows;
             if ($num_resultz > 0) {
-              while ($dataz = mysqli_fetch_assoc($resultz)) {
+              while ($dataz = mysqli_fetch_assoc($resultz)) {                
                 $debetall+=$dataz['debet'];
+                $debetall+=$dataz['kredit'];
+
+                $pengeluaran = $pengeluaran + $debetall;
           ?>
             <tr>
               <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
-              <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-              <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
+              <td width="20%"><?php echo $dataz['nama_akun']; ?></td>
+              <td width="40%"><?php echo $dataz['keterangan_transaksi']; ?></td>
+              <td width="20%"><?php echo number_format($debetall,0); ?></td>
             </tr>
           <?php }} ?>
           <tr>
             <th colspan="3">Total Pengeluaran</th>
-            <th><?=number_format(($debetall),0)?></th>
+            <th><?=number_format($pengeluaran,0)?></th>
           </tr>
           <tr>
             <th colspan="3">Laba Rugi Bersih</th>
-            <th><?=number_format(($kreditall-$debetall),0)?></th>
+            <th><?=number_format($pendapatan-$pengeluaran,0)?></th>
           </tr>
           </tbody>
         </table>
@@ -96,7 +110,8 @@
         $per1 = $_POST['par1'];
         $per2 = $_POST['par2'];
     ?>
-      <a href="lap_laba_rugi_pdf.php?unit=<?= $unit ?>&periode1=<?= $per1 ?>&periode2=<?= $per2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+      <a href="lap_laba_rugi_pdf.php?unit=<?= $unit ?>&periode1=<?= $per1 ?>&periode2=<?= $per2 ?>" target="_blank" style="float: right;margin-top: 10px;" 
+      class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
     <?php } ?>
   </div>
 </div>

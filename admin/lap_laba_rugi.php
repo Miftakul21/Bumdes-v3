@@ -1,4 +1,3 @@
-
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -33,7 +32,6 @@
         <form role="form" id="quickForm" action="?hal=lap_laba_rugi&id=<?=$id_unit?>" method="post">
           <div class="form-group row">
             <label  for="nama" class="col-2 m-2">Periode Tanggal</label>
-
             <input type="date" name="par1" class="form-control col-2" value="<?=@$par1?>" required="">
             <span class="col-1 m-2">S/d</span>
             <input type="date" name="par2" class="form-control col-2" value="<?=@$par2?>" required="">
@@ -42,63 +40,74 @@
             </div>
           </div>
         </form>
-
         <hr>
 
         <?php if(isset($_POST['par1'])){ ?>
           <h3>Pendapatan</h3>
           <table class="table table-bordered table-hover">
             <?php
-            $kreditall=0;
-            $query      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '4%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
-
+            $kreditall = 0;
+            $pendapatan = 0;
+            $query       = "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.id_kegiatan = b.id_kegiatan JOIN tb_akun 
+                            AS c ON a.kode_akun = c.kode_akun WHERE c.kode_akun LIKE '4-111' AND (a.tanggal BETWEEN '$par1' AND '$par2') 
+                            AND b.id_unit = '$id_unit'"; 
             $resultz     = $mysqli->query($query);
             $num_resultz = $resultz->num_rows;
             if ($num_resultz > 0) {
 
               while ($dataz = mysqli_fetch_assoc($resultz)) {
-                $kreditall+=$dataz['kredit'];
-                ?>
-                <tr>
-                 <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
-                 <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-                 <td width="20%"><?php echo number_format($dataz['kredit'],0); ?></td>
-               </tr>
-             <?php }} ?>
-             <th colspan="3">Total Pendapatan</th>
-             <th><?=number_format(($kreditall),0)?></th>
-           </tbody>
-         </table>
+                      $kreditall += $dataz['debet'];
+                      $kreditall += $dataz['kredit'];
+                      $pendapatan =  $pendapatan + $kreditall;
+              ?>
+                  <tr>
+                    <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
+                    <td width="20%"><?php echo $dataz['nama_akun']; ?></td>
+                    <td width="40%"><?php echo $dataz['keterangan_transaksi']; ?></td>
+                    <td width="20%"><?php echo number_format($kreditall,0); ?></td>
+                  </tr>
+              <?php }} ?>
+              <th colspan="3">Total Pendapatan</th>
+              <th><?=number_format($pendapatan,0)?></th>
+            </tbody>
+          </table>
 
-         <h3>Pengeluaran</h3>
-         <table class="table table-bordered table-hover">
+          <h3>Pengeluaran</h3>
+          <table class="table table-bordered table-hover">
           <?php
           $debetall=0;
-          $queryz      = "SELECT * from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '5%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2')";
+          $pengeluaran = 0;
+          
+          $queryz      = "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.`id_kegiatan` = b.`id_kegiatan` JOIN tb_akun 
+                          AS c ON a.`kode_akun` = c.`kode_akun` WHERE c.`kode_akun` LIKE '5-11%' AND (a.`tanggal` BETWEEN '$par1' 
+                          AND '$par2') AND b.`id_unit` = '$id_unit'";
           $resultz     = $mysqli->query($queryz);
           $num_resultz = $resultz->num_rows;
           if ($num_resultz > 0) {
-
             while ($dataz = mysqli_fetch_assoc($resultz)) {
               $debetall+=$dataz['debet'];
-              ?>
+              $debetall+=$dataz['kredit'];
+
+              $pengeluaran = $pengeluaran + $debetall;
+            ?>
               <tr>
-               <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
-               <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-               <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
-             </tr>
-           <?php }} ?>
-           <tr>
-             <th colspan="3">Total Pengeluaran</th>
-             <th><?=number_format(($debetall),0)?></th>
-           </tr>
-           <tr>
-             <th colspan="3">Laba Rugi Bersih</th>
-             <th><?=number_format(($kreditall-$debetall),0)?></th>
-           </tr>
-         </tbody>
-       </table>
-     <?php } ?>
+                <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
+                <td width="20%"><?php echo $dataz['nama_akun']; ?></td>
+                <td width="40%"><?php echo $dataz['keterangan_transaksi']; ?></td>
+                <td width="20%"><?php echo number_format($debetall,0); ?></td>
+              </tr>
+            <?php }} ?>
+            <tr>
+              <th colspan="3">Total Pengeluaran</th>
+              <th><?=number_format($pengeluaran,0)?></th>
+            </tr>
+            <tr>
+              <th colspan="3">Laba Rugi Bersih</th>
+              <th><?=number_format($pendapatan-$pengeluaran,0)?></th>
+            </tr>
+          </tbody>
+        </table>
+      <?php } ?>
 
     <?php if(isset($_POST['par1'])){
         $unit = $id_unit;

@@ -24,56 +24,70 @@ $html .= "<center><span>Periode ".$per1." S/d ".$per2."</span></center>";
 $html .="<br>";
 
 // field name table 1
-$sql1 = "SELECT * FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun) WHERE tb_akun.kode_akun LIKE '4%' AND id_unit='$unit' AND (tanggal BETWEEN '$periode1' AND '$periode2')";
+$sql1   = "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b  ON a.`id_kegiatan` = b.`id_kegiatan` JOIN tb_akun 
+            AS c ON a.`kode_akun` = c.`kode_akun` WHERE c.`kode_akun` LIKE '4-11%' AND (a.`tanggal` BETWEEN '$periode1' 
+            AND '$periode2') AND b.`id_unit` = '$unit'";
 $query1 = mysqli_query($mysqli, $sql1);
 
 $html .= "<h5>Pendapatan</h5>";
 
-$kreditall = 0;
+$pendapatan = 0;
+$temp1 = 0;
+
+$html .="<table border='1' width='100%'>";
 while($data1 = mysqli_fetch_array($query1)){
-    $kreditall += $data1['kredit'];
-    $html .= "<table border='1' width='100%'>
+    $temp1 += $data1['debet'];
+    $temp1 += $data1['kredit'];
+
+    $pendapatan = $pendapatan + $temp1;
+
+    $html .="
         <tr>
-            <td width='10%'>".$data1['kode_akun']."</td>
-            <td width='60%'>".$data1['nama_akun']."</td>
-            <td width='30%'>".number_format($data1['kode_akun'],0)."</td>
-        </tr>
-        <tr>
-            <th colspan='3' style='text-align: left;'>Total Pendapatan</th>
-            <th>".number_format($kreditall,0)."</th>
-        </tr>
-    ";
+            <td>".$data1['kode_akun']."</td>
+            <td>".$data1['nama_akun']."</td>
+            <td>".$data1['keterangan_transaksi']."</td>
+            <td>".number_format($temp1,0)."</td>
+        </tr>";
 }
+$html .= "<th colspan='3' align='left'>Total Pendapatan</th>
+        <th align='left'>".number_format($pendapatan,0)."</th>
+        </table>";
 
-$html .= "</table><br>";
-
-$sql2 = "SELECT * FROM tb_transaksi JOIN tb_kegiatan USING(id_kegiatan) JOIN tb_akun USING(kode_akun) WHERE tb_akun.kode_akun LIKE '5%' AND id_unit='$unit' AND (tanggal BETWEEN '$periode1' AND '$periode2')";
+$html .= "<br>";
+$sql2   = "SELECT * FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.`id_kegiatan` = b.`id_kegiatan` JOIN tb_akun 
+            AS c ON a.`kode_akun` = c.`kode_akun` WHERE c.`kode_akun` LIKE '5-11%' AND (a.`tanggal` BETWEEN '$periode1' 
+            AND '$periode2') AND b.`id_unit` = '$unit'";
 $query2 = mysqli_query($mysqli, $sql2);
 
 $html .= "<h5>Pengeluaran</h5>";
-$debetall = 0;
+
+$pengeluaran = 0;
+$temp2 = 0;
+
+$html .="<table border='1' width='100%'>";
 while($data2 = mysqli_fetch_array($query2)){
-    $debetall += $data1['debet'];
-    $html .= "<table border='1' width='100%'>
+    $temp2 += $data2['debet'];
+    $temp2 += $data2['kredit'];
+
+    $pengeluaran = $pengeluaran + $temp2;
+
+    $html .="
         <tr>
-            <td width='10%'>".$data1['kode_akun']."</td>
-            <td width='60%'>".$data1['nama_akun']."</td>
-            <td width='30%'>".number_format($data1['kode_akun'],0)."</td>
-        </tr>
-        <tr>
-            <th colspan='3' style='text-align: left;'>Total Pengeluaran</th>
-            <th>".number_format($debetall,0)."</th>
-        </tr>
-        <tr>
-            <th colspan='3' style='text-align: left;'>Laba Rugi Bersih</th>
-            <th>".number_format($kreditall-$debetall,0)."</th>
-        </tr>
-    ";
+            <td>".$data2['kode_akun']."</td>
+            <td>".$data2['nama_akun']."</td>
+            <td>".$data2['keterangan_transaksi']."</td>
+            <td>".number_format($temp1,0)."</td>
+        </tr>";
 }
-
-$html .= "</table><br>";
-
-$html .="</html>";
+$html .= "<tr>
+            <th colspan='3' align='left'>Total Pendapatan</th>
+            <th align='left'>".number_format($pengeluaran,0)."</th>
+        </tr>
+        <tr>
+            <th colspan='3' align='left'>Laba Rugi Bersih</th>
+            <th align='left'>".number_format($pendapatan-$pengeluaran,0)."</th>
+        </tr>
+        </table>";
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4','potrait');
 $dompdf->render();

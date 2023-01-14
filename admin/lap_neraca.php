@@ -47,51 +47,59 @@
               <th colspan="4">Aktifa Lancar</th>
             </tr>
           <?php
-          $debetall=0;
-          $queryz      = "SELECT (sum(debet)-sum(kredit)) as debet,kode_akun,nama_akun from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '1-1%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2') group by kode_akun,nama_akun";
-          $_SESSION['laporan']['sql1']=$queryz;
+            $aktifa_lancar = 0;
+            $temp1 = 0;
+            $queryz1      = "SELECT *, SUM(a.`debet`) AS Debet, SUM(a.`kredit`) AS Kredit FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.id_kegiatan = b.id_kegiatan
+                            JOIN tb_akun AS c ON a.kode_akun = c.kode_akun WHERE c.kode_akun LIKE '1-1%' AND b.id_unit = '$id_unit' AND (a.tanggal BETWEEN 
+                            '$par1' AND '$par2') GROUP BY c.kode_akun, c.nama_akun";
 
-          $resultz     = $mysqli->query($queryz);
-          $num_resultz = $resultz->num_rows;
-          if ($num_resultz > 0) {
+            $resultz1     = $mysqli->query($queryz1);
+            $num_resultz = $resultz1->num_rows;
+            if ($num_resultz > 0) {
+                while ($dataz = mysqli_fetch_assoc($resultz1)) {
+                    $temp1 += $dataz['Debet'];
+                    $temp1 += $dataz['Kredit'];
 
-            while ($dataz = mysqli_fetch_assoc($resultz)) {
-              $debetall+=$dataz['debet'];
-              ?>
+                    $aktifa_lancar = $aktifa_lancar + $temp1;
+          ?>
               <tr>
                 <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
                 <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-                <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
+                <td width="20%"><?php echo number_format($temp1,0); ?></td>
               </tr>
           <?php }} ?>
             <tr>
               <th colspan="2">Total</th>
-              <th><?=number_format(($debetall),0)?></th>
+              <th><?=number_format($aktifa_lancar,0)?></th>
             </tr>
           <tr>
             <th colspan="4">Aktifa Tetap</th>
           </tr>
           <?php
-          $debetall=0;
-          $queryz      = "SELECT (sum(debet)-sum(kredit)) as debet,kode_akun,nama_akun from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '1-2%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2') group by kode_akun,nama_akun";
-          $_SESSION['laporan']['sql2']=$queryz;
+            $aktifa_tetap = 0;
+            $temp2 = 0;
+            $queryz2      = "SELECT *, SUM(a.debet) AS Debet, SUM(a.kredit) AS Kredit FROM tb_transaksi AS a JOIN tb_kegiatan AS b ON a.id_kegiatan = b.id_kegiatan 
+                            JOIN tb_akun AS c ON a.kode_akun = c.kode_akun LIKE '1-2%' AND b.id_unit = '$id_unit' AND (a.tanggal BETWEEN '$par1' AND '$par2') 
+                            GROUP BY c.kode_akun, c.nama_akun";
 
-          $resultz     = $mysqli->query($queryz);
-          $num_resultz = $resultz->num_rows;
-          if ($num_resultz > 0) {
+            $resultz2     = $mysqli->query($queryz2);
+            $num_resultz = $resultz2->num_rows;
+            if ($num_resultz > 0) {
+              while ($dataz = mysqli_fetch_assoc($resultz2)) {
+                $temp2 += $dataz['Debet'];
+                $temp2 += $dataz['Kredit'];
 
-            while ($dataz = mysqli_fetch_assoc($resultz)) {
-              $debetall+=$dataz['debet'];
-              ?>
+                $aktifa_tetap = $aktifa_tetap + $temp2;
+            ?>
               <tr>
                 <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
                 <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-                <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
+                <td width="20%"><?php echo number_format($temp2,0); ?></td>
               </tr>
            <?php }} ?>
             <tr>
               <th colspan="2">Total</th>
-              <th><?=number_format(($debetall),0)?></th>
+              <th><?=number_format($aktifa_tetap,0)?></th>
             </tr>
          </tbody>
        </table>
@@ -99,26 +107,30 @@
        <h3>Pasiva</h3>
        <table class="table table-bordered table-hover">
         <?php
-        $debetall=0;
-        $queryz      = "SELECT (sum(debet)-sum(kredit)) as debet,kode_akun,nama_akun from tb_transaksi join tb_kegiatan using(id_kegiatan) join tb_akun using(kode_akun) where tb_akun.kode_akun like '2%' and id_unit='$id_unit' and (tanggal between '$par1' and '$par2') group by kode_akun,nama_akun";
-        $_SESSION['laporan']['sql3']=$queryz;
+          $temp3 = 0;
+          $passiva = 0;
+          $queryz3      = "SELECT *, SUM(a.debet) AS Debet, SUM(a.kredit) AS Kredit FROM tb_transaksi AS a JOIN tb_kegiatan AS b 
+                          ON a.id_kegiatan = b.id_kegiatan JOIN tb_akun AS c ON a.kode_akun = c.kode_akun LIKE '2%' AND b.id_unit = '$id_unit' 
+                          AND (a.tanggal BETWEEN '$par1' AND '$par2') GROUP BY c.kode_akun, c.nama_akun";
 
-        $resultz     = $mysqli->query($queryz);
-        $num_resultz = $resultz->num_rows;
-        if ($num_resultz > 0) {
+          $resultz3     = $mysqli->query($queryz3);
+          $num_resultz = $resultz3->num_rows;
+          if ($num_resultz > 0) {
+            while ($dataz = mysqli_fetch_assoc($resultz3)) {
+              $temp3 += $dataz['Debet'];
+              $temp3 += $dataz['Kredit'];
 
-          while ($dataz = mysqli_fetch_assoc($resultz)) {
-            $debetall+=$dataz['debet'];
-            ?>
+              $passiva = $passiva + $temp3;
+        ?>
             <tr>
               <td width="10%"><?php echo $dataz['kode_akun']; ?></td>
               <td width="50%"><?php echo $dataz['nama_akun']; ?></td>
-              <td width="20%"><?php echo number_format($dataz['debet'],0); ?></td>
+              <td width="20%"><?php echo number_format($temp3,0); ?></td>
             </tr>
          <?php }} ?>
           <tr>
             <th colspan="2">Total Pasifa</th>
-            <th><?=number_format(($debetall),0)?></th>
+            <th><?=number_format($passiva,0)?></th>
           </tr>
        </tbody>
      </table>
@@ -129,7 +141,8 @@
       $periode1 = $_POST['par1'];
       $periode2 = $_POST['par2'];
     ?>
-    <a href="lap_neraca_pdf.php?unit=<?= $unit ?>&periode1=<?= $periode1 ?>&periode2=<?= $periode2 ?>" target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
+    <a href="lap_neraca_pdf.php?unit=<?= $unit ?>&periode1=<?= $periode1 ?>&periode2=<?= $periode2 ?>" 
+    target="_blank" style="float: right;margin-top: 10px;" class="btn btn-success"><i class="fa fa-print"></i> Cetak PDF</a>
   <?php } ?>
 </div>
 </div>

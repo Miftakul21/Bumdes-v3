@@ -5,15 +5,14 @@ session_start();
 $id_user = $_POST['id_user'];
 $nama = $_POST['nama'];
 $username = $_POST['username'];
-$password = md5($_POST['password']);
 $pjg_password = $_POST['password'];
 $level_user = $_POST['level_user'];
 $id_unit = $_POST['id_unit'];
 
 if(strlen($pjg_password) >= 8) {
-	$query = mysqli_query($mysqli, "UPDATE tb_user SET nama = '$nama', username = '$username', password = '$password', id_unit = '$id_unit', level_user = '$level_user' WHERE id_user = '$id_user'");
-
-	// Nanti ditamabahkan alert pesan;
+	$password = md5($_POST['password']);
+	$query = mysqli_query($mysqli, "UPDATE tb_user SET nama = '$nama', username = '$username', password = '$password', id_unit = '$id_unit', 
+						level_user = '$level_user' WHERE id_user = '$id_user'");
 	if($query) {
 		$_SESSION['success'] = 'Data user Berhasil Diubah';
 		echo "<script>window.location = '../../index.php?hal=user'</script>";
